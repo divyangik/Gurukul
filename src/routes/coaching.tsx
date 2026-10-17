@@ -1,0 +1,23 @@
+import { createFileRoute } from '@tanstack/react-router'
+import { PageHero, ComingSoon } from '@/components/ui'
+
+export const Route = createFileRoute('/coaching')({
+  head: () => ({
+    meta: [
+      { title: 'Coaching — Bhaktivedanta Gurukula' },
+      { name: 'description', content: 'Coaching at Bhaktivedanta Gurukula, Dalimb, Pune.' },
+      { property: 'og:title', content: 'Coaching — Bhaktivedanta Gurukula' },
+      { property: 'og:description', content: 'Coaching at Bhaktivedanta Gurukula, Dalimb, Pune.' },
+    ],
+  }),
+  component: Page,
+})
+
+function Page() {
+  return (
+    <>
+      <PageHero eyebrow="Bhaktivedanta Gurukula" title={['Coaching']} />
+      <ComingSoon what="Coaching" />
+    </>
+  )
+}
