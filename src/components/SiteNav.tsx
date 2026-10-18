@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useRouterState } from '@tanstack/react-router'
 import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react'
 import { navGroups } from '@/content/site'
+import { Photo } from '@/components/Photo'
 
 export function LotusMark({ className = '' }: { className?: string }) {
   return (
@@ -124,10 +125,20 @@ export function SiteNav() {
                     <div className="w-[min(560px,80vw)] overflow-hidden rounded-2xl border border-brass/25 bg-teal-deep/98 shadow-2xl">
                       <div className="grid grid-cols-[1fr_1.4fr]">
                         <div className="jali relative border-r border-brass/20 p-6">
-                          <p className="eyebrow text-brass">{group.label}</p>
+                          <p className="eyebrow text-brass">{group.eyebrow ?? group.label}</p>
                           <p className="mt-3 font-display text-xl leading-snug text-pearl">{group.intro}</p>
+                          {group.image && (
+                            <Photo
+                              src={group.image.src}
+                              alt={group.image.alt}
+                              sizes="220px"
+                              widths={[300, 500]}
+                              width={400}
+                              className="mt-5 h-36 w-full rounded-xl border border-brass/25 object-cover"
+                            />
+                          )}
                         </div>
-                        <ul className="p-3">
+                        <ul className="self-center p-3">
                           {group.links.map((link, i) => {
                             const current = !link.hash && pathname === link.to
                             return (
@@ -188,7 +199,7 @@ export function SiteNav() {
 }
 
 function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose: () => void; pathname: string }) {
-  const [expanded, setExpanded] = useState<string | null>('Gurukula')
+  const [expanded, setExpanded] = useState<string | null>('Home')
   const closeRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {

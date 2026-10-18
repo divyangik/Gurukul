@@ -25,24 +25,21 @@ export const footerAbout =
   'Bhaktivedanta Gurukula was founded in 2017 in Pune, by HG Bāla Govind Dāsa inspired by the teachings of His Divine Grace Abhayacharanaravinda Bhaktivedanta Swami Srila Prabhupada, the founder Ācarya of ISKCON. The vision is to create a well-rounded learning - practice environment and sustainable Krishna conscious community. Our goal is to nurture individuals of strong character and practical competence who can take on leadership roles and positively influence society.'
 
 export type NavLink = { label: string; to: string; hash?: string; note?: string }
-export type NavGroup = { label: string; intro: string; links: NavLink[] }
-
+export type NavGroup = { label: string; eyebrow?: string; intro: string; image?: { src: string; alt: string }; links: NavLink[] }
 export const navGroups: NavGroup[] = [
   {
-    label: 'Gurukula',
-    intro: 'Life, learning and community at Dalimb, Uruli Kanchan.',
-    links: [
-      { label: 'About Us', to: '/', hash: 'about' },
-      { label: 'Inspiration', to: '/', hash: 'inspiration' },
-      { label: 'Team', to: '/', hash: 'team' },
-      { label: 'Notable Alumni', to: '/', hash: 'alumni' },
-      { label: 'Testimonials', to: '/', hash: 'testimonials' },
-      { label: 'Activities', to: '/activities' },
-      { label: 'Campus', to: '/campus' },
-      { label: 'Lifestyle Training', to: '/lifestyle-training' },
-      { label: 'FAQ', to: '/faq' },
-    ],
-  },
+  label: 'Home',
+  eyebrow: 'Gurukula',
+  intro: 'Life, learning and community at Dalimb, Uruli Kanchan.',
+  image: { src: '/img/slider/slider-1.jpg', alt: 'Gurukula students smiling together with their arms around each other.' },
+  links: [
+          { label: 'About Us', to: '/', hash: 'about' },
+ { label: 'Activities', to: '/activities' },
+    { label: 'Campus', to: '/campus' },
+    { label: 'Lifestyle Training', to: '/lifestyle-training' },
+    { label: 'FAQ', to: '/faq' },
+  ],
+},
   {
     label: 'Education',
     intro: 'Pathways for seekers, students, parents, teachers and leaders.',
