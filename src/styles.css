@@ -1051,3 +1051,1367 @@ body {
     transition: none;
   }
 }
+/* ── Activities hero ─────────────────────────────────────────── */
+
+.act-hero__layer {
+  transition: transform 0.5s ease-out;
+  transform: translate3d(calc(var(--px, 0) * -20px), calc(var(--py, 0) * -14px), 0) scale(1.04);
+}
+
+.act-hero__ring {
+  transition: transform 0.6s ease-out;
+  transform: translate3d(calc(var(--px, 0) * 28px), calc(var(--py, 0) * 18px), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .act-hero__layer,
+  .act-hero__ring {
+    transform: none;
+  }
+
+  .act-hero .kenburns {
+    animation: none;
+  }
+}
+/* ─────────────────────────────────────────────────────────────
+   Campus page — one animated "vibe" per space (prefix cp-)
+   ───────────────────────────────────────────────────────────── */
+
+.cp-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Hero: slow Ken Burns on the photograph */
+.cp-kenburns {
+  animation: cp-kenburns 28s ease-in-out infinite alternate;
+  transform-origin: 60% 50%;
+}
+
+@keyframes cp-kenburns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+/* Hero: golden dust rising */
+.cp-mote {
+  position: absolute;
+  bottom: -2rem;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: var(--color-brass-soft);
+  box-shadow: 0 0 12px 3px rgb(212 191 148 / 0.55);
+  opacity: 0;
+  animation: cp-rise var(--t) linear var(--d) infinite;
+}
+
+@keyframes cp-rise {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate3d(var(--sway), -88svh, 0);
+    opacity: 0;
+  }
+}
+
+/* Scroll cue */
+.cp-cue__arrow {
+  animation: cp-nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes cp-nudge {
+
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Chips */
+.cp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: transform 0.4s var(--ease-silk), background-color 0.4s, border-color 0.4s;
+}
+
+.cp-chip::before {
+  content: "";
+  height: 0.35rem;
+  width: 0.35rem;
+  transform: rotate(45deg);
+  background: var(--color-brass);
+}
+
+.cp-chip--dark {
+  border: 1px solid rgb(183 154 97 / 0.4);
+  background: rgb(183 154 97 / 0.1);
+  color: var(--color-brass-soft);
+}
+
+.cp-chip--light {
+  border: 1px solid rgb(18 63 67 / 0.2);
+  background: rgb(18 63 67 / 0.05);
+  color: var(--color-teal);
+}
+
+@media (hover: hover) {
+  .cp-chip:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-brass);
+  }
+}
+
+/* ── Where we are: sunrise scene ─────────────────────────────── */
+
+.cp-scene-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(183 154 97 / 0.4);
+  box-shadow: 0 30px 50px -28px rgb(12 46 49 / 0.6);
+  aspect-ratio: 10 / 7;
+}
+
+.cp-sunrise {
+  position: absolute;
+  inset: 0;
+}
+
+.cp-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #f0d9a8 0%, #e9c88f 22%, #9fb7ae 55%, #34686a 100%);
+}
+
+.cp-sunrise__svg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cp-sun {
+  transform: translateY(150px);
+  transition: transform 3.4s var(--ease-silk) 0.3s;
+}
+
+.is-in .cp-sun,
+.cp-scene-card:not([data-reveal]) .cp-sun {
+  transform: none;
+}
+
+.cp-sun__halo {
+  transform-origin: 300px 250px;
+  animation: cp-halo 6s ease-in-out infinite alternate;
+}
+
+@keyframes cp-halo {
+  from {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+.cp-hill--far {
+  animation: cp-sway-x 16s ease-in-out infinite alternate;
+}
+
+.cp-hill--mid {
+  animation: cp-sway-x 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes cp-sway-x {
+  from {
+    transform: translateX(-10px);
+  }
+
+  to {
+    transform: translateX(10px);
+  }
+}
+
+.cp-bird {
+  transform: translate(-60px, var(--y, 40px));
+  animation: cp-fly 18s linear var(--d, 0s) infinite;
+}
+
+@keyframes cp-fly {
+  0% {
+    transform: translate(-60px, var(--y, 40px));
+  }
+
+  50% {
+    transform: translate(300px, calc(var(--y, 40px) - 22px));
+  }
+
+  100% {
+    transform: translate(680px, var(--y, 40px));
+  }
+}
+
+.cp-furrow {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  transition: stroke-dashoffset 2.6s var(--ease-silk) calc(1s + var(--d, 0s));
+}
+
+.is-in .cp-furrow {
+  stroke-dashoffset: 0;
+}
+
+.cp-scene-pin {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  background: rgb(245 240 231 / 0.92);
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  animation: cp-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes cp-bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* ── Temple: lamp glow + embers ──────────────────────────────── */
+
+.cp-lamp {
+  position: absolute;
+  bottom: -8rem;
+  height: 26rem;
+  width: 26rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(244 190 90 / 0.28), transparent 65%);
+  animation: cp-flicker 3.6s ease-in-out infinite;
+}
+
+.cp-lamp--l {
+  left: -6rem;
+}
+
+.cp-lamp--r {
+  right: -6rem;
+  animation-delay: -1.7s;
+}
+
+@keyframes cp-flicker {
+
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+
+  45% {
+    opacity: 0.65;
+    transform: scale(0.97);
+  }
+
+  70% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+.cp-ember {
+  position: absolute;
+  bottom: -1rem;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: #f4b95a;
+  box-shadow: 0 0 10px 2px rgb(244 150 60 / 0.7);
+  opacity: 0;
+  animation: cp-rise var(--t) ease-out var(--d) infinite;
+}
+
+/* ── Classrooms: floating letters on ruled paper ─────────────── */
+
+.cp-ruled {
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 47px, rgb(18 63 67 / 0.07) 47px, rgb(18 63 67 / 0.07) 48px);
+}
+
+.cp-letter {
+  position: absolute;
+  bottom: -4rem;
+  font-family: var(--font-display);
+  font-size: var(--fs);
+  color: rgb(138 111 60 / 0.3);
+  opacity: 0;
+  animation: cp-letter var(--t) ease-in-out var(--d) infinite;
+}
+
+@keyframes cp-letter {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate3d(0, -100svh, 0) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+/* ── Sports ground: track, speed lines, ball ─────────────────── */
+
+.cp-track {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  width: min(78rem, 120%);
+  transform: translateY(-50%);
+  opacity: 0.35;
+}
+
+.cp-lane {
+  stroke-dasharray: 14 12;
+  animation: cp-march 18s linear infinite;
+  animation-delay: var(--d);
+}
+
+@keyframes cp-march {
+  to {
+    stroke-dashoffset: -520;
+  }
+}
+
+.cp-runner {
+  filter: drop-shadow(0 0 8px #d4bf94);
+}
+
+.cp-speed {
+  position: absolute;
+  left: -20%;
+  height: 2px;
+  width: var(--w);
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, rgb(212 191 148 / 0.7), transparent);
+  animation: cp-dash 5s ease-in var(--d) infinite;
+}
+
+@keyframes cp-dash {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(160vw);
+    opacity: 0;
+  }
+}
+
+.cp-ball-wrap {
+  position: relative;
+  display: inline-block;
+  height: 2.25rem;
+  width: 2rem;
+}
+
+.cp-ball {
+  position: absolute;
+  left: 0.25rem;
+  top: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #f4dca4, #b79a61 70%);
+  animation: cp-bounce 1s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+.cp-ball-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0.2rem;
+  height: 0.35rem;
+  width: 1.6rem;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 0.35);
+  animation: cp-shadow 1s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+@keyframes cp-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0.5rem) scale(1.15, 0.85);
+  }
+
+  45% {
+    transform: translateY(-0.4rem) scale(1);
+  }
+
+  50% {
+    transform: translateY(-0.5rem) scale(1);
+  }
+}
+
+@keyframes cp-shadow {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scaleX(0.6);
+    opacity: 0.15;
+  }
+}
+
+/* ── Goshala: grass and butterflies ──────────────────────────── */
+
+.cp-grass {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 0;
+  height: 7rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cp-blade {
+  position: absolute;
+  bottom: -2px;
+  width: 7px;
+  height: var(--h);
+  border-radius: 9999px 9999px 0 0;
+  background: #4f7d5a;
+  transform-origin: bottom center;
+  animation: cp-grass var(--t) ease-in-out var(--d) infinite alternate;
+}
+
+.cp-blade--1 {
+  background: #3d6b4c;
+}
+
+.cp-blade--2 {
+  background: #7a9a62;
+}
+
+@keyframes cp-grass {
+  from {
+    transform: rotate(-7deg);
+  }
+
+  to {
+    transform: rotate(8deg);
+  }
+}
+
+.cp-butterfly {
+  position: absolute;
+  left: -3rem;
+  display: block;
+  height: 1.1rem;
+  width: 1.6rem;
+  animation: cp-flutter-path var(--t) linear var(--d) infinite;
+}
+
+.cp-butterfly i {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(135deg, #d4bf94, #b79a61);
+  transform-origin: right center;
+  border-radius: 80% 20% 70% 30%;
+  animation: cp-wing 0.35s ease-in-out infinite alternate;
+}
+
+.cp-butterfly i:first-child {
+  left: 0;
+}
+
+.cp-butterfly i:last-child {
+  right: 0;
+  transform-origin: left center;
+  transform: scaleX(-1);
+  animation-name: cp-wing-r;
+}
+
+@keyframes cp-wing {
+  to {
+    transform: scaleX(0.3);
+  }
+}
+
+@keyframes cp-wing-r {
+  from {
+    transform: scaleX(-1);
+  }
+
+  to {
+    transform: scaleX(-0.3);
+  }
+}
+
+@keyframes cp-flutter-path {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(28vw, -40px);
+  }
+
+  50% {
+    transform: translate(55vw, 20px);
+  }
+
+  75% {
+    transform: translate(82vw, -30px);
+  }
+
+  100% {
+    transform: translate(112vw, 10px);
+  }
+}
+
+/* ── Residential life: warm windows + cards ──────────────────── */
+
+.cp-window {
+  position: absolute;
+  height: 5.5rem;
+  width: 4rem;
+  border-radius: 2rem 2rem 0.4rem 0.4rem;
+  background: linear-gradient(to bottom, rgb(244 190 90 / 0.22), rgb(244 190 90 / 0.05));
+  box-shadow: 0 0 60px 14px rgb(244 190 90 / 0.12);
+  animation: cp-glow 5s ease-in-out var(--d, 0s) infinite alternate;
+}
+
+@keyframes cp-glow {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.cp-home-card {
+  border: 1px solid rgb(183 154 97 / 0.3);
+  background: rgb(245 240 231 / 0.05);
+  border-radius: 1rem;
+  padding: 1.1rem;
+  backdrop-filter: blur(4px);
+  transition: transform 0.5s var(--ease-silk), border-color 0.4s, background-color 0.4s;
+}
+
+@media (hover: hover) {
+  .cp-home-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-brass);
+    background: rgb(245 240 231 / 0.09);
+  }
+}
+
+.cp-home-card__icon {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(183 154 97 / 0.16);
+  color: var(--color-brass-soft);
+  animation: cp-bob 3.6s ease-in-out infinite;
+}
+
+/* ── Reduced motion: keep it still ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cp-kenburns,
+  .cp-mote,
+  .cp-ember,
+  .cp-letter,
+  .cp-speed,
+  .cp-butterfly,
+  .cp-lamp,
+  .cp-lane,
+  .cp-ball,
+  .cp-ball-shadow,
+  .cp-blade,
+  .cp-window,
+  .cp-cue__arrow,
+  .cp-scene-pin,
+  .cp-home-card__icon,
+  .cp-hill--far,
+  .cp-hill--mid,
+  .cp-bird,
+  .cp-sun__halo {
+    animation: none;
+  }
+
+  .cp-mote,
+  .cp-ember,
+  .cp-letter,
+  .cp-speed,
+  .cp-butterfly,
+  .cp-bird {
+    display: none;
+  }
+
+  .cp-sun,
+  .cp-furrow {
+    transition: none;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
+/* ─────────────────────────────────────────────────────────────
+   Campus page — one animated "vibe" per space (prefix cp-)
+   ───────────────────────────────────────────────────────────── */
+
+.cp-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Hero: slow, gentle zoom on the photograph */
+.cp-kenburns {
+  animation: cp-kenburns 28s ease-in-out infinite alternate;
+  transform-origin: 60% 50%;
+}
+
+@keyframes cp-kenburns {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.06) translate3d(-1%, -0.5%, 0);
+  }
+}
+
+/* Hero stats: lining numerals so "1" doesn't look like "I" and "5" doesn't drop below the baseline */
+.cp-stat-num {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+/* Hero: golden dust rising */
+.cp-mote {
+  position: absolute;
+  bottom: -2rem;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: var(--color-brass-soft);
+  box-shadow: 0 0 12px 3px rgb(212 191 148 / 0.55);
+  opacity: 0;
+  animation: cp-rise var(--t) linear var(--d) infinite;
+}
+
+@keyframes cp-rise {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+
+  12% {
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate3d(var(--sway), -88svh, 0);
+    opacity: 0;
+  }
+}
+
+/* Scroll cue */
+.cp-cue__arrow {
+  animation: cp-nudge 1.8s ease-in-out infinite;
+}
+
+@keyframes cp-nudge {
+
+  0%,
+  100% {
+    transform: translateY(-3px);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+/* Chips */
+.cp-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: transform 0.4s var(--ease-silk), background-color 0.4s, border-color 0.4s;
+}
+
+.cp-chip::before {
+  content: "";
+  height: 0.35rem;
+  width: 0.35rem;
+  transform: rotate(45deg);
+  background: var(--color-brass);
+}
+
+.cp-chip--dark {
+  border: 1px solid rgb(183 154 97 / 0.4);
+  background: rgb(183 154 97 / 0.1);
+  color: var(--color-brass-soft);
+}
+
+.cp-chip--light {
+  border: 1px solid rgb(18 63 67 / 0.2);
+  background: rgb(18 63 67 / 0.05);
+  color: var(--color-teal);
+}
+
+@media (hover: hover) {
+  .cp-chip:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-brass);
+  }
+}
+
+/* ── Where we are: sunrise scene ─────────────────────────────── */
+
+.cp-scene-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid rgb(183 154 97 / 0.4);
+  box-shadow: 0 30px 50px -28px rgb(12 46 49 / 0.6);
+  aspect-ratio: 10 / 7;
+}
+
+.cp-sunrise {
+  position: absolute;
+  inset: 0;
+}
+
+.cp-sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, #f0d9a8 0%, #e9c88f 22%, #9fb7ae 55%, #34686a 100%);
+}
+
+.cp-sunrise__svg {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.cp-sun {
+  transform: translateY(150px);
+  transition: transform 3.4s var(--ease-silk) 0.3s;
+}
+
+.is-in .cp-sun,
+.cp-scene-card:not([data-reveal]) .cp-sun {
+  transform: none;
+}
+
+.cp-sun__halo {
+  transform-origin: 300px 250px;
+  animation: cp-halo 6s ease-in-out infinite alternate;
+}
+
+@keyframes cp-halo {
+  from {
+    transform: scale(0.92);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+}
+
+.cp-hill--far {
+  animation: cp-sway-x 16s ease-in-out infinite alternate;
+}
+
+.cp-hill--mid {
+  animation: cp-sway-x 12s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes cp-sway-x {
+  from {
+    transform: translateX(-10px);
+  }
+
+  to {
+    transform: translateX(10px);
+  }
+}
+
+.cp-bird {
+  transform: translate(-60px, var(--y, 40px));
+  animation: cp-fly 18s linear var(--d, 0s) infinite;
+}
+
+@keyframes cp-fly {
+  0% {
+    transform: translate(-60px, var(--y, 40px));
+  }
+
+  50% {
+    transform: translate(300px, calc(var(--y, 40px) - 22px));
+  }
+
+  100% {
+    transform: translate(680px, var(--y, 40px));
+  }
+}
+
+.cp-furrow {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  transition: stroke-dashoffset 2.6s var(--ease-silk) calc(1s + var(--d, 0s));
+}
+
+.is-in .cp-furrow {
+  stroke-dashoffset: 0;
+}
+
+.cp-scene-pin {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 9999px;
+  background: rgb(245 240 231 / 0.92);
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  animation: cp-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes cp-bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* ── Temple: lamp glow + embers ──────────────────────────────── */
+
+.cp-lamp {
+  position: absolute;
+  bottom: -8rem;
+  height: 26rem;
+  width: 26rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgb(244 190 90 / 0.28), transparent 65%);
+  animation: cp-flicker 3.6s ease-in-out infinite;
+}
+
+.cp-lamp--l {
+  left: -6rem;
+}
+
+.cp-lamp--r {
+  right: -6rem;
+  animation-delay: -1.7s;
+}
+
+@keyframes cp-flicker {
+
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+
+  45% {
+    opacity: 0.65;
+    transform: scale(0.97);
+  }
+
+  70% {
+    opacity: 0.95;
+    transform: scale(1.04);
+  }
+}
+
+.cp-ember {
+  position: absolute;
+  bottom: -1rem;
+  width: var(--s);
+  height: var(--s);
+  border-radius: 9999px;
+  background: #f4b95a;
+  box-shadow: 0 0 10px 2px rgb(244 150 60 / 0.7);
+  opacity: 0;
+  animation: cp-rise var(--t) ease-out var(--d) infinite;
+}
+
+/* ── Classrooms: floating letters on ruled paper ─────────────── */
+
+.cp-ruled {
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent 47px, rgb(18 63 67 / 0.07) 47px, rgb(18 63 67 / 0.07) 48px);
+}
+
+.cp-letter {
+  position: absolute;
+  bottom: -4rem;
+  font-family: var(--font-display);
+  font-size: var(--fs);
+  color: rgb(138 111 60 / 0.3);
+  opacity: 0;
+  animation: cp-letter var(--t) ease-in-out var(--d) infinite;
+}
+
+@keyframes cp-letter {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: translate3d(0, -100svh, 0) rotate(var(--rot));
+    opacity: 0;
+  }
+}
+
+/* ── Sports ground: track, speed lines, ball ─────────────────── */
+
+.cp-track {
+  position: absolute;
+  right: -6%;
+  top: 50%;
+  width: min(78rem, 120%);
+  transform: translateY(-50%);
+  opacity: 0.35;
+}
+
+.cp-lane {
+  stroke-dasharray: 14 12;
+  animation: cp-march 18s linear infinite;
+  animation-delay: var(--d);
+}
+
+@keyframes cp-march {
+  to {
+    stroke-dashoffset: -520;
+  }
+}
+
+.cp-runner {
+  filter: drop-shadow(0 0 8px #d4bf94);
+}
+
+.cp-speed {
+  position: absolute;
+  left: -20%;
+  height: 2px;
+  width: var(--w);
+  border-radius: 9999px;
+  background: linear-gradient(90deg, transparent, rgb(212 191 148 / 0.7), transparent);
+  animation: cp-dash 5s ease-in var(--d) infinite;
+}
+
+@keyframes cp-dash {
+  from {
+    transform: translateX(0);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(160vw);
+    opacity: 0;
+  }
+}
+
+.cp-ball-wrap {
+  position: relative;
+  display: inline-block;
+  height: 2.25rem;
+  width: 2rem;
+}
+
+.cp-ball {
+  position: absolute;
+  left: 0.25rem;
+  top: 0;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 30%, #f4dca4, #b79a61 70%);
+  animation: cp-bounce 1s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+.cp-ball-shadow {
+  position: absolute;
+  bottom: 0;
+  left: 0.2rem;
+  height: 0.35rem;
+  width: 1.6rem;
+  border-radius: 9999px;
+  background: rgb(0 0 0 / 0.35);
+  animation: cp-shadow 1s cubic-bezier(0.3, 0, 0.7, 1) infinite;
+}
+
+@keyframes cp-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0.5rem) scale(1.15, 0.85);
+  }
+
+  45% {
+    transform: translateY(-0.4rem) scale(1);
+  }
+
+  50% {
+    transform: translateY(-0.5rem) scale(1);
+  }
+}
+
+@keyframes cp-shadow {
+
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.45;
+  }
+
+  50% {
+    transform: scaleX(0.6);
+    opacity: 0.15;
+  }
+}
+
+/* ── Goshala: grass and butterflies ──────────────────────────── */
+
+.cp-grass {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 0;
+  height: 7rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.cp-blade {
+  position: absolute;
+  bottom: -2px;
+  width: 7px;
+  height: var(--h);
+  border-radius: 9999px 9999px 0 0;
+  background: #4f7d5a;
+  transform-origin: bottom center;
+  animation: cp-grass var(--t) ease-in-out var(--d) infinite alternate;
+}
+
+.cp-blade--1 {
+  background: #3d6b4c;
+}
+
+.cp-blade--2 {
+  background: #7a9a62;
+}
+
+@keyframes cp-grass {
+  from {
+    transform: rotate(-7deg);
+  }
+
+  to {
+    transform: rotate(8deg);
+  }
+}
+
+.cp-butterfly {
+  position: absolute;
+  left: -3rem;
+  display: block;
+  height: 1.1rem;
+  width: 1.6rem;
+  animation: cp-flutter-path var(--t) linear var(--d) infinite;
+}
+
+.cp-butterfly i {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 50%;
+  background: linear-gradient(135deg, #d4bf94, #b79a61);
+  transform-origin: right center;
+  border-radius: 80% 20% 70% 30%;
+  animation: cp-wing 0.35s ease-in-out infinite alternate;
+}
+
+.cp-butterfly i:first-child {
+  left: 0;
+}
+
+.cp-butterfly i:last-child {
+  right: 0;
+  transform-origin: left center;
+  transform: scaleX(-1);
+  animation-name: cp-wing-r;
+}
+
+@keyframes cp-wing {
+  to {
+    transform: scaleX(0.3);
+  }
+}
+
+@keyframes cp-wing-r {
+  from {
+    transform: scaleX(-1);
+  }
+
+  to {
+    transform: scaleX(-0.3);
+  }
+}
+
+@keyframes cp-flutter-path {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(28vw, -40px);
+  }
+
+  50% {
+    transform: translate(55vw, 20px);
+  }
+
+  75% {
+    transform: translate(82vw, -30px);
+  }
+
+  100% {
+    transform: translate(112vw, 10px);
+  }
+}
+
+/* ── Residential life: warm windows + cards ──────────────────── */
+
+.cp-window {
+  position: absolute;
+  height: 5.5rem;
+  width: 4rem;
+  border-radius: 2rem 2rem 0.4rem 0.4rem;
+  background: linear-gradient(to bottom, rgb(244 190 90 / 0.22), rgb(244 190 90 / 0.05));
+  box-shadow: 0 0 60px 14px rgb(244 190 90 / 0.12);
+  animation: cp-glow 5s ease-in-out var(--d, 0s) infinite alternate;
+}
+
+@keyframes cp-glow {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.cp-home-card {
+  border: 1px solid rgb(183 154 97 / 0.3);
+  background: rgb(245 240 231 / 0.05);
+  border-radius: 1rem;
+  padding: 1.1rem;
+  backdrop-filter: blur(4px);
+  transition: transform 0.5s var(--ease-silk), border-color 0.4s, background-color 0.4s;
+}
+
+@media (hover: hover) {
+  .cp-home-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-brass);
+    background: rgb(245 240 231 / 0.09);
+  }
+}
+
+.cp-home-card__icon {
+  display: inline-flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgb(183 154 97 / 0.16);
+  color: var(--color-brass-soft);
+  animation: cp-bob 3.6s ease-in-out infinite;
+}
+
+/* ── Reduced motion: keep it still ───────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+  .cp-kenburns,
+  .cp-mote,
+  .cp-ember,
+  .cp-letter,
+  .cp-speed,
+  .cp-butterfly,
+  .cp-lamp,
+  .cp-lane,
+  .cp-ball,
+  .cp-ball-shadow,
+  .cp-blade,
+  .cp-window,
+  .cp-cue__arrow,
+  .cp-scene-pin,
+  .cp-home-card__icon,
+  .cp-hill--far,
+  .cp-hill--mid,
+  .cp-bird,
+  .cp-sun__halo {
+    animation: none;
+  }
+
+  .cp-mote,
+  .cp-ember,
+  .cp-letter,
+  .cp-speed,
+  .cp-butterfly,
+  .cp-bird {
+    display: none;
+  }
+
+  .cp-sun,
+  .cp-furrow {
+    transition: none;
+    transform: none;
+    stroke-dashoffset: 0;
+  }
+}
+/* ── Campus hero (pointer parallax, same feel as Activities) ─── */
+
+.cp-hero__layer {
+  transition: transform 0.5s ease-out;
+  transform: translate3d(calc(var(--px, 0) * -20px), calc(var(--py, 0) * -14px), 0) scale(1.04);
+}
+
+.cp-hero__ring {
+  transition: transform 0.6s ease-out;
+  transform: translate3d(calc(var(--px, 0) * 28px), calc(var(--py, 0) * 18px), 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cp-hero__layer,
+  .cp-hero__ring {
+    transform: none;
+  }
+
+  .cp-hero .kenburns {
+    animation: none;
+  }
+}

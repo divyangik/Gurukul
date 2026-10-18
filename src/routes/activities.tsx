@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, Drama, Flame, Leaf, Mountain, Music, Music2, Pause, PersonStanding, Play, Plus, Sparkles } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { AdmissionsCTA, Eyebrow, PageHero, RevealLines, useLightbox, type GalleryImage } from '@/components/ui'
+import { AdmissionsCTA, Eyebrow, RevealLines, useLightbox, type GalleryImage } from '@/components/ui'
 import { WordMarquee } from '@/components/education'
 import { activityGroups, type ActivityGroup } from '@/content/activities'
 
@@ -32,17 +32,10 @@ function Page() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Life at the Gurukula"
-        title={['Activities']}
-        intro="Learning here reaches far beyond the classroom — into the hills, onto the stage, around the sacred fire and into the goshala."
-        image="/img/activities/trekking.jpg"
-        imageAlt="Gurukula students together on a hilltop during a trek"
-        position="center 30%"
-      />
+      <ActivitiesHero />
 
       {/* Scrolling ribbon of what the students do */}
-      <div className="bg-teal-deep py-2 text-pearl" aria-hidden>
+      <div className="border-y border-brass/20 bg-teal-deep py-2 text-pearl" aria-hidden>
         <WordMarquee light speed={55} words={['Trekking', 'Yoga', 'Drama', 'Kirtan', 'Yajna', 'Go-seva', 'Festivals']} />
       </div>
 
@@ -75,6 +68,77 @@ function Page() {
       <AdmissionsCTA />
       {node}
     </>
+  )
+}
+
+/* ── Hero: bright photo, pointer parallax, quick-jump chips ──── */
+
+const heroLinks = [
+  { id: 'adventure', label: 'Trekking', Icon: Mountain },
+  { id: 'sports-yoga', label: 'Sports & Yoga', Icon: PersonStanding },
+  { id: 'arts', label: 'Drama & Music', Icon: Drama },
+  { id: 'festivals', label: 'Festivals', Icon: Sparkles },
+  { id: 'yajna', label: 'Yajna', Icon: Flame },
+  { id: 'goshala', label: 'Goshala', Icon: Leaf },
+]
+
+function ActivitiesHero() {
+  const move = (e: ReactPointerEvent<HTMLElement>) => {
+    if (e.pointerType !== 'mouse') return
+    const r = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
+    e.currentTarget.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+  }
+
+  return (
+    <section onPointerMove={move} className="act-hero grain relative isolate flex min-h-[88svh] items-end overflow-hidden bg-teal text-pearl">
+      <div className="absolute inset-0 -z-10">
+        <div data-parallax="0.16" className="absolute inset-[-8%_0]">
+          <div className="act-hero__layer h-full w-full -scale-x-100">
+            <Photo
+              src="/img/activities/trekking.jpg"
+              alt="Gurukula students waving together on a hilltop during a trek"
+              priority
+              widths={[640, 1024, 1600, 2200]}
+              width={1600}
+              className="kenburns h-full w-full object-cover"
+              style={{ objectPosition: 'center 72%' }}
+            />
+          </div>
+        </div>
+        {/* Light overlays: only the text side, the bottom edge and the navbar strip are darkened */}
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-deep/80 via-teal-deep/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-teal-deep via-teal-deep/10 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-teal-deep/65 to-transparent" />
+      </div>
+
+      <div className="act-hero__ring pointer-events-none absolute -right-28 top-24 -z-0 hidden md:block" aria-hidden>
+        <div className="spin-slow h-[520px] w-[520px] rounded-full border border-dashed border-brass/35" />
+        <div className="absolute inset-12 rounded-full border border-brass/25" />
+      </div>
+
+      <div className="mx-auto w-full max-w-[1440px] px-5 pb-14 pt-36 md:px-10 md:pb-20">
+        <Eyebrow light>Life at the Gurukula</Eyebrow>
+        <RevealLines as="h1" lines={['Activities']} className="display mt-6 text-[clamp(3.25rem,9vw,8rem)] text-pearl" />
+        <div data-reveal style={{ ['--d' as string]: '0.3s' } as CSSProperties} className="mt-6 max-w-xl text-lg leading-relaxed text-pearl/90">
+          Learning here reaches far beyond the classroom — into the hills, onto the stage, around the sacred fire and into the goshala.
+        </div>
+
+        <ul className="mt-8 flex flex-wrap gap-2.5" aria-label="Jump to an activity">
+          {heroLinks.map(({ id, label, Icon }, i) => (
+            <li key={id} data-reveal style={{ ['--d' as string]: `${0.45 + i * 0.07}s` } as CSSProperties}>
+              <a
+                href={`#${id}`}
+                className="inline-flex items-center gap-2 rounded-full border border-pearl/30 bg-teal-deep/45 px-4 py-2 text-[0.8rem] font-semibold tracking-wide text-pearl backdrop-blur-md transition-all duration-500 hover:-translate-y-0.5 hover:border-brass hover:bg-brass hover:text-teal-deep focus-visible:border-brass focus-visible:bg-brass focus-visible:text-teal-deep"
+              >
+                <Icon className="h-4 w-4" aria-hidden />
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
   )
 }
 
@@ -236,7 +300,7 @@ function ActivitySection({ group, index, start, onOpen }: { group: ActivityGroup
   const bg = dark ? 'grain bg-slate text-pearl' : tone === 'stage' ? 'bg-pearl' : tone
 
   return (
-    <section aria-label={group.title} className={`${bg} relative isolate overflow-hidden py-20 md:py-28`}>
+    <section id={group.id} aria-label={group.title} className={`${bg} relative isolate overflow-hidden py-20 md:py-28`}>
       {dark && (
         <>
           <div className="drift pointer-events-none absolute -left-32 top-10 -z-10 h-96 w-96 rounded-full bg-brass/10 blur-3xl" aria-hidden />
@@ -397,6 +461,7 @@ function StageSection({ group, index, start, onOpen }: { group: ActivityGroup; i
   return (
     <section
       ref={ref}
+      id={group.id}
       aria-label={group.title}
       className={`stage grain relative isolate overflow-hidden bg-teal-deep py-20 text-pearl md:py-28 ${seen ? 'is-open' : ''}`}
     >
