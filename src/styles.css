@@ -2635,3 +2635,46 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ab-float, .vc-chip, .bv-step__icon, .ab-fact__ring, .ab-step__dot::before, .vc-badge::before { animation: none; }
 }
+
+/* ═══ Lifestyle Training (ls-) ═════════════════════════════════ */
+
+.ls-line { left: 0.55rem; }
+
+@media (min-width: 768px) {
+  .ls-line { left: 0.85rem; }
+}
+
+.ls-phase__icon {
+  display: inline-flex;
+  height: 2.75rem;
+  width: 2.75rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: var(--color-teal);
+  color: var(--color-brass-soft);
+  animation: vc-bob 5s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ls-phase__icon { animation: none; }
+}
+
+/* Embedded Google map (campus page) */
+.cp-map {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 2rem;
+  border: 1px solid rgb(18 63 67 / 0.2);
+  background: var(--color-teal);
+  box-shadow: 0 30px 60px -40px rgb(18 63 67 / 0.55);
+}
+
+@media (max-width: 640px) {
+  .cp-map { aspect-ratio: 4 / 5; border-radius: 1.5rem; }
+}
+
+.cp-map iframe { position: absolute; inset: 0; }

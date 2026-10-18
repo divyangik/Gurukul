@@ -122,6 +122,8 @@ function Page() {
 
       <Residential index={spaces.length} imageIndex={cursor} onOpen={open} />
 
+      <MapSection />
+
       <AdmissionsCTA title={['Come and', 'see it yourself.']} />
       {node}
     </>
@@ -136,6 +138,7 @@ const heroLinks: { id: string; label: string; Icon: LucideIcon }[] = [
   { id: 'sports-ground', label: 'Sports Ground', Icon: Trophy },
   { id: 'goshala', label: 'Goshala', Icon: Leaf },
   { id: 'residential-life', label: 'Residential Life', Icon: Home },
+  { id: 'map', label: 'Find Us', Icon: MapPin },
 ]
 
 function CampusHero() {
@@ -374,6 +377,47 @@ function Residential({ index, imageIndex, onOpen }: { index: number; imageIndex:
           <div data-reveal="scale" style={{ width: 'clamp(230px, 34vw, 380px)' }}>
             <TiltTile image={residentialImage} onOpen={() => onOpen(imageIndex)} variant="polaroid" ar="4 / 3" rotate={-3} />
           </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+/* ── Find us: Google map ─────────────────────────────────────── */
+
+function MapSection() {
+  return (
+    <section id="map" aria-label="Campus location map" className="relative isolate overflow-hidden bg-sand py-20 md:py-28">
+      <div className="mx-auto max-w-[1440px] px-5 md:px-10">
+        <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
+          <div>
+            <div className="flex items-center gap-4">
+              <span className="act-badge pulse-ring" aria-hidden>
+                <MapPin className="h-5 w-5" />
+              </span>
+              <Eyebrow>Find Us</Eyebrow>
+            </div>
+            <RevealLines lines={['Come and', <em key="f" className="text-[#8a6f3c]">find us.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
+            <span data-reveal="rule" className="mt-5 block h-px w-24 bg-brass" aria-hidden />
+          </div>
+          <div className="md:justify-self-end">
+            <p data-reveal className="max-w-xl leading-relaxed text-muted">
+              {contact.location}. Visits are by prior appointment, between 4 PM and 6 PM.
+            </p>
+            <a data-reveal href={contact.mapsUrl} target="_blank" rel="noreferrer" className="link-sweep mt-4 inline-block font-semibold text-teal">
+              Open in Google Maps →
+            </a>
+          </div>
+        </div>
+
+        <div data-reveal="blur" className="cp-map mt-12">
+          <iframe
+            title="Map showing the location of Bhaktivedanta Gurukula, Dalimb, Pune"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.7376160871595!2d74.15979157465054!3d18.450218671320574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2e16bee602e41%3A0xdd184365a21bd798!2sBhaktivedanta%20Gurukula%20Pune!5e0!3m2!1sen!2sin!4v1792333741897!5m2!1sen!2sin"
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="h-full w-full border-0"
+          />
         </div>
       </div>
     </section>

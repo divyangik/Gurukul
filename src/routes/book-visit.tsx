@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { CSSProperties, PointerEvent as ReactPointerEvent } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
-import { ArrowUpRight, BookOpen, CalendarCheck, Check, Flame, Footprints, Leaf, MapPin, MessageCircle, Mail, Trophy, Users } from 'lucide-react'
+import { ArrowUpRight, BookOpen, CalendarCheck, ClipboardCheck, FileText, Flame, Footprints, Leaf, MapPin, MessageCircle, Mail, Sprout, Trophy } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { DustField, SunriseScene } from '@/components/campus/CampusScenes'
@@ -62,7 +62,7 @@ function VisitHero() {
         <Eyebrow light>Dalimb · Uruli Kanchan · Pune</Eyebrow>
         <RevealLines as="h1" lines={['Come and', 'see it for yourself.']} className="display mt-6 max-w-4xl text-[clamp(3rem,8vw,7rem)] text-pearl" />
         <div data-reveal style={d(0.3)} className="mt-6 max-w-xl text-lg leading-relaxed text-pearl/90">
-          Admissions begin with a visit to the campus and a conversation with our team. A student will walk you around the five-acre campus and answer your questions.
+          Walk around the five-acre campus, guided by a student, and have your questions answered. Visit anytime during the year by prior appointment between 4 PM and 6 PM.
         </div>
         <ul className="mt-8 flex flex-wrap gap-2.5" aria-label="Visit details">
           {heroFacts.map((f, i) => (
@@ -84,13 +84,23 @@ function VisitHero() {
   )
 }
 
-/* ── How a visit works ───────────────────────────────────────── */
+/* ── How it works (from the official Contact / Book a visit page) ─ */
 
-const steps: { Icon: LucideIcon; title: string; text: string }[] = [
-  { Icon: CalendarCheck, title: 'Request a time', text: 'Choose a day and send us the request below, or message us on WhatsApp. Visits are by prior appointment.' },
-  { Icon: Check, title: 'We confirm', text: 'Our team replies to confirm the day. Visits are welcome any time of year, between 4 PM and 6 PM.' },
-  { Icon: Footprints, title: 'Walk the campus', text: 'A student guides you around the five-acre campus — the places where daily life actually happens.' },
-  { Icon: Users, title: 'Talk with our team', text: 'Ask whatever you like. If it feels right, the admission form is the next step.' },
+const steps: { Icon: LucideIcon; title: string; text: string; list?: string[] }[] = [
+  { Icon: MapPin, title: 'Visit the school', text: 'Bhaktivedanta Gurukula is situated in the serene atmosphere of Dalimb, Uruli Kanchan — free from the hustle and bustle of city life and pollution, and centred around a temple. The atmosphere is divine and surcharged with chanting and Harinam sankirtan, which will nourish your child physically as well as spiritually.' },
+  { Icon: Footprints, title: 'Walk around the school', text: 'Walk around the five-acre campus and have a glimpse of some of the activities, guided by a student. You can also get your doubts and queries answered.' },
+  { Icon: ClipboardCheck, title: 'Undergo the eligibility test', text: '', list: ['Reading speed and comprehension of the student', 'Parents’ understanding about Gurukula and their home culture', 'Physical fitness and social ability of the student', 'Parent’s interview with the Gurukula Upadhyaya (teacher)'] },
+  { Icon: CalendarCheck, title: '3 days trial', text: 'The student can come for a 3 days trial, where he can experience the Gurukula environment, education, facilities and residents. This helps him understand the Gurukula’s essence, mood and lifestyle, and then take an informed decision about joining.' },
+  { Icon: FileText, title: 'Fill the admission form', text: 'Once the decision is made by the parents and the school, the parents can proceed with filling the admission form. Fill up the Google form, sign the indemnity bond and pay the school fees (or talk to the authorities if you want to pay in installments). This completes the admission process.', list: ['PDF of the leaving certificate, if available (Std. 1 to 10)', 'PDF of the Aadhaar card — compulsory (if none, talk to our team)', 'Latest digital passport-size photo of your child, plus two hard copies', 'Parents’ Aadhaar card and photo'] },
+  { Icon: Sprout, title: '30-300 formula', text: 'Even after joining, the student is observed for his behaviour and adaptability for the first 30 days. His admission for the academic year is confirmed thereafter.' },
+]
+
+const schedule = [
+  'Visit anytime during the year by prior appointment between 4 PM to 6 PM',
+  'Check for student eligibility between December to March',
+  'Admission process — before 25th May',
+  'Complete admission formality — 1st week of June',
+  '3 days trial can be taken anytime between 1st Dec to 30th Mar',
 ]
 
 function Steps() {
@@ -99,28 +109,54 @@ function Steps() {
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
           <div>
-            <Eyebrow>How a visit works</Eyebrow>
-            <RevealLines lines={['Four steps,', <em key="s" className="text-[#8a6f3c]">one afternoon.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
+            <Eyebrow>How it works</Eyebrow>
+            <RevealLines lines={['From a first visit,', <em key="s" className="text-[#8a6f3c]">to admission.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
             <span data-reveal="rule" className="mt-5 block h-px w-24 bg-brass" aria-hidden />
           </div>
           <p data-reveal className="max-w-xl leading-relaxed text-muted md:justify-self-end">
-            There is no fee and no pressure — a visit is simply the best way to feel whether the Gurukula is right for your child.
+            Admission follows six steps. It starts with a visit, and the decision is taken together by the parents and the school.
           </p>
         </div>
 
-        <ol className="bv-steps relative mt-16 grid gap-6 md:grid-cols-4">
-          <span data-reveal="rule" className="bv-steps__line hidden md:block" aria-hidden />
-          {steps.map(({ Icon, title, text }, i) => (
-            <li key={title} data-reveal style={d(i * 0.14)} className="bv-step relative rounded-3xl border border-teal/15 bg-sand/60 p-7">
-              <span className="bv-step__icon" style={{ animationDelay: `${-i * 1.2}s` }}>
-                <Icon className="h-5 w-5" aria-hidden />
-              </span>
-              <p className="mt-6 font-display text-3xl text-[#8a6f3c]">{i + 1}</p>
-              <h3 className="mt-1 font-display text-2xl text-teal">{title}</h3>
-              <p className="mt-3 text-[0.95rem] leading-relaxed text-muted">{text}</p>
+        <ol className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {steps.map(({ Icon, title, text, list }, i) => (
+            <li key={title} data-reveal style={d((i % 3) * 0.12)} className="bv-step relative rounded-3xl border border-teal/15 bg-sand/60 p-7">
+              <div className="flex items-center justify-between">
+                <span className="bv-step__icon" style={{ animationDelay: `${-i * 1.2}s` }}>
+                  <Icon className="h-5 w-5" aria-hidden />
+                </span>
+                <span className="font-display text-5xl leading-none text-[#8a6f3c]/60">{i + 1}</span>
+              </div>
+              <h3 className="mt-5 font-display text-2xl text-teal">{title}</h3>
+              {text && <p className="mt-3 text-[0.95rem] leading-relaxed text-muted">{text}</p>}
+              {list && (
+                <ul className="mt-3 space-y-2 text-[0.92rem] leading-relaxed text-muted">
+                  {list.map((l) => (
+                    <li key={l} className="flex gap-3">
+                      <span className="mt-2 h-1.5 w-1.5 shrink-0 rotate-45 bg-brass" aria-hidden />
+                      <span>{l}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </li>
           ))}
         </ol>
+
+        <div data-reveal className="mt-10 rounded-3xl bg-teal p-8 text-pearl md:p-10">
+          <p className="eyebrow text-brass">Admission schedule</p>
+          <ul className="mt-5 grid gap-x-12 gap-y-3 md:grid-cols-2">
+            {schedule.map((s) => (
+              <li key={s} className="flex gap-3 leading-relaxed text-pearl/85">
+                <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rotate-45 bg-brass" aria-hidden />
+                <span>{s}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={contact.admissionForm} target="_blank" rel="noreferrer" className="btn btn-brass mt-8">
+            Admission form <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
+          </a>
+        </div>
       </div>
     </section>
   )
