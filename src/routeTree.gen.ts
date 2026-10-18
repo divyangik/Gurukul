@@ -29,6 +29,7 @@ import { Route as ParentTeacherLeadersRouteImport } from './routes/parent-teache
 import { Route as PodcastsRouteImport } from './routes/podcasts'
 import { Route as SamskarasYajnasRouteImport } from './routes/samskaras-yajnas'
 import { Route as SeekersRouteImport } from './routes/seekers'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as VideosRouteImport } from './routes/videos'
@@ -135,6 +136,11 @@ const SeekersRoute = SeekersRouteImport.update({
   path: '/seekers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopRoute = ShopRouteImport.update({
   id: '/shop',
   path: '/shop',
@@ -182,6 +188,7 @@ export interface FileRoutesByFullPath {
   '/podcasts': typeof PodcastsRoute
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
+  '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
@@ -209,6 +216,7 @@ export interface FileRoutesByTo {
   '/podcasts': typeof PodcastsRoute
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
+  '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
@@ -237,6 +245,7 @@ export interface FileRoutesById {
   '/podcasts': typeof PodcastsRoute
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
+  '/services': typeof ServicesRoute
   '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
@@ -266,6 +275,7 @@ export interface FileRouteTypes {
     | '/podcasts'
     | '/samskaras-yajnas'
     | '/seekers'
+    | '/services'
     | '/shop'
     | '/student'
     | '/videos'
@@ -293,6 +303,7 @@ export interface FileRouteTypes {
     | '/podcasts'
     | '/samskaras-yajnas'
     | '/seekers'
+    | '/services'
     | '/shop'
     | '/student'
     | '/videos'
@@ -320,6 +331,7 @@ export interface FileRouteTypes {
     | '/podcasts'
     | '/samskaras-yajnas'
     | '/seekers'
+    | '/services'
     | '/shop'
     | '/student'
     | '/videos'
@@ -348,6 +360,7 @@ export interface RootRouteChildren {
   PodcastsRoute: typeof PodcastsRoute
   SamskarasYajnasRoute: typeof SamskarasYajnasRoute
   SeekersRoute: typeof SeekersRoute
+  ServicesRoute: typeof ServicesRoute
   ShopRoute: typeof ShopRoute
   StudentRoute: typeof StudentRoute
   VideosRoute: typeof VideosRoute
@@ -497,6 +510,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SeekersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/shop': {
       id: '/shop'
       path: '/shop'
@@ -556,6 +576,7 @@ const rootRouteChildren: RootRouteChildren = {
   PodcastsRoute: PodcastsRoute,
   SamskarasYajnasRoute: SamskarasYajnasRoute,
   SeekersRoute: SeekersRoute,
+  ServicesRoute: ServicesRoute,
   ShopRoute: ShopRoute,
   StudentRoute: StudentRoute,
   VideosRoute: VideosRoute,

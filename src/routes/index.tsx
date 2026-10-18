@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { HeroCinematic } from '@/components/home/HeroCinematic'
 import { AboutStory } from '@/components/home/AboutStory'
 import { InspirationStory } from '@/components/home/InspirationStory'
+import { ServicesShowcase } from '@/components/services'
 import { AlumniSection, TeamSection, TestimonialsSection } from '@/components/home/PeopleSections'
 import { AdmissionsCTA } from '@/components/ui'
 
@@ -25,6 +26,7 @@ function Home() {
       <HeroCinematic />
       <AboutStory />
       <InspirationStory />
+      <ServicesShowcase />
       <TeamSection />
       <AlumniSection />
       <TestimonialsSection />

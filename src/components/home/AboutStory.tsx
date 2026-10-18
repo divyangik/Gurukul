@@ -82,7 +82,7 @@ function ChapterDiscover() {
             About Us
           </Eyebrow>
           <RevealLines
-            lines={['Discover an', <em key="e" className="text-brass-soft">exceptional</em>, 'residential school.']}
+            lines={['Discover an', <em key="e" className="text-brass-soft"> exceptional </em>, 'residential school.']}
             className="display mt-6 text-[clamp(2.75rem,6vw,5.75rem)]"
           />
           <div data-reveal className="prose-gk mt-10 max-w-xl text-pearl/80">
@@ -125,7 +125,7 @@ function ChapterVision() {
             <RevealLines
               lines={[
                 'We empower our members to lead a',
-                <em key="kc" className="text-[#8a6f3c]">Krishna conscious way of life</em>,
+                <em key="kc" className="text-[#8a6f3c]"> Krishna conscious way of life </em>,
                 'and to perform welfare activities for the',
                 'benefit of others with their life, wealth,',
                 'intelligence and words.',
@@ -214,7 +214,7 @@ function ChapterPhilosophy() {
         <div className="lg:col-span-5 lg:py-[22vh]">
           <ChapterNumber n={3} />
           <Eyebrow className="mt-4">History & Philosophy</Eyebrow>
-          <RevealLines lines={['Founded in 2017', 'by a team of', <em key="t" className="text-[#8a6f3c]">dedicated teachers.</em>]} className="display mt-6 text-[clamp(2.5rem,4.6vw,4.5rem)] text-teal" />
+          <RevealLines lines={['Founded in 2017', 'by a team of', <em key="t" className="text-[#8a6f3c]"> dedicated teachers.</em>]} className="display mt-6 text-[clamp(2.5rem,4.6vw,4.5rem)] text-teal" />
           <div data-reveal className="prose-gk mt-10 text-muted">
             <p>{history.split('The Bhagavad Gita')[0].trim()}</p>
           </div>
@@ -251,7 +251,7 @@ function ChapterExperience() {
             <Eyebrow light className="mt-4">
               Facts & Figures
             </Eyebrow>
-            <RevealLines lines={['From five students', 'to a living', <em key="c" className="text-brass-soft">community.</em>]} className="display mt-6 text-[clamp(2.5rem,5vw,4.75rem)]" />
+            <RevealLines lines={['From five students', ' to a living', <em key="c" className="text-brass-soft"> community.</em>]} className="display mt-6 text-[clamp(2.5rem,5vw,4.75rem)]" />
           </div>
 
           {/* Layered photographs, each drifting at its own depth */}
@@ -326,7 +326,7 @@ function ChapterContinues() {
           Chapter Five
         </p>
         <RevealLines
-          lines={['The story continues', 'with the one who', <em key="i" className="text-brass">inspired it all.</em>]}
+          lines={['The story continues', ' with the one who', <em key="i" className="text-brass"> inspired it all.</em>]}
           className="display mx-auto mt-6 max-w-5xl text-[clamp(2.75rem,7vw,7rem)]"
         />
         <p data-reveal className="mx-auto mt-10 max-w-xl text-lg leading-relaxed opacity-80">

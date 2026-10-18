@@ -563,3 +563,104 @@ body {
     filter: none;
   }
 }
+
+/* ── Services section motion ────────────────────────────────── */
+
+/* Cursor-following brass glow on cards (position set via --mx / --my) */
+.spot-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-silk);
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(183 154 97 / 0.16), transparent 60%);
+}
+
+.spot-card:hover::before {
+  opacity: 1;
+}
+
+/* Timeline spine fills as you scroll (--p is 0‥1) */
+.tl-fill {
+  transform: scaleY(var(--p, 0));
+  transition: transform 0.25s linear;
+}
+
+/* Brass shine that sweeps across a featured surface */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 40%, rgb(212 191 148 / 0.28) 50%, transparent 60%);
+  transform: translateX(-120%);
+  animation: shine 5.5s var(--ease-silk) infinite;
+}
+
+@keyframes shine {
+  0%, 55% { transform: translateX(-120%); }
+  100% { transform: translateX(120%); }
+}
+
+/* Soft pulsing ring behind a marker */
+.pulse-ring {
+  position: relative;
+}
+
+.pulse-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--color-brass);
+  animation: pulse-ring 2.8s var(--ease-silk) infinite;
+}
+
+@keyframes pulse-ring {
+  from { transform: scale(1); opacity: 0.7; }
+  to { transform: scale(1.9); opacity: 0; }
+}
+
+/* Gently drifting glow blobs for dark chapters */
+.drift {
+  animation: drift 14s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  from { transform: translate3d(-4%, -3%, 0) scale(1); }
+  to { transform: translate3d(5%, 4%, 0) scale(1.12); }
+}
+
+/* Gradient text that slowly travels */
+.text-flow {
+  background: linear-gradient(90deg, var(--color-brass-soft), var(--color-pearl), var(--color-brass), var(--color-brass-soft));
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: text-flow 9s linear infinite;
+}
+
+@keyframes text-flow {
+  to { background-position: -300% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shine::after,
+  .pulse-ring::before,
+  .drift,
+  .text-flow {
+    animation: none;
+  }
+
+  .tl-fill {
+    transition: none;
+  }
+}

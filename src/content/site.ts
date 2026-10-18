@@ -59,6 +59,7 @@ export const navGroups: NavGroup[] = [
     label: 'Services',
     intro: 'Guidance, training and sacred services offered by the Gurukula.',
     links: [
+      { label: 'All Services', to: '/services' },
       { label: 'Coaching', to: '/coaching' },
       { label: 'Consulting', to: '/consulting' },
       { label: 'Membership', to: '/membership' },
