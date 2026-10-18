@@ -3,7 +3,7 @@ import { ArrowDown } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { prabhupadaTimeline } from '@/content/home'
 
-/** Native sticky photography follows the fourteen chapters without trapping scroll. */
+/** Native sticky photography follows the five chapters without trapping scroll. */
 export function InspirationStory() {
   const [active, setActive] = useState(0)
   const storyRef = useRef<HTMLDivElement>(null)
@@ -36,7 +36,12 @@ export function InspirationStory() {
   }, [])
 
   return (
-    <section id="inspiration" aria-labelledby="inspiration-title" className="inspiration-story bg-teal-deep text-pearl">
+    <section id="inspiration" aria-labelledby="inspiration-title" className="inspiration-story relative bg-teal-deep text-pearl">
+      {/* Continues the golden line from the chapter above, so the two sections read as one */}
+      <span aria-hidden="true" className="absolute left-1/2 top-0 flex -translate-x-1/2 flex-col items-center">
+        <span className="block h-16 w-px bg-brass/30 md:h-24" />
+        <span className="-mt-px block h-2 w-2 rotate-45 bg-brass" />
+      </span>
       <header className="mx-auto max-w-[1440px] px-5 pb-14 pt-20 md:px-10 md:pb-20 md:pt-28">
         <p className="flex items-center gap-3 text-sm text-brass-soft"><span className="h-px w-8 bg-brass" aria-hidden="true" />Our Inspiration · 1896–1977</p>
         <div className="mt-7 grid gap-7 md:grid-cols-[1.2fr_1fr] md:items-end md:gap-12">
@@ -61,7 +66,7 @@ export function InspirationStory() {
             </div>
             <figcaption className="mt-5 flex items-center justify-between gap-4 border-b border-brass/25 pb-5">
               <span className="font-display text-3xl text-brass-soft">{prabhupadaTimeline[active]?.year}</span>
-              <span className="text-xs text-pearl/65">{String(active + 1).padStart(2, '0')} / 14</span>
+              <span className="text-xs text-pearl/65">{String(active + 1).padStart(2, '0')} / {String(prabhupadaTimeline.length).padStart(2, '0')}</span>
             </figcaption>
             <nav aria-label="Inspiration years" className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
               {prabhupadaTimeline.map((chapter, index) => (

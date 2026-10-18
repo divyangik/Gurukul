@@ -6,7 +6,7 @@ import { about, facts, history, mission, vision } from '@/content/home'
 const chapters = [
   { id: 'about', label: 'Discover' },
   { id: 'vision', label: 'Vision' },
-  { id: 'philosophy', label: 'Philosophy' },
+  { id: 'history', label: 'History' },
   { id: 'experience', label: 'Experience' },
   { id: 'continues', label: 'Continues' },
 ]
@@ -56,7 +56,7 @@ export function AboutStory() {
 
       <ChapterDiscover />
       <ChapterVision />
-      <ChapterPhilosophy />
+      <ChapterHistory />
       <ChapterExperience />
       <ChapterContinues />
     </div>
@@ -160,8 +160,8 @@ function ChapterVision() {
   )
 }
 
-/* Chapter 3 — Educational philosophy & history (scroll-scrubbed image transition) */
-function ChapterPhilosophy() {
+/* Chapter 3 — History & founding (scroll-scrubbed image transition) */
+function ChapterHistory() {
   const ref = useRef<HTMLElement>(null)
   const topImg = useRef<HTMLDivElement>(null)
 
@@ -193,7 +193,7 @@ function ChapterPhilosophy() {
   }, [])
 
   return (
-    <section id="philosophy" ref={ref} className="relative bg-sand">
+    <section id="history" ref={ref} className="relative bg-sand">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:px-10 md:py-40 lg:grid-cols-12 lg:py-0">
         {/* Sticky image pair */}
         <div className="lg:col-span-7 lg:py-24">
@@ -213,7 +213,7 @@ function ChapterPhilosophy() {
 
         <div className="lg:col-span-5 lg:py-[22vh]">
           <ChapterNumber n={3} />
-          <Eyebrow className="mt-4">History & Philosophy</Eyebrow>
+          <Eyebrow className="mt-4">Our History</Eyebrow>
           <RevealLines lines={['Founded in 2017', 'by a team of', <em key="t" className="text-[#8a6f3c]"> dedicated teachers.</em>]} className="display mt-6 text-[clamp(2.5rem,4.6vw,4.5rem)] text-teal" />
           <div data-reveal className="prose-gk mt-10 text-muted">
             <p>{history.split('The Bhagavad Gita')[0].trim()}</p>
@@ -320,7 +320,7 @@ function ChapterContinues() {
   }, [])
 
   return (
-    <section id="continues" ref={ref} className="relative overflow-hidden bg-teal py-32 text-pearl md:py-48">
+    <section id="continues" ref={ref} className="relative overflow-hidden bg-teal pb-0 pt-32 text-pearl md:pt-48">
       <div className="mx-auto max-w-[1440px] px-5 text-center md:px-10">
         <p data-reveal className="font-display text-sm italic opacity-70">
           Chapter Five
@@ -334,7 +334,8 @@ function ChapterContinues() {
         </p>
         <a href="#inspiration" data-reveal className="mt-12 inline-flex flex-col items-center gap-3 text-brass">
           <span className="eyebrow">Inspiration</span>
-          <span className="relative block h-16 w-px overflow-hidden bg-brass/30">
+          {/* The line runs to the section's bottom edge and carries on into Inspiration */}
+          <span className="relative block h-28 w-px overflow-hidden bg-brass/30 md:h-40">
             <span className="scroll-cue absolute inset-0 bg-brass" />
           </span>
         </a>

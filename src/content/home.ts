@@ -55,20 +55,11 @@ export type TimelineEvent = {
   img: string
 }
 
-/** Srila Prabhupada timeline from the "Inspiration" section of the official site. */
+/** Srila Prabhupada's life in five defining chapters, from the "Inspiration" section of the official site. */
 export const prabhupadaTimeline: TimelineEvent[] = [
   { year: '1896', title: 'Early Life', event: 'Birth in Calcutta, India', text: 'Born Abhay Charan De on September 1st in a Vaishnava family.', img: '/img/inspiration/1.jpg' },
   { year: '1922', title: 'Meeting His Spiritual Master', event: 'Met Bhaktisiddhanta Sarasvati Thakura', text: 'First meeting with his guru, who instructed him to spread Krishna consciousness in the Western world.', img: '/img/inspiration/2.jpg' },
-  { year: '1932', title: 'Receiving Diksha (Initiation)', event: 'Initiated as a disciple', text: 'Received formal initiation from Srila Bhaktisiddhanta Sarasvati Thakur in Allahabad, India.', img: '/img/inspiration/3.jpg' },
-  { year: '1935', title: 'Receiving Instruction', event: 'Received instruction from his Spiritual master', text: 'Instructed by his spiritual master on publishing books and constructing temples.', img: '/img/inspiration/4.jpg' },
-  { year: '1939', title: 'Bhaktivedanta Title', event: 'Honoured with the title “Bhaktivedanta”', text: 'Honoured with the title “Bhaktivedanta” by the society of Gaudiya Vaishnavas.', img: '/img/inspiration/5.jpg' },
-  { year: '1944', title: 'Writing and Establishing Back to Godhead Magazine', event: 'Launched Back to Godhead magazine', text: 'Began publishing this magazine to promote Vaishnavism and Krishna consciousness.', img: '/img/inspiration/6.jpg' },
-  { year: '1953', title: 'Started League of Devotees', event: 'Started League of Devotees in Jhansi', img: '/img/inspiration/7.jpg' },
-  { year: '1959', title: 'Renunciation (Sannyasa)', event: 'Took Sannyasa', text: 'Accepted the renounced order of life and became Swami A. C. Bhaktivedanta.', img: '/img/inspiration/8.jpg' },
   { year: '1965', title: 'Arrival in America', event: 'Journey to America on the Jaladuta', text: 'Arrived in New York after a perilous journey, at age 69, with just a few books and little money.', img: '/img/inspiration/9.jpg' },
   { year: '1966', title: 'Establishing ISKCON', event: 'Founded ISKCON', text: 'Formed the International Society for Krishna Consciousness (ISKCON) to spread Krishna’s teachings globally.', img: '/img/inspiration/10.jpg' },
   { year: '1968', title: 'Publishing Bhagavad-gita As It Is', event: 'Published Bhagavad-gita As It Is', text: 'One of his most important works, translated and commented on the Bhagavad-gita with a focus on devotional service.', img: '/img/inspiration/11.jpg' },
-  { year: '1967–1976', title: 'Ratha Yatra in Western World', event: 'Organized the first Ratha Yatra in San Francisco and later globally', text: 'Spread the famous chariot festival, traditionally celebrated in Puri, to the Western world.', img: '/img/inspiration/12.jpg' },
-  { year: '1970s', title: 'Establishing Temples Globally', event: 'Built major ISKCON temples worldwide', text: 'Opened 108 temples worldwide, including in places like Los Angeles, London, Vrindavan, and Mayapur.', img: '/img/inspiration/13.jpg' },
-  { year: '1977', title: 'Final Years and Legacy', event: 'Passing in Vrindavan', text: 'Left his body in Vrindavan on November 14th, leaving behind a global spiritual movement.', img: '/img/inspiration/14.jpg' },
 ]

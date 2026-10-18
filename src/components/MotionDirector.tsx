@@ -42,6 +42,31 @@ export function MotionDirector() {
         { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
       )
       revealEls.forEach((el) => io.observe(el))
+      // Fail-safe: anything at or above the lower edge of the viewport is shown, so a section that
+      // was jumped past (anchor links, fast scrolling) can never stay hidden.
+      let sweepFrame = 0
+      const sweep = () => {
+        sweepFrame = 0
+        const limit = window.innerHeight * 0.95
+        document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-in)').forEach((el) => {
+          if (el.getBoundingClientRect().top < limit) {
+            el.classList.add('is-in')
+            io.unobserve(el)
+          }
+        })
+      }
+      const onScrollSweep = () => {
+        if (!sweepFrame) sweepFrame = requestAnimationFrame(sweep)
+      }
+      window.addEventListener('scroll', onScrollSweep, { passive: true })
+      window.addEventListener('resize', onScrollSweep)
+      const sweepTimer = window.setTimeout(sweep, 1500)
+      cleanups.push(() => {
+        window.removeEventListener('scroll', onScrollSweep)
+        window.removeEventListener('resize', onScrollSweep)
+        window.clearTimeout(sweepTimer)
+        cancelAnimationFrame(sweepFrame)
+      })
       // Content mounted later (tabs, accordions, carousels) is observed too
       const mo = new MutationObserver(() => {
         document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-in)').forEach((el) => io.observe(el))

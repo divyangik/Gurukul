@@ -122,14 +122,20 @@ export function ServiceMarquee({ dark, reverse }: { dark?: boolean; reverse?: bo
 
 /* ── Service card (used on the hub and the homepage rail) ──── */
 
-export function ServiceCard({ s, delay = 0, className = '', reveal = true }: { s: ServiceSummary; delay?: number; className?: string; reveal?: boolean }) {
+/** Card colours that sit apart from the teal-deep homepage band (none are white). */
+export const serviceTones = ['#1f6a6e', '#6c2c3c', '#8a5a26', '#31507a'] as const
+
+export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone }: { s: ServiceSummary; delay?: number; className?: string; reveal?: boolean; tone?: string }) {
   const ref = useSpotlight<HTMLAnchorElement>()
   return (
     <div {...(reveal ? { 'data-reveal': '' } : {})} style={{ ['--d' as string]: `${delay}s` }} className={className}>
     <Link
       ref={ref}
       to={s.to}
-      className="spot-card spot-card-dark group relative block h-full overflow-hidden rounded-3xl border border-pearl/12 bg-teal-deep text-pearl transition-[translate,border-color] duration-700 ease-[var(--ease-silk)] hover:-translate-y-2 hover:border-brass/60"
+      style={tone ? { ['--card' as string]: tone, backgroundColor: tone } : undefined}
+      className={`spot-card spot-card-dark group relative block h-full overflow-hidden rounded-3xl border text-pearl transition-[translate,border-color] duration-700 ease-[var(--ease-silk)] hover:-translate-y-2 ${
+        tone ? 'border-pearl/25 hover:border-brass-soft' : 'border-pearl/12 bg-teal-deep hover:border-brass/60'
+      }`}
     >
       <div className="relative aspect-[4/3] overflow-hidden md:aspect-[16/10]">
         <Photo
@@ -141,16 +147,16 @@ export function ServiceCard({ s, delay = 0, className = '', reveal = true }: { s
           sizes="(min-width: 1024px) 28rem, 80vw"
           className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.08]"
         />
-        <span className="absolute inset-0 bg-gradient-to-t from-teal-deep via-teal-deep/20 to-transparent" />
+        <span className={`absolute inset-0 bg-gradient-to-t ${tone ? 'from-[var(--card)] via-transparent' : 'from-teal-deep via-teal-deep/20'} to-transparent`} />
         <span className="display absolute left-6 top-4 text-6xl text-pearl/90 [text-shadow:0_2px_18px_rgba(12,46,49,0.8)] transition-colors duration-500 group-hover:text-brass">{s.index}</span>
       </div>
       <div className="relative p-7 md:p-7">
-        <p className="eyebrow text-brass">{s.for}</p>
+        <p className={`eyebrow ${tone ? 'text-brass-soft' : 'text-brass'}`}>{s.for}</p>
         <h3 className="display mt-4 text-[2rem] leading-[1.02] text-pearl md:text-[2.25rem]">{s.title}</h3>
-        <p className="mt-3 text-[0.98rem] leading-relaxed text-pearl/72">{s.summary}</p>
-        <span className="mt-7 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] text-brass">
+        <p className={`mt-3 text-[0.98rem] leading-relaxed ${tone ? 'text-pearl/90' : 'text-pearl/72'}`}>{s.summary}</p>
+        <span className={`mt-7 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] ${tone ? 'text-pearl' : 'text-brass'}`}>
           Explore
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-brass/50 transition-all duration-500 group-hover:translate-x-1 group-hover:bg-brass group-hover:text-teal-deep">
+          <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-500 group-hover:translate-x-1 group-hover:bg-brass group-hover:text-teal-deep ${tone ? 'border-pearl/60' : 'border-brass/50'}`}>
             <ArrowRight className="h-4 w-4" aria-hidden />
           </span>
         </span>
@@ -232,8 +238,8 @@ export function ServicesShowcase() {
 
         <div className="rail relative mt-10 overflow-x-auto md:mt-8 md:overflow-hidden">
           <div ref={track} className="flex w-max gap-5 px-5 pb-4 will-change-transform md:gap-7 md:px-10 md:pb-0">
-            {services.map((s) => (
-              <ServiceCard key={s.slug} s={s} reveal={false} className="w-[78vw] shrink-0 sm:w-[24rem] md:w-[25rem]" />
+            {services.map((s, i) => (
+              <ServiceCard key={s.slug} s={s} reveal={false} tone={serviceTones[i % serviceTones.length]} className="w-[78vw] shrink-0 sm:w-[24rem] md:w-[25rem]" />
             ))}
           </div>
         </div>

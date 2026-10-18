@@ -105,7 +105,7 @@ function Page() {
         <WordMarquee words={pillars} />
       </section>
 
-      {/* Philosophy + stats */}
+      {/* Values + stats */}
       <section className="grain relative bg-slate py-20 text-pearl md:py-28">
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
           <div className="grid items-center gap-12 md:grid-cols-2">

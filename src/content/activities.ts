@@ -62,7 +62,7 @@ export const activityGroups: ActivityGroup[] = [
   {
     id: 'yajna',
     title: 'Yajna & Vedic Rituals',
-    text: 'Students learn to prepare and perform yajnas — the ancient fire sacrifices of the Vedic tradition — understanding both the procedure and the philosophy behind it.',
+    text: 'Students learn to prepare and perform yajnas — the ancient fire sacrifices of the Vedic tradition — understanding both the procedure and the meaning behind it.',
     images: [
       { src: '/img/vedic-study/yajna-3.jpg', alt: 'Students performing a yajna fire ceremony' },
       { src: '/img/vedic-study/yajna-preparation.jpg', alt: 'Preparing offerings for the yajna' },

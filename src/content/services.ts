@@ -189,7 +189,7 @@ export const consultingProjects = ['Gurukulas', 'Support schools', 'Homeschool p
 
 export const holisticServices = [
   'Personal and professional development programmes for parents and educators',
-  'Training in philosophy (siddhānta) and culture (Bhāratīya sanskṛti)',
+  'Training in siddhānta (Vedic thought) and culture (Bhāratīya sanskṛti)',
   'Teacher and school-administrator training and certification',
   'Roadmaps for guiding students towards spiritual and personal success',
   'Curriculum development, user manuals and resources',

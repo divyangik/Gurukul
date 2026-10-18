@@ -348,6 +348,16 @@ body {
   animation-play-state: paused;
 }
 
+/* Hero slider: each new headline settles in from below */
+@keyframes slide-in {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: none; }
+}
+
+.slide-in {
+  animation: slide-in 900ms var(--ease-silk) both;
+}
+
 @keyframes scroll-cue {
   0% {
     transform: scaleY(0);
@@ -418,7 +428,8 @@ body {
   }
 
   .kenburns,
-  .scroll-cue {
+  .scroll-cue,
+  .slide-in {
     animation: none;
   }
 
