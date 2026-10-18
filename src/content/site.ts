@@ -66,13 +66,5 @@ export const navGroups: NavGroup[] = [
       { label: 'Jobs and Career', to: '/career' },
       { label: 'Keynote Speech', to: '/keynote-speech' },
     ],
-  },
-  {
-    label: 'Products',
-    intro: 'Books and resources from Bhaktivedanta Education.',
-    links: [
-      { label: 'Shop', to: '/shop' },
-      { label: 'Books', to: '/books' },
-    ],
-  },
+  }
 ]

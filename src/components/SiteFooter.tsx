@@ -63,7 +63,7 @@ export function SiteFooter() {
             </ul>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-4">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-10 sm:grid-cols-3">
             {navGroups.map((group) => (
               <div key={group.label}>
                 <p className="eyebrow text-brass">{group.label}</p>
@@ -75,7 +75,7 @@ export function SiteFooter() {
                       </Link>
                     </li>
                   ))}
-                  {group.label === 'Products' && (
+                  {group.label === 'Services' && (
                     <li>
                       <Link to="/donation" className="link-sweep text-sm text-pearl/75 hover:text-pearl">
                         Donate

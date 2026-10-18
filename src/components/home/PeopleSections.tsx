@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Quote } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { Eyebrow, RevealLines } from '@/components/ui'
+import { tones } from '@/lib/tones'
 import { alumni, governingBody, teachers, testimonials, volunteers } from '@/content/people'
 
 /** Three-line preview that opens to the full text; the button keeps keyboard and screen-reader users in the loop. */
@@ -27,11 +28,11 @@ const educators = teachers.filter((t) => !governingBody.some((g) => g.img === t.
 const teacherTones = [
   { bg: '#123f43', text: '#f5f0e7' },
   { bg: '#e6dccb', text: '#123f43' },
-  { bg: '#6c2c3c', text: '#f5f0e7' },
+  { bg: '#7a5f2e', text: '#f5f0e7' },
 ]
 
-/** Alumni and parent cards: strong colours, none of them white or the section's own background. */
-const quoteTones = ['#6c2c3c', '#1f6a6e', '#8a5a26', '#31507a', '#4d3a66']
+/** Alumni and parent cards: three theme colours only (teal, deep brass, slate). */
+const quoteTones = tones
 
 /* ── Team: governing body, teachers and volunteers ────────────── */
 export function TeamSection() {
@@ -118,7 +119,7 @@ export function TeamSection() {
 /* ── Notable alumni ───────────────────────────────────────────── */
 export function AlumniSection() {
   return (
-    <section id="alumni" aria-labelledby="alumni-title" className="grain relative bg-slate py-24 text-pearl md:py-36">
+    <section id="alumni" aria-labelledby="alumni-title" className="grain relative bg-teal-deep py-24 text-pearl md:py-36">
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
           <div>

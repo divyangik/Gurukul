@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ActivitiesRouteImport } from './routes/activities'
 import { Route as BookVisitRouteImport } from './routes/book-visit'
-import { Route as BooksRouteImport } from './routes/books'
 import { Route as CampWorkshopRouteImport } from './routes/camp-workshop'
 import { Route as CampusRouteImport } from './routes/campus'
 import { Route as CareerRouteImport } from './routes/career'
@@ -30,7 +29,6 @@ import { Route as PodcastsRouteImport } from './routes/podcasts'
 import { Route as SamskarasYajnasRouteImport } from './routes/samskaras-yajnas'
 import { Route as SeekersRouteImport } from './routes/seekers'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as ShopRouteImport } from './routes/shop'
 import { Route as StudentRouteImport } from './routes/student'
 import { Route as VideosRouteImport } from './routes/videos'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
@@ -49,11 +47,6 @@ const ActivitiesRoute = ActivitiesRouteImport.update({
 const BookVisitRoute = BookVisitRouteImport.update({
   id: '/book-visit',
   path: '/book-visit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BooksRoute = BooksRouteImport.update({
-  id: '/books',
-  path: '/books',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CampWorkshopRoute = CampWorkshopRouteImport.update({
@@ -141,11 +134,6 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ShopRoute = ShopRouteImport.update({
-  id: '/shop',
-  path: '/shop',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const StudentRoute = StudentRouteImport.update({
   id: '/student',
   path: '/student',
@@ -171,7 +159,6 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
   '/book-visit': typeof BookVisitRoute
-  '/books': typeof BooksRoute
   '/camp-workshop': typeof CampWorkshopRoute
   '/campus': typeof CampusRoute
   '/career': typeof CareerRoute
@@ -189,7 +176,6 @@ export interface FileRoutesByFullPath {
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
   '/services': typeof ServicesRoute
-  '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -199,7 +185,6 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
   '/book-visit': typeof BookVisitRoute
-  '/books': typeof BooksRoute
   '/camp-workshop': typeof CampWorkshopRoute
   '/campus': typeof CampusRoute
   '/career': typeof CareerRoute
@@ -217,7 +202,6 @@ export interface FileRoutesByTo {
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
   '/services': typeof ServicesRoute
-  '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -228,7 +212,6 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/activities': typeof ActivitiesRoute
   '/book-visit': typeof BookVisitRoute
-  '/books': typeof BooksRoute
   '/camp-workshop': typeof CampWorkshopRoute
   '/campus': typeof CampusRoute
   '/career': typeof CareerRoute
@@ -246,7 +229,6 @@ export interface FileRoutesById {
   '/samskaras-yajnas': typeof SamskarasYajnasRoute
   '/seekers': typeof SeekersRoute
   '/services': typeof ServicesRoute
-  '/shop': typeof ShopRoute
   '/student': typeof StudentRoute
   '/videos': typeof VideosRoute
   '/blog/$slug': typeof BlogSlugRoute
@@ -258,7 +240,6 @@ export interface FileRouteTypes {
     | '/'
     | '/activities'
     | '/book-visit'
-    | '/books'
     | '/camp-workshop'
     | '/campus'
     | '/career'
@@ -276,7 +257,6 @@ export interface FileRouteTypes {
     | '/samskaras-yajnas'
     | '/seekers'
     | '/services'
-    | '/shop'
     | '/student'
     | '/videos'
     | '/blog/$slug'
@@ -286,7 +266,6 @@ export interface FileRouteTypes {
     | '/'
     | '/activities'
     | '/book-visit'
-    | '/books'
     | '/camp-workshop'
     | '/campus'
     | '/career'
@@ -304,7 +283,6 @@ export interface FileRouteTypes {
     | '/samskaras-yajnas'
     | '/seekers'
     | '/services'
-    | '/shop'
     | '/student'
     | '/videos'
     | '/blog/$slug'
@@ -314,7 +292,6 @@ export interface FileRouteTypes {
     | '/'
     | '/activities'
     | '/book-visit'
-    | '/books'
     | '/camp-workshop'
     | '/campus'
     | '/career'
@@ -332,7 +309,6 @@ export interface FileRouteTypes {
     | '/samskaras-yajnas'
     | '/seekers'
     | '/services'
-    | '/shop'
     | '/student'
     | '/videos'
     | '/blog/$slug'
@@ -343,7 +319,6 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ActivitiesRoute: typeof ActivitiesRoute
   BookVisitRoute: typeof BookVisitRoute
-  BooksRoute: typeof BooksRoute
   CampWorkshopRoute: typeof CampWorkshopRoute
   CampusRoute: typeof CampusRoute
   CareerRoute: typeof CareerRoute
@@ -361,7 +336,6 @@ export interface RootRouteChildren {
   SamskarasYajnasRoute: typeof SamskarasYajnasRoute
   SeekersRoute: typeof SeekersRoute
   ServicesRoute: typeof ServicesRoute
-  ShopRoute: typeof ShopRoute
   StudentRoute: typeof StudentRoute
   VideosRoute: typeof VideosRoute
   BlogSlugRoute: typeof BlogSlugRoute
@@ -389,13 +363,6 @@ declare module '@tanstack/react-router' {
       path: '/book-visit'
       fullPath: '/book-visit'
       preLoaderRoute: typeof BookVisitRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/books': {
-      id: '/books'
-      path: '/books'
-      fullPath: '/books'
-      preLoaderRoute: typeof BooksRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/camp-workshop': {
@@ -517,13 +484,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/shop': {
-      id: '/shop'
-      path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof ShopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/student': {
       id: '/student'
       path: '/student'
@@ -559,7 +519,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ActivitiesRoute: ActivitiesRoute,
   BookVisitRoute: BookVisitRoute,
-  BooksRoute: BooksRoute,
   CampWorkshopRoute: CampWorkshopRoute,
   CampusRoute: CampusRoute,
   CareerRoute: CareerRoute,
@@ -577,7 +536,6 @@ const rootRouteChildren: RootRouteChildren = {
   SamskarasYajnasRoute: SamskarasYajnasRoute,
   SeekersRoute: SeekersRoute,
   ServicesRoute: ServicesRoute,
-  ShopRoute: ShopRoute,
   StudentRoute: StudentRoute,
   VideosRoute: VideosRoute,
   BlogSlugRoute: BlogSlugRoute,

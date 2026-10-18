@@ -80,17 +80,18 @@ export function MotionDirector() {
 
     // Counters
     const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'))
+    const fmt = (el: HTMLElement, n: number) => (el.dataset.countFormat === 'locale' ? n.toLocaleString('en-IN') : String(n))
     const runCount = (el: HTMLElement) => {
       const target = parseFloat(el.dataset.count || '0')
       if (reduced) {
-        el.textContent = String(target)
+        el.textContent = fmt(el, target)
         return
       }
       const start = performance.now()
       const dur = 1800
       const tick = (now: number) => {
         const p = Math.min(1, (now - start) / dur)
-        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 4))))
+        el.textContent = fmt(el, Math.round(target * (1 - Math.pow(1 - p, 4))))
         if (p < 1) requestAnimationFrame(tick)
       }
       requestAnimationFrame(tick)

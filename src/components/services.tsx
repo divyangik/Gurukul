@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Photo } from './Photo'
 import { Eyebrow, RevealLines } from './ui'
 import { otherServices, services, type ServiceSlug, type ServiceSummary } from '@/content/services'
+import { tones } from '@/lib/tones'
 
 /* ── Pointer spotlight: a soft brass glow that follows the cursor ── */
 
@@ -123,7 +124,7 @@ export function ServiceMarquee({ dark, reverse }: { dark?: boolean; reverse?: bo
 /* ── Service card (used on the hub and the homepage rail) ──── */
 
 /** Card colours that sit apart from the teal-deep homepage band (none are white). */
-export const serviceTones = ['#1f6a6e', '#6c2c3c', '#8a5a26', '#31507a'] as const
+export const serviceTones = tones
 
 export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone }: { s: ServiceSummary; delay?: number; className?: string; reveal?: boolean; tone?: string }) {
   const ref = useSpotlight<HTMLAnchorElement>()

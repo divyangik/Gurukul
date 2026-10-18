@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Photo } from '../Photo'
 import { Eyebrow, RevealLines } from '../ui'
+import { WordMarquee } from '../education'
+import { DustField } from '../campus/CampusScenes'
 import { about, facts, history, mission, vision } from '@/content/home'
 
 const chapters = [
@@ -10,6 +12,33 @@ const chapters = [
   { id: 'experience', label: 'Experience' },
   { id: 'continues', label: 'Continues' },
 ]
+
+function Num({ n }: { n: number }) {
+  return (
+    <span className="act-num ab-num pointer-events-none absolute right-5 md:right-10" data-parallax="0.3" aria-hidden>
+      {String(n).padStart(2, '0')}
+    </span>
+  )
+}
+
+function Seal() {
+  return (
+    <div className="ab-seal pointer-events-none absolute -right-2 -top-12 z-10 hidden md:block" aria-hidden>
+      <svg viewBox="0 0 200 200" className="spin-slow h-full w-full">
+        <defs>
+          <path id="ab-seal-path" d="M100 100 m-78 0 a78 78 0 1 1 156 0 a78 78 0 1 1 -156 0" />
+        </defs>
+        <text fill="currentColor" fontSize="13" letterSpacing="5.2" fontWeight="700">
+          <textPath href="#ab-seal-path">BHAKTIVEDANTA GURUKULA · DALIMB · PUNE ·</textPath>
+        </text>
+      </svg>
+      <span className="ab-seal__core">
+        <span className="font-display text-[0.7rem] italic leading-none">Since</span>
+        <span className="font-display text-4xl leading-none">2017</span>
+      </span>
+    </div>
+  )
+}
 
 /** Five-chapter scroll story built from the official About, Vision, Mission, History and Facts content. */
 export function AboutStory() {
@@ -54,6 +83,9 @@ export function AboutStory() {
         </nav>
       </div>
 
+      <div className="border-y border-brass/20 bg-teal-deep py-2 text-pearl" aria-hidden>
+        <WordMarquee light speed={55} words={['Truth', 'Tradition', 'Transformation', 'Since 2017']} />
+      </div>
       <ChapterDiscover />
       <ChapterVision />
       <ChapterHistory />
@@ -74,7 +106,10 @@ function ChapterNumber({ n, light }: { n: number; light?: boolean }) {
 /* Chapter 1 — Discover the Gurukula */
 function ChapterDiscover() {
   return (
-    <section id="about" className="relative overflow-hidden bg-teal-deep pb-28 pt-24 text-pearl md:pb-40 md:pt-36">
+    <section id="about" className="grain relative isolate overflow-hidden bg-teal-deep pb-28 pt-24 text-pearl md:pb-40 md:pt-36">
+      <DustField />
+      <div className="drift pointer-events-none absolute -left-32 top-10 -z-10 h-96 w-96 rounded-full bg-brass/10 blur-3xl" aria-hidden />
+      <Num n={1} />
       <div className="mx-auto grid max-w-[1440px] gap-14 px-5 md:px-10 lg:grid-cols-12">
         <div className="lg:col-span-6 lg:pt-10">
           <ChapterNumber n={1} light />
@@ -91,6 +126,7 @@ function ChapterDiscover() {
         </div>
 
         <div className="relative lg:col-span-6">
+          <Seal />
           <div data-reveal="mask" className="relative aspect-[4/5] overflow-hidden rounded-[2rem] lg:ml-10">
             <div data-parallax="0.14" className="absolute inset-[-10%_0]">
               <Photo
@@ -102,7 +138,7 @@ function ChapterDiscover() {
               />
             </div>
           </div>
-          <div data-reveal style={{ ['--d' as string]: '0.4s' }} className="absolute -bottom-10 left-0 w-[46%] overflow-hidden rounded-2xl border-4 border-teal-deep shadow-2xl md:-left-6">
+          <div data-reveal style={{ ['--d' as string]: '0.4s' }} className="ab-float absolute -bottom-10 left-0 w-[46%] overflow-hidden rounded-2xl border-4 border-teal-deep shadow-2xl md:-left-6">
             <Photo src="/img/daily-schedule/temple-sankirtan.jpg" alt="Students in white dhotis leading kirtan with mridanga drums and kartals." ratio={0.75} widths={[400, 700]} width={600} sizes="25vw" className="h-full w-full object-cover" />
           </div>
         </div>
@@ -114,7 +150,8 @@ function ChapterDiscover() {
 /* Chapter 2 — Vision & Mission */
 function ChapterVision() {
   return (
-    <section id="vision" className="relative bg-pearl py-28 md:py-40">
+    <section id="vision" className="relative overflow-hidden bg-pearl py-28 md:py-40">
+      <Num n={2} />
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-3">
@@ -148,7 +185,8 @@ function ChapterVision() {
           </div>
           <div className="grid gap-10 md:grid-cols-3 lg:col-span-9">
             {mission.map((p, i) => (
-              <div key={i} data-reveal style={{ ['--d' as string]: `${i * 0.12}s` }} className="border-t border-teal/20 pt-6">
+              <div key={i} data-reveal style={{ ['--d' as string]: `${i * 0.12}s` }} className="ab-mission relative overflow-hidden rounded-3xl border border-teal/15 bg-sand/60 p-7">
+                <span className="ab-mission__bar" aria-hidden />
                 <p className="font-display text-4xl text-[#8a6f3c]">{['i', 'ii', 'iii'][i]}.</p>
                 <p className="mt-4 leading-relaxed text-muted">{p}</p>
               </div>
@@ -194,6 +232,7 @@ function ChapterHistory() {
 
   return (
     <section id="history" ref={ref} className="relative bg-sand">
+      <Num n={3} />
       <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-28 md:px-10 md:py-40 lg:grid-cols-12 lg:py-0">
         {/* Sticky image pair */}
         <div className="lg:col-span-7 lg:py-24">
@@ -234,6 +273,22 @@ function ChapterHistory() {
               The curriculum integrates teachings from the Bhagavat, Pancharatra, Vedic, and contemporary education, so that graduates are well-prepared for practical life and equipped to make meaningful contributions to society.
             </p>
           </div>
+
+          <ol className="ab-timeline relative mt-14 pl-10" aria-label="Milestones">
+            <span data-reveal="draw" className="ab-timeline__line" aria-hidden />
+            {[
+              { year: '2014', title: 'Bhaktivedanta Vidyashrama', text: 'Started in Pune; still functional as a support school to date.' },
+              { year: '2017', title: 'The Gurukula is founded', text: 'Started with 5 students at Shikrapur, Pune, and eventually shifted to Uruli Kanchan.' },
+              { year: 'Today', title: 'A living community', text: '50 students and 10 teachers.' },
+            ].map((m, i) => (
+              <li key={m.year} data-reveal style={{ ['--d' as string]: `${0.1 + i * 0.18}s` }} className="relative pb-9 last:pb-0">
+                <span className="ab-step__dot" style={{ boxShadow: '0 0 0 5px var(--color-sand)' }} aria-hidden />
+                <p className="font-display text-4xl leading-none text-[#8a6f3c]">{m.year}</p>
+                <p className="mt-2 font-display text-xl text-teal">{m.title}</p>
+                <p className="mt-1 text-sm leading-relaxed text-muted">{m.text}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>
@@ -244,6 +299,7 @@ function ChapterHistory() {
 function ChapterExperience() {
   return (
     <section id="experience" className="grain relative overflow-hidden bg-slate py-28 text-pearl md:py-40">
+      <Num n={4} />
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -274,9 +330,10 @@ function ChapterExperience() {
 
         <dl className="mt-20 grid gap-px overflow-hidden rounded-2xl bg-pearl/10 md:grid-cols-3">
           {facts.map((f, i) => (
-            <div key={f.title} data-reveal style={{ ['--d' as string]: `${i * 0.12}s` }} className="bg-slate p-8 md:p-10">
+            <div key={f.title} data-reveal style={{ ['--d' as string]: `${i * 0.12}s` }} className="relative overflow-hidden bg-slate p-8 md:p-10">
+              <span className="ab-fact__ring" aria-hidden />
               <dt>
-                <span className="display block text-[clamp(3.5rem,6vw,5.5rem)] text-brass-soft">{f.figure}</span>
+                <span {...(i === 1 ? {} : { 'data-count': Number(f.figure.replace(/,/g, '')), 'data-count-format': 'locale' })} className="display block text-[clamp(3.5rem,6vw,5.5rem)] text-brass-soft">{f.figure}</span>
                 <span className="eyebrow mt-2 block text-pearl/60">{f.unit}</span>
                 <span className="mt-6 block font-display text-2xl text-pearl">{f.title}</span>
               </dt>

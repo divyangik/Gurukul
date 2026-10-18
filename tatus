@@ -1,0 +1,19 @@
+[33m6e0bcd0[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Initial commit
+ public/img/education/open-day.jpg         | Bin [31m0[m -> [32m247678[m bytes
+ public/img/education/parenting.jpg        | Bin [31m0[m -> [32m275543[m bytes
+ public/img/education/pilgrimage.jpg       | Bin [31m0[m -> [32m138440[m bytes
+ public/img/education/podcast.jpg          | Bin [31m0[m -> [32m311284[m bytes
+ public/img/education/scripture-study.jpg  | Bin [31m0[m -> [32m146036[m bytes
+ public/img/education/teacher-training.jpg | Bin [31m0[m -> [32m197244[m bytes
+ src/components/MotionDirector.tsx         |  27 [32m+++[m[31m-[m
+ src/components/home/AboutStory.tsx        |  19 [32m+[m[31m--[m
+ src/components/home/HeroCinematic.tsx     | 255 [32m++++++++++++++++[m[31m--------------[m
+ src/components/home/InspirationStory.tsx  |  11 [32m+[m[31m-[m
+ src/components/home/PeopleSections.tsx    | 122 [32m++++++++++[m[31m----[m
+ src/components/services.tsx               |  24 [32m+[m[31m--[m
+ src/content/activities.ts                 |   4 [32m+[m[31m-[m
+ src/content/home.ts                       |  13 [32m+[m[31m-[m
+ src/content/services.ts                   |   2 [32m+[m[31m-[m
+ src/routes/education.tsx                  |   4 [32m+[m[31m-[m
+ src/styles.css                            |  13 [32m+[m[31m-[m
+ 17 files changed, 303 insertions(+), 191 deletions(-)
