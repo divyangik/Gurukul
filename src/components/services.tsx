@@ -126,7 +126,7 @@ export function ServiceMarquee({ dark, reverse }: { dark?: boolean; reverse?: bo
 /** Card colours that sit apart from the teal-deep homepage band (none are white). */
 export const serviceTones = tones
 
-export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone }: { s: ServiceSummary; delay?: number; className?: string; reveal?: boolean; tone?: string }) {
+export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone, compact = false }: { s: ServiceSummary; delay?: number; className?: string; reveal?: boolean; tone?: string; compact?: boolean }) {
   const ref = useSpotlight<HTMLAnchorElement>()
   return (
     <div {...(reveal ? { 'data-reveal': '' } : {})} style={{ ['--d' as string]: `${delay}s` }} className={className}>
@@ -138,7 +138,7 @@ export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone 
         tone ? 'border-pearl/25 hover:border-brass-soft' : 'border-pearl/12 bg-teal-deep hover:border-brass/60'
       }`}
     >
-      <div className="relative aspect-[4/3] overflow-hidden md:aspect-[16/10]">
+      <div className={`relative overflow-hidden ${compact ? 'aspect-[16/9] md:aspect-auto md:h-[clamp(7rem,21svh,11rem)]' : 'aspect-[4/3] md:aspect-[16/10]'}`}>
         <Photo
           src={s.img}
           alt={s.imgAlt}
@@ -149,13 +149,13 @@ export function ServiceCard({ s, delay = 0, className = '', reveal = true, tone 
           className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.08]"
         />
         <span className={`absolute inset-0 bg-gradient-to-t ${tone ? 'from-[var(--card)] via-transparent' : 'from-teal-deep via-teal-deep/20'} to-transparent`} />
-        <span className="display absolute left-6 top-4 text-6xl text-pearl/90 [text-shadow:0_2px_18px_rgba(12,46,49,0.8)] transition-colors duration-500 group-hover:text-brass">{s.index}</span>
+        <span className={`display absolute left-6 top-4 ${compact ? 'text-5xl md:text-4xl' : 'text-6xl'} text-pearl/90 [text-shadow:0_2px_18px_rgba(12,46,49,0.8)] transition-colors duration-500 group-hover:text-brass`}>{s.index}</span>
       </div>
-      <div className="relative p-7 md:p-7">
+      <div className={`relative ${compact ? 'p-6 md:p-5' : 'p-7 md:p-7'}`}>
         <p className={`eyebrow ${tone ? 'text-brass-soft' : 'text-brass'}`}>{s.for}</p>
-        <h3 className="display mt-4 text-[2rem] leading-[1.02] text-pearl md:text-[2.25rem]">{s.title}</h3>
-        <p className={`mt-3 text-[0.98rem] leading-relaxed ${tone ? 'text-pearl/90' : 'text-pearl/72'}`}>{s.summary}</p>
-        <span className={`mt-7 inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] ${tone ? 'text-pearl' : 'text-brass'}`}>
+        <h3 className={`display text-pearl leading-[1.02] ${compact ? 'mt-3 text-[1.75rem] md:mt-2 md:text-[1.6rem]' : 'mt-4 text-[2rem] md:text-[2.25rem]'}`}>{s.title}</h3>
+        <p className={`mt-3 leading-relaxed ${compact ? 'text-[0.95rem] md:mt-2 md:line-clamp-3 md:text-[0.88rem]' : 'text-[0.98rem]'} ${tone ? 'text-pearl/90' : 'text-pearl/72'}`}>{s.summary}</p>
+        <span className={`${compact ? 'mt-5 md:mt-3' : 'mt-7'} inline-flex items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] ${tone ? 'text-pearl' : 'text-brass'}`}>
           Explore
           <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-all duration-500 group-hover:translate-x-1 group-hover:bg-brass group-hover:text-teal-deep ${tone ? 'border-pearl/60' : 'border-brass/50'}`}>
             <ArrowRight className="h-4 w-4" aria-hidden />
@@ -222,7 +222,7 @@ export function ServicesShowcase() {
 
   return (
     <section id="services" ref={outer} className="relative bg-teal-deep text-pearl">
-      <div className="grain jali relative flex flex-col justify-center overflow-hidden py-20 md:sticky md:top-0 md:h-svh md:pb-6 md:pt-24">
+      <div className="grain jali relative flex flex-col justify-center overflow-hidden py-20 md:sticky md:top-0 md:h-svh md:py-0 md:pt-20 md:pb-6">
         <Mandala className="pointer-events-none absolute -right-40 -top-40 h-[560px] w-[560px] opacity-25" />
         <div className="relative mx-auto flex w-full max-w-[1440px] flex-col gap-6 px-5 md:flex-row md:items-end md:justify-between md:px-10">
           <div>
@@ -237,10 +237,10 @@ export function ServicesShowcase() {
           </div>
         </div>
 
-        <div className="rail relative mt-10 overflow-x-auto md:mt-8 md:overflow-hidden">
+        <div className="rail relative mt-10 overflow-x-auto md:mt-6 md:overflow-hidden">
           <div ref={track} className="flex w-max gap-5 px-5 pb-4 will-change-transform md:gap-7 md:px-10 md:pb-0">
             {services.map((s, i) => (
-              <ServiceCard key={s.slug} s={s} reveal={false} tone={serviceTones[i % serviceTones.length]} className="w-[78vw] shrink-0 sm:w-[24rem] md:w-[25rem]" />
+              <ServiceCard key={s.slug} s={s} reveal={false} tone={serviceTones[i % serviceTones.length]} compact className="w-[78vw] shrink-0 sm:w-[24rem] md:w-[22rem]" />
             ))}
           </div>
         </div>
