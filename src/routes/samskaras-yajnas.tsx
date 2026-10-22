@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { Photo } from '@/components/Photo'
-import { Mandala, MoreServices, SpotCard, useScrollProgress } from '@/components/services'
-import { ChipCloud } from '@/components/services'
-import { ContactActions, Eyebrow, PageHero, RevealLines } from '@/components/ui'
+import { Flame, Music2, Flower2 } from 'lucide-react'
+import { ChipCloud, Mandala, MoreServices, useScrollProgress } from '@/components/services'
+import { ContactActions } from '@/components/ui'
+import { AfterHero, ClosingCTA, FeatureCard, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave } from '@/components/service-kit'
 import { communityService, sacredServices, samskaras, serviceHead } from '@/content/services'
 
 export const Route = createFileRoute('/samskaras-yajnas')({
@@ -10,45 +10,50 @@ export const Route = createFileRoute('/samskaras-yajnas')({
   component: Page,
 })
 
+const icons = [Music2, Flower2, Flame]
+
 function Page() {
   const path = useScrollProgress<HTMLOListElement>()
   return (
     <>
-      <PageHero
-        eyebrow="Services · 06"
+      <ServiceHero
+        slug="samskaras-yajnas"
+        index="06"
+        crumb="Samskaras, Yajnas & Pujas"
         title={['Samskaras,', 'Yajnas & Pujas']}
         intro="Sacred rites that mark the great moments of life, and the congregational chanting that sanctifies a home, an office or an event."
         image="/img/vedic-study/yajna-3.jpg"
         imageAlt="A yajna at the Gurukula"
         position="center 40%"
+        chips={['Families', 'Offices', 'Events']}
       />
+      <AfterHero />
 
-      <section className="bg-pearl py-20 md:py-28">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Eyebrow>We come to you</Eyebrow>
-          <RevealLines lines={['Three sacred', <em key="s" className="text-[#8a6f3c]">services.</em>]} className="display mt-5 text-[clamp(2.25rem,5vw,4.5rem)] text-teal" />
+      <section className="relative overflow-hidden bg-pearl py-24 md:py-32">
+        <Wave className="text-teal-deep" />
+        <div className="mx-auto max-w-[1440px] px-5 pt-6 md:px-10">
+          <SectionHead eyebrow="We come to you" lines={['Three sacred', <em key="s" className="text-[#8a6f3c]">services.</em>]} big />
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {sacredServices.map((s, i) => (
-              <SpotCard key={s.title} delay={i * 0.1}>
-                <div className="p-8 md:p-10">
-                  <span className="display text-6xl text-brass">{String(i + 1).padStart(2, '0')}</span>
-                  <h3 className="display mt-5 text-[clamp(1.9rem,3vw,2.6rem)] leading-tight text-teal">{s.title}</h3>
-                  <p className="mt-4 leading-relaxed text-muted">{s.text}</p>
-                </div>
-              </SpotCard>
+              <FeatureCard key={s.title} n={i + 1} icon={icons[i]} title={s.title} text={s.text} delay={i * 0.1} />
             ))}
           </div>
         </div>
       </section>
 
+      <StatBand items={[{ n: 14, label: 'Vedic samskaras' }, { n: 3, label: 'Sacred services' }, { n: 5, label: 'Community services' }]} />
+
       {/* Fourteen samskaras — a path of life that lights up as you scroll */}
-      <section className="grain jali relative overflow-hidden bg-teal-deep py-20 text-pearl md:py-28">
+      <section className="grain jali relative isolate overflow-hidden bg-teal-deep py-24 text-pearl md:py-32">
+        <Petals />
         <Mandala className="pointer-events-none absolute -right-48 top-24 h-[640px] w-[640px] opacity-[0.18]" />
         <div className="relative mx-auto grid max-w-[1440px] gap-12 px-5 md:grid-cols-[1fr_1.5fr] md:px-10">
           <div className="md:sticky md:top-32 md:self-start">
-            <Eyebrow light>The Vedic Samskaras</Eyebrow>
-            <RevealLines lines={['Fourteen rites,', <em key="j" className="text-brass">one life.</em>]} className="display mt-5 text-[clamp(2.5rem,5vw,4.75rem)] text-pearl" />
-            <p data-reveal className="mt-6 max-w-sm leading-relaxed text-pearl/72">From conception to the last rites, and the remembrance of ancestors — each samskara sanctifies a turning point.</p>
+            <SectionHead light eyebrow="The Vedic Samskaras" lines={['Fourteen rites,', <em key="j" className="text-brass">one life.</em>]} big intro="From conception to the last rites, and the remembrance of ancestors — each samskara sanctifies a turning point." />
+            <div className="sv-emblem-float relative mt-10 hidden w-44 md:block" aria-hidden>
+              <div className="sv-halo absolute -inset-8 rounded-full" />
+              <ServiceEmblem slug="samskaras-yajnas" className="relative h-auto w-full" />
+            </div>
           </div>
 
           <ol ref={path} className="relative">
@@ -69,14 +74,12 @@ function Page() {
         </div>
       </section>
 
-      <section className="bg-pearl py-20 md:py-28">
-        <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 md:grid-cols-2 md:px-10">
-          <div data-reveal="mask" className="overflow-hidden rounded-3xl">
-            <Photo src="/img/vedic-study/yajna-preparation.jpg" alt="Students preparing offerings for a yajna" ratio={0.85} widths={[640, 1024, 1400]} width={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full object-cover" />
-          </div>
+      <section className="relative overflow-hidden bg-pearl py-24 md:py-32">
+        <Wave className="text-teal-deep" />
+        <div className="mx-auto grid max-w-[1440px] items-center gap-16 px-5 pt-6 md:px-10 lg:grid-cols-2">
+          <PhotoDuo a={{ src: '/img/vedic-study/yajna-preparation.jpg', alt: 'Students preparing offerings for a yajna' }} b={{ src: '/img/vedic-study/yajna-3.jpg', alt: 'A yajna in progress' }} slug="samskaras-yajnas" />
           <div>
-            <Eyebrow>Community service</Eyebrow>
-            <RevealLines lines={['Service beyond', <em key="s" className="text-[#8a6f3c]">the campus.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,4rem)] text-teal" />
+            <SectionHead eyebrow="Community service" lines={['Service beyond', <em key="s" className="text-[#8a6f3c]">the campus.</em>]} big />
             <div className="mt-8">
               <ChipCloud items={communityService} />
             </div>
@@ -84,11 +87,9 @@ function Page() {
         </div>
       </section>
 
-      <section className="bg-sand py-20 md:py-24">
-        <div className="mx-auto max-w-3xl px-5 md:px-10">
-          <ContactActions label="Call us to your home, office or event" />
-        </div>
-      </section>
+      <ClosingCTA eyebrow="Invite us" lines={['Sanctify your', <em key="m" className="text-[#8a6f3c]">moment.</em>]} text="Call us to your home, office or event.">
+        <ContactActions label="Call us to your home, office or event" />
+      </ClosingCTA>
 
       <MoreServices current="samskaras-yajnas" />
     </>

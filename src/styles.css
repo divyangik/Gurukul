@@ -2869,3 +2869,403 @@ body {
     aspect-ratio: 4 / 5;
   }
 }
+/* ─────────────────────────────────────────────────────────────
+   Services pages (`sv-`) — line emblems that draw themselves,
+   halos, orbiting chips, wave dividers, ghost numerals, cards
+   ───────────────────────────────────────────────────────────── */
+
+/* Emblem: every path draws itself in sequence (--i), then soft fills fade in */
+.sv-emblem {
+  overflow: visible;
+  fill: none;
+  stroke: var(--color-brass);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sv-emblem path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: sv-draw 2.4s var(--ease-silk) forwards;
+  animation-delay: calc(0.5s + var(--i, 0) * 0.22s);
+}
+
+.sv-emblem .sv-fill {
+  fill: rgb(183 154 97 / 0);
+  animation: sv-draw 2.4s var(--ease-silk) forwards, sv-fill-in 1.6s ease forwards;
+  animation-delay: calc(0.5s + var(--i, 0) * 0.22s), calc(1.6s + var(--i, 0) * 0.22s);
+}
+
+.sv-emblem .sv-soft {
+  stroke: var(--color-brass-soft);
+  stroke-opacity: 0.65;
+  stroke-width: 1.2;
+}
+
+@keyframes sv-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes sv-fill-in {
+  to {
+    fill: rgb(183 154 97 / 0.16);
+  }
+}
+
+.sv-flicker {
+  transform-origin: 50% 90%;
+  animation: sv-flicker 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes sv-flicker {
+  0% {
+    transform: scale(1, 1) skewX(0deg);
+  }
+
+  35% {
+    transform: scale(1.015, 1.035) skewX(-1.2deg);
+  }
+
+  70% {
+    transform: scale(0.99, 1.02) skewX(1deg);
+  }
+
+  100% {
+    transform: scale(1.01, 1.04) skewX(-0.6deg);
+  }
+}
+
+.sv-emblem-float {
+  animation: sv-float 8s ease-in-out infinite alternate;
+}
+
+@keyframes sv-float {
+  from {
+    transform: translate3d(0, -8px, 0) rotate(-1deg);
+  }
+
+  to {
+    transform: translate3d(0, 10px, 0) rotate(1deg);
+  }
+}
+
+.sv-halo {
+  background: radial-gradient(circle, rgb(212 191 148 / 0.26), rgb(183 154 97 / 0.08) 45%, transparent 70%);
+  animation: sv-halo 6s ease-in-out infinite alternate;
+}
+
+@keyframes sv-halo {
+  from {
+    transform: scale(0.94);
+    opacity: 0.7;
+  }
+
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+
+/* Giant outlined index numeral behind the hero emblem */
+.sv-ghost {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(212 191 148 / 0.35);
+  user-select: none;
+}
+
+/* Wave divider that sits on the edge of a section (parent must be relative) */
+.sv-wave {
+  position: absolute;
+  inset-inline: 0;
+  top: -1px;
+  z-index: 2;
+  height: clamp(36px, 6vw, 90px);
+  pointer-events: none;
+  line-height: 0;
+}
+
+.sv-wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.sv-wave--bottom {
+  top: auto;
+  bottom: -1px;
+  transform: scaleY(-1);
+}
+
+/* Orbit: chips ride a slowly turning ring and stay upright */
+.sv-orbit {
+  position: relative;
+  width: min(100%, 44rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.sv-orbit-ring {
+  position: absolute;
+  inset: 0;
+  animation: sv-orbit 140s linear infinite;
+}
+
+.sv-orbit:hover .sv-orbit-ring,
+.sv-orbit:hover .sv-orbit-item {
+  animation-play-state: paused;
+}
+
+.sv-orbit-item {
+  position: absolute;
+  white-space: nowrap;
+  animation: sv-orbit-back 140s linear infinite;
+  translate: -50% -50%;
+}
+
+@keyframes sv-orbit {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sv-orbit-back {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* Feature card: icon medallion + brass underline that grows on hover */
+.sv-card-line {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 3px;
+  transform: scaleX(0);
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color-brass), var(--color-brass-soft));
+  transition: transform 0.8s var(--ease-silk);
+}
+
+.group:hover > .sv-card-line {
+  transform: scaleX(1);
+}
+
+.sv-medal {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 999px;
+  border: 1px solid rgb(183 154 97 / 0.6);
+  color: var(--color-brass);
+  background: radial-gradient(circle at 30% 25%, rgb(212 191 148 / 0.22), rgb(183 154 97 / 0.04));
+  transition: transform 0.7s var(--ease-silk), background-color 0.5s, color 0.5s;
+}
+
+.sv-medal::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: inherit;
+  border: 1px dashed rgb(183 154 97 / 0.45);
+  animation: spin-slow 24s linear infinite;
+}
+
+.group:hover .sv-medal {
+  transform: rotate(-8deg) scale(1.08);
+  background-color: var(--color-brass);
+  color: var(--color-teal-deep);
+}
+
+/* Fat numerals that fill in as a card is hovered */
+.sv-outline-num {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(183 154 97 / 0.7);
+  transition: color 0.6s var(--ease-silk);
+}
+
+.group:hover .sv-outline-num {
+  color: rgb(183 154 97 / 0.9);
+}
+
+/* Scroll progress hairline at the very top of a service page */
+.sv-progress {
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 65;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, var(--color-brass), var(--color-brass-soft));
+  transform: scaleX(var(--sv-p, 0));
+  transform-origin: left;
+}
+
+/* Two overlapping photographs with a turning seal */
+.sv-duo {
+  position: relative;
+  padding: 0 0 3.5rem 0;
+}
+
+.sv-duo__a {
+  width: 78%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 40px 70px -40px rgb(12 46 49 / 0.55);
+}
+
+.sv-duo__b {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 52%;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  border: 6px solid var(--color-pearl);
+  box-shadow: 0 30px 60px -30px rgb(12 46 49 / 0.55);
+}
+
+.sv-duo--sand .sv-duo__b {
+  border-color: var(--color-sand);
+}
+
+.sv-seal {
+  position: absolute;
+  left: 62%;
+  top: -1.5rem;
+  z-index: 2;
+  width: 6.5rem;
+  height: 6.5rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: var(--color-teal-deep);
+  color: var(--color-brass);
+  box-shadow: 0 18px 40px -18px rgb(12 46 49 / 0.7);
+}
+
+/* Rising soft bubbles/petals for dark chapters (deterministic positions in JSX) */
+.sv-petal {
+  position: absolute;
+  bottom: -40px;
+  width: var(--s, 14px);
+  height: calc(var(--s, 14px) * 1.5);
+  border-radius: 100% 0 100% 0;
+  background: linear-gradient(135deg, rgb(212 191 148 / 0.5), rgb(183 154 97 / 0.08));
+  opacity: 0;
+  animation: sv-petal var(--t, 16s) linear infinite;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes sv-petal {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  90% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translate3d(var(--sway, 30px), -110vh, 0) rotate(260deg);
+    opacity: 0;
+  }
+}
+
+/* Audience filter pills on the Services hub */
+.sv-pill {
+  border: 1px solid rgb(245 240 231 / 0.25);
+  border-radius: 999px;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-pearl);
+  transition: background-color 0.4s, color 0.4s, border-color 0.4s;
+}
+
+.sv-pill:hover {
+  border-color: var(--color-brass);
+}
+
+.sv-pill[aria-pressed="true"] {
+  background: var(--color-brass);
+  border-color: var(--color-brass);
+  color: var(--color-teal-deep);
+}
+
+/* Ring of mini emblems on the hub hero */
+.sv-ring {
+  position: relative;
+  width: min(100%, 26rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.sv-ring__turn {
+  position: absolute;
+  inset: 0;
+  animation: sv-orbit 120s linear infinite;
+}
+
+.sv-ring__item {
+  position: absolute;
+  width: 24%;
+  translate: -50% -50%;
+  animation: sv-orbit-back 120s linear infinite;
+}
+
+@media (max-width: 767px) {
+  .sv-duo {
+    padding-bottom: 2.5rem;
+  }
+
+  .sv-seal {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .sv-emblem path,
+  .sv-emblem .sv-fill {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+
+  .sv-emblem .sv-fill {
+    fill: rgb(183 154 97 / 0.16);
+  }
+
+  .sv-flicker,
+  .sv-emblem-float,
+  .sv-halo,
+  .sv-orbit-ring,
+  .sv-orbit-item,
+  .sv-petal,
+  .sv-medal::after,
+  .sv-ring__turn,
+  .sv-ring__item {
+    animation: none;
+  }
+
+  .sv-petal {
+    display: none;
+  }
+}

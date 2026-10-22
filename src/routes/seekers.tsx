@@ -1,7 +1,8 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { ContactActions, Eyebrow, GalleryTile, NumberedList, PageHero, RevealLines, YouTube, useLightbox, type GalleryImage } from '@/components/ui'
+import { ContactActions, Eyebrow, GalleryTile, NumberedList, RevealLines, YouTube, useLightbox, type GalleryImage } from '@/components/ui'
+import { AfterHero, Petals, ServiceHero, StatBand } from '@/components/service-kit'
 import { EduNext, EduSectionNav, WordMarquee } from '@/components/education'
 import { pilgrimagePlaces, seekerPaths, videos } from '@/content/education'
 
@@ -40,8 +41,13 @@ function Page() {
   const { open, node } = useLightbox(campImages)
   return (
     <>
-      <PageHero
-        eyebrow="Education · For Seekers"
+      <ServiceHero
+        slug="seekers"
+        index="01"
+        crumb="Seekers"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        chips={['Talks', 'Pilgrimages', 'Camps']}
         title={['Every journey', 'begins with a question.']}
         intro="Whether you are curious about the Bhagavad-gita, searching for purpose, or simply drawn to a more meaningful way of life — there is a door open for you here."
         image="/img/festivals/jhulan-1.jpg"
@@ -49,6 +55,7 @@ function Page() {
         position="center 30%"
       />
       <EduSectionNav />
+      <AfterHero />
 
       {/* Three pathways — alternating editorial rows */}
       <section className="bg-pearl py-20 md:py-28">
@@ -89,8 +96,11 @@ function Page() {
         </div>
       </section>
 
+      <StatBand items={[{ n: seekerPaths.length, label: 'Pathways to begin' }, { n: pilgrimagePlaces.length, label: 'Pilgrimage places' }, { n: firstSteps.length, label: 'First steps' }]} />
+
       {/* Talks */}
-      <section className="grain relative bg-teal-deep py-20 text-pearl md:py-28">
+      <section className="grain relative isolate overflow-hidden bg-teal-deep py-20 text-pearl md:py-28">
+        <Petals />
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
           <Eyebrow light>Spirituality for the Modern Age</Eyebrow>
           <RevealLines lines={['Listen first,', <em key="l" className="text-brass-soft">then decide.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)]" />
@@ -141,7 +151,8 @@ function Page() {
       </section>
 
       {/* First steps */}
-      <section className="grain relative bg-slate py-20 text-pearl md:py-28">
+      <section className="grain relative isolate overflow-hidden bg-slate py-20 text-pearl md:py-28">
+        <Petals />
         <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 md:grid-cols-2 md:px-10">
           <div>
             <Eyebrow light>Five First Steps</Eyebrow>

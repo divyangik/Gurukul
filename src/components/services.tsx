@@ -3,7 +3,7 @@ import { Link } from '@tanstack/react-router'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { Photo } from './Photo'
 import { Eyebrow, RevealLines } from './ui'
-import { otherServices, services, type ServiceSlug, type ServiceSummary } from '@/content/services'
+import { services, type ServiceSlug, type ServiceSummary } from '@/content/services'
 import { tones } from '@/lib/tones'
 
 /* ── Pointer spotlight: a soft brass glow that follows the cursor ── */
@@ -301,44 +301,22 @@ export function ChipCloud({ items, dark }: { items: string[]; dark?: boolean }) 
 /* ── "Continue exploring" strip at the foot of each service ─── */
 
 export function MoreServices({ current }: { current: ServiceSlug }) {
-  const list = otherServices(current)
   const idx = services.findIndex((s) => s.slug === current)
   const next = services[(idx + 1) % services.length]
   return (
-    <>
-      <section className="grain relative overflow-hidden bg-teal-deep text-pearl">
-        <Link to={next.to} className="group relative block">
-          <div className="mx-auto flex max-w-[1440px] items-end justify-between gap-6 px-5 py-20 md:px-10 md:py-28">
-            <div>
-              <p className="eyebrow text-brass">Next service · {next.index}</p>
-              <p className="display mt-5 text-[clamp(2.5rem,7vw,6.5rem)] leading-none transition-transform duration-700 ease-[var(--ease-silk)] group-hover:translate-x-3">{next.title}</p>
-            </div>
-            <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-brass/60 text-brass transition-all duration-500 group-hover:bg-brass group-hover:text-teal-deep md:h-24 md:w-24">
-              <ArrowRight className="h-6 w-6 md:h-8 md:w-8" aria-hidden />
-            </span>
+    <section className="grain relative overflow-hidden bg-[#7a5f2e] text-pearl">
+      <Link to={next.to} className="group relative block">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-5 py-8 md:px-10 md:py-10">
+          <div>
+            <p className="eyebrow text-pearl/80">Next service · {next.index}</p>
+            <p className="display mt-2 text-[clamp(1.75rem,3.5vw,2.75rem)] leading-none transition-transform duration-700 ease-[var(--ease-silk)] group-hover:translate-x-2">{next.title}</p>
           </div>
-          <span aria-hidden className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-brass transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-x-100" />
-        </Link>
-      </section>
-      <section className="bg-sand py-16 md:py-20">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <p data-reveal className="eyebrow text-[#8a6f3c]">All services</p>
-          <ul className="mt-6 flex flex-wrap gap-3">
-            {list.map((s, i) => (
-              <li key={s.slug} data-reveal="scale" style={{ ['--d' as string]: `${i * 0.05}s` }}>
-                <Link to={s.to} className="inline-flex rounded-full border border-teal/25 px-5 py-3 text-sm font-semibold text-teal transition-colors duration-500 hover:border-teal hover:bg-teal hover:text-pearl">
-                  {s.title}
-                </Link>
-              </li>
-            ))}
-            <li data-reveal="scale">
-              <Link to="/services" className="inline-flex rounded-full bg-teal px-5 py-3 text-sm font-semibold text-pearl transition-colors duration-500 hover:bg-brass hover:text-teal-deep">
-                Overview
-              </Link>
-            </li>
-          </ul>
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-pearl/60 text-pearl transition-all duration-500 group-hover:bg-pearl group-hover:text-[#7a5f2e] md:h-14 md:w-14">
+            <ArrowRight className="h-5 w-5" aria-hidden />
+          </span>
         </div>
-      </section>
-    </>
+        <span aria-hidden className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-pearl transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-x-100" />
+      </Link>
+    </section>
   )
 }

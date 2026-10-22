@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { Check } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { AdmissionsCTA, Eyebrow, GalleryTile, PageHero, RevealLines, useLightbox } from '@/components/ui'
+import { AdmissionsCTA, Eyebrow, GalleryTile, RevealLines, useLightbox } from '@/components/ui'
+import { AfterHero, Petals, ServiceHero } from '@/components/service-kit'
 import { EduNext, EduSectionNav, Mandala, PhotoMarquee, StatBand } from '@/components/education'
 import { shikshaStages, studentGallery, trainingTypes } from '@/content/education'
 
@@ -24,8 +25,13 @@ function Page() {
   const { open, node } = useLightbox(studentGallery)
   return (
     <>
-      <PageHero
-        eyebrow="Education · Students"
+      <ServiceHero
+        slug="student"
+        index="02"
+        crumb="Students"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        chips={['Five stages', 'Five streams']}
         title={['Growing,', 'stage by stage.']}
         intro="A gurukula education is a journey of the whole person. Five Shiksha stages mark how a student matures — in practice, character, learning and service."
         image="/img/academic-study/academic-study.jpg"
@@ -33,6 +39,7 @@ function Page() {
         position="center 40%"
       />
       <EduSectionNav />
+      <AfterHero />
 
       <StageJourney />
 
@@ -139,7 +146,8 @@ function StageJourney() {
   const progress = (active / (shikshaStages.length - 1)) * 100
 
   return (
-    <section className="grain jali relative overflow-hidden bg-teal py-20 text-pearl md:py-28">
+    <section className="grain jali relative isolate overflow-hidden bg-teal py-20 text-pearl md:py-28">
+      <Petals />
       <Mandala className="pointer-events-none absolute -left-60 bottom-[-18rem] h-[40rem] w-[40rem] text-brass/15" />
       <div className="relative mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">

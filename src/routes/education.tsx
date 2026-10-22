@@ -2,7 +2,8 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { AdmissionsCTA, Eyebrow, RevealLines } from '@/components/ui'
-import { EduSectionNav, Mandala, PhotoMarquee, StatBand, WordMarquee } from '@/components/education'
+import { AfterHero, Petals, ServiceHero } from '@/components/service-kit'
+import { EduSectionNav, PhotoMarquee, StatBand, WordMarquee } from '@/components/education'
 import { educationPages, studentGallery } from '@/content/education'
 
 const pillars = ['Sadhana', 'Seva', 'Sastra', 'Samskara', 'Sanga', 'Sadachara']
@@ -25,25 +26,20 @@ function Page() {
   return (
     <>
       {/* Hero — photo collage with turning mandala */}
-      <section className="grain jali relative isolate overflow-hidden bg-teal text-pearl">
-        <Mandala className="pointer-events-none absolute -right-48 -top-48 -z-10 h-[46rem] w-[46rem] text-brass/20" />
-        <div className="mx-auto grid min-h-[92svh] max-w-[1440px] items-center gap-12 px-5 pb-20 pt-36 md:grid-cols-[1.1fr_1fr] md:px-10">
-          <div>
-            <Eyebrow light>Bhaktivedanta Education</Eyebrow>
-            <RevealLines as="h1" lines={['Education for', <em key="e" className="text-brass-soft">the whole person.</em>]} className="display mt-6 text-[clamp(2.9rem,7vw,6.5rem)]" />
-            <p data-reveal style={{ ['--d' as string]: '0.3s' }} className="mt-8 max-w-xl text-lg leading-relaxed text-pearl/80">
-              Six doors into one tradition. Whether you are searching, studying, raising a child or leading others — there is a pathway shaped for you.
-            </p>
-            <div data-reveal style={{ ['--d' as string]: '0.45s' }} className="mt-10 flex flex-wrap gap-3">
-              <a href="#pathways" className="btn btn-brass">
-                Explore pathways <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
-              </a>
-              <Link to="/videos" className="btn btn-ghost-light">
-                Watch a talk
-              </Link>
-            </div>
-          </div>
-          <div className="relative hidden h-[34rem] md:block" aria-hidden>
+      <ServiceHero
+        slug="education"
+        index="06"
+        crumb="Overview"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        title={['Education for', 'the whole person.']}
+        intro="Six doors into one tradition. Whether you are searching, studying, raising a child or leading others — there is a pathway shaped for you."
+        image="/img/academic-study/academic-study-1.jpg"
+        imageAlt="Students studying at the Gurukula"
+        position="center 40%"
+        chips={['Seekers', 'Students', 'Parents', 'Teachers', 'Leaders']}
+        aside={
+          <div className="relative mx-auto h-[30rem] w-full max-w-[28rem]" aria-hidden>
             <div data-reveal="mask" className="float-y absolute left-0 top-6 h-72 w-56 overflow-hidden rounded-[2rem] shadow-2xl" style={{ ['--d' as string]: '0.1s' }}>
               <Photo src="/img/academic-study/academic-study.jpg" alt="" ratio={1.3} widths={[400, 700]} width={500} sizes="240px" className="h-full w-full object-cover" />
             </div>
@@ -54,10 +50,20 @@ function Page() {
               <Photo src="/img/education/teacher-training.jpg" alt="" ratio={0.9} widths={[400, 700]} width={600} sizes="300px" className="h-full w-full object-cover" />
             </div>
           </div>
+        }
+      >
+        <div className="flex flex-wrap gap-3">
+          <a href="#pathways" className="btn btn-brass">
+            Explore pathways <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
+          </a>
+          <Link to="/videos" className="btn btn-ghost-light">
+            Watch a talk
+          </Link>
         </div>
-      </section>
+      </ServiceHero>
 
       <EduSectionNav />
+      <AfterHero />
 
       {/* Pathways */}
       <section id="pathways" className="bg-pearl py-20 md:py-28">
@@ -106,7 +112,8 @@ function Page() {
       </section>
 
       {/* Values + stats */}
-      <section className="grain relative bg-slate py-20 text-pearl md:py-28">
+      <section className="grain relative isolate overflow-hidden bg-slate py-20 text-pearl md:py-28">
+        <Petals />
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
           <div className="grid items-center gap-12 md:grid-cols-2">
             <div data-reveal="mask" className="overflow-hidden rounded-3xl">

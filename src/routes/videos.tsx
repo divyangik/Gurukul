@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, MonitorPlay, Play } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { Eyebrow, PageHero, RevealLines, YouTube } from '@/components/ui'
+import { Eyebrow, RevealLines, YouTube } from '@/components/ui'
+import { AfterHero, Petals, ServiceHero, StatBand } from '@/components/service-kit'
 import { EduNext, EduSectionNav, PhotoMarquee } from '@/components/education'
 import { channels, videos } from '@/content/education'
 
@@ -26,8 +27,13 @@ function Page() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Education · Videos"
+      <ServiceHero
+        slug="videos"
+        index="05"
+        crumb="Videos"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        chips={['Parenting', 'Spirituality', 'Campus life']}
         title={['Watch, listen,', 'reflect.']}
         intro="Talks on the art of parenting, spirituality for the modern age and life at the Gurukula — shared freely on our two YouTube channels."
         image="/img/talentshow/drama3.jpg"
@@ -35,9 +41,11 @@ function Page() {
         position="center 35%"
       />
       <EduSectionNav />
+      <AfterHero />
 
       {/* Player + playlist */}
-      <section className="grain relative bg-teal-deep py-20 text-pearl md:py-28">
+      <section className="grain relative isolate overflow-hidden bg-teal-deep py-20 text-pearl md:py-28">
+        <Petals />
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
           <Eyebrow light>Featured Talks</Eyebrow>
           <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
@@ -95,6 +103,8 @@ function Page() {
           </div>
         </div>
       </section>
+
+      <StatBand items={[{ n: videos.length, label: 'Featured talks' }, { n: channels.length, label: 'YouTube channels' }]} />
 
       {/* Channels */}
       <section className="bg-pearl py-20 md:py-28">

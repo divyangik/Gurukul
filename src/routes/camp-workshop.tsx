@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, Clock, Users } from 'lucide-react'
-import { ChipCloud, Mandala, MoreServices, SpotCard } from '@/components/services'
-import { ContactActions, Eyebrow, PageHero, RevealLines } from '@/components/ui'
+import { ChipCloud, MoreServices, SpotCard } from '@/components/services'
+import { ContactActions } from '@/components/ui'
+import { AfterHero, ClosingCTA, PhotoDuo, Petals, SectionHead, ServiceHero, StatBand, Wave } from '@/components/service-kit'
 import { camps, serviceHead, weekendWorkshops } from '@/content/services'
 
 export const Route = createFileRoute('/camp-workshop')({
@@ -12,26 +13,32 @@ export const Route = createFileRoute('/camp-workshop')({
 function Page() {
   return (
     <>
-      <PageHero
-        eyebrow="Services · 04"
+      <ServiceHero
+        slug="camp-workshop"
+        index="04"
+        crumb="Camps & Workshops"
         title={['Camps &', 'Workshops']}
         intro="Camps run throughout the year, with lodging and boarding on the Gurukula campus. Come for a weekend and live the rhythm of Vedic culture."
         image="/img/sports/dhavaleshwar-trek-1.jpg"
         imageAlt="Children trekking near Dhavaleshwar"
         position="center 55%"
+        chips={['Children', 'Parents', 'Educators']}
       />
+      <AfterHero />
 
-      <section className="bg-pearl py-20 md:py-28">
-        <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <Eyebrow>Through the year</Eyebrow>
-          <RevealLines lines={['Four camps,', <em key="c" className="text-[#8a6f3c]">one campus.</em>]} className="display mt-5 text-[clamp(2.25rem,5vw,4.5rem)] text-teal" />
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+      <section className="relative overflow-hidden bg-pearl py-24 md:py-32">
+        <Wave className="text-teal-deep" />
+        <div className="mx-auto max-w-[1440px] px-5 pt-6 md:px-10">
+          <SectionHead eyebrow="Through the year" lines={['Four camps,', <em key="c" className="text-[#8a6f3c]">one campus.</em>]} big />
+          <div className="relative mt-14 grid gap-6 md:grid-cols-2">
             {camps.map((c, i) => (
               <SpotCard key={c.title} delay={(i % 2) * 0.1}>
-                <div className="flex h-full flex-col p-8 md:p-10">
+                <div className="relative flex h-full flex-col p-8 md:p-10">
                   <div className="flex items-start justify-between gap-4">
-                    <span className="display text-6xl text-brass">{String(i + 1).padStart(2, '0')}</span>
-                    <span className="pulse-ring mt-3 h-3 w-3 rounded-full bg-brass" aria-hidden />
+                    <span className="sv-outline-num text-7xl">{String(i + 1).padStart(2, '0')}</span>
+                    <span className="mt-3 inline-flex items-center gap-2 rounded-full border border-brass/50 bg-brass/10 px-3.5 py-1.5 text-[0.65rem] font-bold uppercase tracking-[0.16em] text-[#8a6f3c]">
+                      <span className="pulse-ring h-2 w-2 rounded-full bg-brass" aria-hidden /> {c.when.split(' · ')[0]}
+                    </span>
                   </div>
                   <h3 className="display mt-4 text-[clamp(1.9rem,3vw,2.6rem)] leading-tight text-teal">{c.title}</h3>
                   <p className="mt-3 leading-relaxed text-muted">{c.text}</p>
@@ -51,6 +58,7 @@ function Page() {
                       </div>
                     )}
                   </dl>
+                  <span className="sv-card-line" aria-hidden />
                 </div>
               </SpotCard>
             ))}
@@ -58,24 +66,31 @@ function Page() {
         </div>
       </section>
 
-      <section className="grain jali relative overflow-hidden bg-teal-deep py-20 text-pearl md:py-28">
-        <Mandala className="pointer-events-none absolute -left-40 -bottom-40 h-[560px] w-[560px] opacity-20" />
-        <div className="relative mx-auto grid max-w-[1440px] gap-10 px-5 md:grid-cols-[1fr_1.4fr] md:px-10">
+      <StatBand
+        items={[
+          { n: 4, label: 'Camps through the year' },
+          { n: 3, label: 'Day orientation camp' },
+          { n: 2, label: 'Day weekend camps' },
+          { n: 8, label: 'Weekend workshop themes' },
+        ]}
+      />
+
+      <section className="grain jali relative isolate overflow-hidden bg-teal-deep py-24 text-pearl md:py-32">
+        <Petals />
+        <div className="relative mx-auto grid max-w-[1440px] items-center gap-16 px-5 md:px-10 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
-            <Eyebrow light>Weekend camps for everyone · on demand</Eyebrow>
-            <RevealLines lines={['Workshops', <em key="w" className="text-brass">for family life.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,4rem)] text-pearl" />
+            <SectionHead light eyebrow="Weekend camps for everyone · on demand" lines={['Workshops', <em key="w" className="text-brass">for family life.</em>]} big />
+            <div className="mt-10">
+              <ChipCloud dark items={weekendWorkshops} />
+            </div>
           </div>
-          <div className="self-end">
-            <ChipCloud dark items={weekendWorkshops} />
-          </div>
+          <PhotoDuo a={{ src: '/img/sports/dhavaleshwar-trek-2.jpg', alt: 'Children on a trek' }} b={{ src: '/img/sports/yoga.jpg', alt: 'Yoga on campus' }} slug="camp-workshop" />
         </div>
       </section>
 
-      <section className="bg-sand py-20 md:py-24">
-        <div className="mx-auto max-w-3xl px-5 md:px-10">
-          <ContactActions label="To register / know more, contact" />
-        </div>
-      </section>
+      <ClosingCTA eyebrow="Join a camp" lines={['Come for a weekend,', <em key="s" className="text-[#8a6f3c]">stay for the rhythm.</em>]} text="Lodging and boarding are available on campus at Uruli Kanchan.">
+        <ContactActions label="To register / know more, contact" />
+      </ClosingCTA>
 
       <MoreServices current="camp-workshop" />
     </>

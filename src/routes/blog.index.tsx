@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight, Clock } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { Eyebrow, PageHero, RevealLines } from '@/components/ui'
+import { Eyebrow, RevealLines } from '@/components/ui'
+import { AfterHero, ServiceHero } from '@/components/service-kit'
 import { EduNext, EduSectionNav, formatDate } from '@/components/education'
 import { postCategories, posts } from '@/content/education'
 
@@ -27,14 +28,20 @@ function Page() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Education · Blog"
+      <ServiceHero
+        slug="blog"
+        index="04"
+        crumb="Blog"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        chips={['Festivals', 'Treks', 'Classrooms']}
         title={['Stories from', 'the ashram.']}
         intro="Festivals, treks, classrooms and quiet mornings at the goshala — notes on the life and ideas that shape a gurukula education."
         image="/img/sports/dhavaleshwar-trek-2.jpg"
         imageAlt="Students walking along a Sahyadri ridge"
       />
       <EduSectionNav />
+      <AfterHero />
 
       {/* Featured */}
       <section className="bg-pearl py-20 md:py-24">

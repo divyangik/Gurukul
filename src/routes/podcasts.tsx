@@ -3,6 +3,7 @@ import { ArrowUpRight, Headphones, Mic } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { ContactActions, Eyebrow, RevealLines, YouTube } from '@/components/ui'
 import { EduNext, EduSectionNav, Mandala } from '@/components/education'
+import { AfterHero, Petals, ServiceHero } from '@/components/service-kit'
 import { channels, podcastSeries, videos } from '@/content/education'
 
 const lotusVoice = channels.find((c) => c.handle === '@LotusVoiceVideos')!
@@ -24,43 +25,35 @@ export const Route = createFileRoute('/podcasts')({
 function Page() {
   return (
     <>
-      {/* Hero — studio illustration with live equaliser */}
-      <section className="grain relative isolate overflow-hidden bg-teal-deep text-pearl">
-        <div className="absolute inset-0 -z-10">
-          <div data-parallax="0.15" className="absolute inset-[-8%_0]">
-            <Photo src="/img/education/podcast.jpg" alt="" priority widths={[640, 1024, 1600, 2200]} width={1600} className="kenburns h-full w-full object-cover" />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-deep via-teal-deep/85 to-teal-deep/10" />
-        </div>
-        <div className="mx-auto flex min-h-[86svh] max-w-[1440px] flex-col justify-end px-5 pb-16 pt-36 md:px-10 md:pb-24">
-          <Eyebrow light>Education · Podcasts</Eyebrow>
-          <h1 className="display mt-6 max-w-4xl text-[clamp(2.9rem,8vw,7.5rem)]">
-            {['Wisdom', 'for the road.'].map((w, i) => (
-              <span key={w} className="hero-word block" style={{ ['--d' as string]: `${0.1 + i * 0.15}s` }}>
-                <span>{w}</span>
-              </span>
-            ))}
-          </h1>
-          <p className="hero-fade mt-8 max-w-xl text-lg leading-relaxed text-pearl/80" style={{ ['--d' as string]: '0.5s' }}>
-            Long-form conversations from Bhaktivedanta Education — on parenting, purpose and the gurukula way of life. Made for commutes, kitchens and quiet evenings.
-          </p>
-          <div className="hero-fade mt-10 flex flex-wrap items-center gap-6" style={{ ['--d' as string]: '0.7s' }}>
-            <a href={lotusVoice.href} target="_blank" rel="noreferrer" className="btn btn-brass">
-              <Headphones className="h-4 w-4" aria-hidden /> Listen on YouTube
-            </a>
-            <span className="flex items-center gap-3 text-sm text-pearl/70">
-              <span className="eq flex h-6 items-end gap-1 text-brass" aria-hidden>
-                <span />
-                <span />
-                <span />
-                <span />
-              </span>
-              New episodes in production
+      <ServiceHero
+        slug="podcasts"
+        index="06"
+        crumb="Podcasts"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        title={['Wisdom', 'for the road.']}
+        intro="Long-form conversations from Bhaktivedanta Education — on parenting, purpose and the gurukula way of life. Made for commutes, kitchens and quiet evenings."
+        image="/img/education/podcast.jpg"
+        imageAlt=""
+        position="center 40%"
+      >
+        <div className="flex flex-wrap items-center gap-6">
+          <a href={lotusVoice.href} target="_blank" rel="noreferrer" className="btn btn-brass">
+            <Headphones className="h-4 w-4" aria-hidden /> Listen on YouTube
+          </a>
+          <span className="flex items-center gap-3 text-sm text-pearl/70">
+            <span className="eq flex h-6 items-end gap-1 text-brass" aria-hidden>
+              <span />
+              <span />
+              <span />
+              <span />
             </span>
-          </div>
+            New episodes in production
+          </span>
         </div>
-      </section>
+      </ServiceHero>
       <EduSectionNav />
+      <AfterHero />
 
       {/* Series */}
       <section className="bg-pearl py-20 md:py-28">
@@ -107,7 +100,8 @@ function Page() {
       </section>
 
       {/* Listen now */}
-      <section className="grain relative overflow-hidden bg-slate py-20 text-pearl md:py-28">
+      <section className="grain relative isolate overflow-hidden bg-slate py-20 text-pearl md:py-28">
+        <Petals />
         <Mandala className="pointer-events-none absolute -right-52 -top-52 h-[38rem] w-[38rem] text-brass/15" />
         <div className="relative mx-auto grid max-w-[1440px] items-center gap-12 px-5 md:grid-cols-[1fr_1.3fr] md:px-10">
           <div>

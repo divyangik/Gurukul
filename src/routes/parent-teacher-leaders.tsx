@@ -1,7 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, CalendarDays } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { ContactActions, Eyebrow, PageHero, RevealLines } from '@/components/ui'
+import { ContactActions, Eyebrow, RevealLines } from '@/components/ui'
+import { AfterHero, ServiceHero, StatBand } from '@/components/service-kit'
 import { EduNext, EduSectionNav, HScrollGallery, Mandala, WordMarquee } from '@/components/education'
 import { adultProgrammes, anubhuti, openDay, pilgrimagePlaces } from '@/content/education'
 
@@ -31,8 +32,13 @@ export const Route = createFileRoute('/parent-teacher-leaders')({
 function Page() {
   return (
     <>
-      <PageHero
-        eyebrow="Education · Parents · Teachers · Leaders"
+      <ServiceHero
+        slug="parent-teacher-leaders"
+        index="03"
+        crumb="Parents · Teachers · Leaders"
+        parent={{ label: 'Education', to: '/education' }}
+        wave="text-pearl"
+        chips={['Parents', 'Teachers', 'Leaders']}
         title={['Those who', 'shape the young.']}
         intro="Children become what the adults around them are. Our programmes for parents, teachers and leaders bring gurukula principles into homes, classrooms and communities."
         image="/img/vedic-study/yajna-preparation.jpg"
@@ -40,6 +46,7 @@ function Page() {
         position="center 35%"
       />
       <EduSectionNav />
+      <AfterHero />
 
       {/* Anubhuti */}
       <section className="relative overflow-hidden bg-pearl py-20 md:py-28">
@@ -72,6 +79,8 @@ function Page() {
           </div>
         </div>
       </section>
+
+      <StatBand dark items={[{ n: adultProgrammes.length, label: 'Courses & programmes' }, { n: yatraStops.length, label: 'Pilgrimage journeys' }, { n: pilgrimagePlaces.length, label: 'Holy places visited' }]} />
 
       {/* Programmes */}
       <section className="bg-sand py-20 md:py-28">

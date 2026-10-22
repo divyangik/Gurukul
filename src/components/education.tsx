@@ -148,28 +148,24 @@ export function StatBand({ stats, dark }: { stats: { n: number; suffix?: string;
   )
 }
 
-/* ── “Continue to” teaser for the next Education page ──────── */
+/* ── “Continue to” strip for the next Education page ───────── */
 
 export function EduNext({ current }: { current: string }) {
   const i = educationPages.findIndex((p) => p.to === current)
   const next = educationPages[(i + 1) % educationPages.length]
   return (
-    <section className="bg-pearl">
-      <Link to={next.to} className="group relative isolate block overflow-hidden bg-teal text-pearl">
-        <div className="absolute inset-0 -z-10">
-          <Photo src={next.img} alt="" widths={[640, 1024, 1600, 2200]} width={1600} className="h-full w-full object-cover opacity-50 transition-transform duration-[2s] ease-[var(--ease-silk)] group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-r from-teal-deep via-teal-deep/80 to-teal-deep/30" />
-        </div>
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-5 py-20 md:flex-row md:items-end md:justify-between md:px-10 md:py-28">
+    <section className="grain relative overflow-hidden bg-[#7a5f2e] text-pearl">
+      <Link to={next.to} className="group relative block">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-5 py-8 md:px-10 md:py-10">
           <div>
-            <p className="eyebrow text-brass">Continue in Education</p>
-            <p className="display mt-5 text-[clamp(2.75rem,7vw,6rem)]">{next.label}</p>
-            <p className="mt-4 max-w-lg text-pearl/75">{next.text}</p>
+            <p className="eyebrow text-pearl/80">Continue in Education</p>
+            <p className="display mt-2 text-[clamp(1.75rem,3.5vw,2.75rem)] leading-none transition-transform duration-700 ease-[var(--ease-silk)] group-hover:translate-x-2">{next.label}</p>
           </div>
-          <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border border-pearl/40 transition-all duration-700 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-teal-deep">
-            <ArrowUpRight className="h-7 w-7" aria-hidden />
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-pearl/60 text-pearl transition-all duration-500 group-hover:rotate-45 group-hover:bg-pearl group-hover:text-[#7a5f2e] md:h-14 md:w-14">
+            <ArrowUpRight className="h-5 w-5" aria-hidden />
           </span>
         </div>
+        <span aria-hidden className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-pearl transition-transform duration-700 ease-[var(--ease-silk)] group-hover:scale-x-100" />
       </Link>
     </section>
   )
