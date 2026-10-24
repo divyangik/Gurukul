@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { MoreServices, ProcessTimeline } from '@/components/services'
 import { ChipCloud } from '@/components/services'
 import { ContactActions, NumberedList } from '@/components/ui'
-import { AfterHero, ClosingCTA, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { consultingProjects, holisticServices, partnerSteps, serviceHead } from '@/content/services'
 
 export const Route = createFileRoute('/consulting')({
@@ -24,6 +24,7 @@ function Page() {
         position="center 40%"
         chips={['Educators', 'Schools', 'Homeschoolers']}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

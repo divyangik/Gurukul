@@ -48,8 +48,8 @@ function Page() {
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
           <Eyebrow>Featured Story</Eyebrow>
           <Link to="/blog/$slug" params={{ slug: featured.slug }} className="group mt-8 grid items-center gap-10 md:grid-cols-[1.25fr_1fr]">
-            <div data-reveal="mask" className="overflow-hidden rounded-3xl">
-              <Photo src={featured.img} alt="" ratio={0.62} widths={[640, 1024, 1600]} width={1200} sizes="(min-width: 768px) 60vw, 100vw" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" />
+            <div data-reveal="mask" className="relative aspect-[16/10] overflow-hidden rounded-3xl bg-slate">
+              <Photo src={featured.img} alt="" widths={[640, 1024, 1600]} width={1200} sizes="(min-width: 768px) 60vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" />
             </div>
             <div>
               <p data-reveal className="eyebrow text-[#8a6f3c]">
@@ -89,26 +89,34 @@ function Page() {
             </div>
           </div>
 
-          <div className="mt-12 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((p, i) => (
               <Link
                 key={`${category}-${p.slug}`}
                 to="/blog/$slug"
                 params={{ slug: p.slug }}
-                className="group block"
+                className="group flex h-full flex-col overflow-hidden rounded-3xl border border-teal/10 bg-pearl shadow-[0_30px_60px_-45px_rgba(12,46,49,0.6)] transition-all duration-700 ease-[var(--ease-silk)] hover:-translate-y-1.5 hover:border-brass hover:shadow-[0_40px_70px_-40px_rgba(12,46,49,0.7)]"
                 style={{ animation: `fade-up 0.9s var(--ease-silk) ${(i % 3) * 0.08}s both` }}
               >
-                <div className="overflow-hidden rounded-2xl bg-slate">
-                  <Photo src={p.img} alt="" ratio={0.7} widths={[400, 700, 1000]} width={700} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-[1.06]" />
-                </div>
-                <p className="eyebrow mt-5 flex items-center gap-3 text-[#8a6f3c]">
-                  {p.category}
-                  <span className="flex items-center gap-1 normal-case tracking-normal text-muted">
-                    <Clock className="h-3.5 w-3.5" aria-hidden /> {p.readMins} min
+                <div className="relative aspect-[4/3] overflow-hidden bg-slate">
+                  <Photo src={p.img} alt="" widths={[400, 700, 1000]} width={700} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-[1.07]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-deep/50 via-transparent to-transparent" aria-hidden />
+                  <span className="absolute left-4 top-4 rounded-full bg-pearl/90 px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-widest text-teal backdrop-blur">{p.category}</span>
+                  <span className="absolute bottom-4 left-4 flex items-center gap-1.5 rounded-full border border-pearl/40 bg-teal-deep/45 px-3 py-1.5 text-xs font-semibold text-pearl backdrop-blur-md">
+                    <Clock className="h-3.5 w-3.5" aria-hidden /> {p.readMins} min read
                   </span>
-                </p>
-                <h3 className="mt-3 font-display text-2xl leading-snug text-teal transition-colors group-hover:text-[#8a6f3c] md:text-[1.7rem]">{p.title}</h3>
-                <p className="mt-2 line-clamp-2 leading-relaxed text-muted">{p.excerpt}</p>
+                </div>
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <p className="eyebrow text-[#8a6f3c]">{formatDate(p.date)}</p>
+                  <h3 className="mt-3 font-display text-[1.65rem] leading-snug text-teal transition-colors group-hover:text-[#8a6f3c]">{p.title}</h3>
+                  <p className="mt-3 line-clamp-3 flex-1 leading-relaxed text-muted">{p.excerpt}</p>
+                  <div className="mt-6 flex items-center justify-between border-t border-teal/10 pt-5">
+                    <span className="text-xs font-bold uppercase tracking-[0.2em] text-teal">Read the story</span>
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full border border-teal/25 text-teal transition-all duration-500 group-hover:rotate-45 group-hover:border-brass group-hover:bg-brass group-hover:text-teal-deep" aria-hidden>
+                      <ArrowUpRight className="h-4 w-4" />
+                    </span>
+                  </div>
+                </div>
               </Link>
             ))}
           </div>

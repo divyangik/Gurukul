@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { CalendarDays, Clock, Users } from 'lucide-react'
 import { ChipCloud, MoreServices, SpotCard } from '@/components/services'
 import { ContactActions } from '@/components/ui'
-import { AfterHero, ClosingCTA, PhotoDuo, Petals, SectionHead, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, PhotoDuo, Petals, SectionHead, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { camps, serviceHead, weekendWorkshops } from '@/content/services'
 
 export const Route = createFileRoute('/camp-workshop')({
@@ -24,6 +24,7 @@ function Page() {
         position="center 55%"
         chips={['Children', 'Parents', 'Educators']}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

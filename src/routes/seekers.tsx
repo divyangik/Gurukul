@@ -57,42 +57,43 @@ function Page() {
       <EduSectionNav />
       <AfterHero />
 
-      {/* Three pathways — alternating editorial rows */}
-      <section className="bg-pearl py-20 md:py-28">
+      {/* Where to begin — three paths along one journey line */}
+      <section className="grain jali relative isolate overflow-hidden bg-teal-deep py-20 text-pearl md:py-28">
+        <Petals />
+        <div className="drift pointer-events-none absolute -left-40 top-10 -z-10 h-[460px] w-[460px] rounded-full bg-brass/10 blur-3xl" aria-hidden />
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
-            <div>
-              <Eyebrow>Where to Begin</Eyebrow>
-              <RevealLines lines={['Pathways for', <em key="s" className="text-[#8a6f3c]">the seeking heart.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
-            </div>
-            <p data-reveal className="max-w-xl leading-relaxed text-muted md:justify-self-end">
+          <div className="mx-auto max-w-3xl text-center">
+            <Eyebrow light>Where to Begin</Eyebrow>
+            <RevealLines lines={['Pathways for', <em key="s" className="text-brass-soft">the seeking heart.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-pearl" />
+            <span data-reveal="rule" className="mx-auto mt-6 block h-px w-24 bg-brass" aria-hidden />
+            <p data-reveal className="mx-auto mt-6 max-w-xl leading-relaxed text-pearl/72">
               You don't need any background or belief to begin. Start with a talk, a pilgrimage or a camp — and let experience do the convincing.
             </p>
           </div>
 
-          <div className="mt-16 space-y-20 md:space-y-28">
-            {seekerPaths.map((p, i) => {
-              const flip = i % 2 === 1
-              return (
-                <article key={p.title} className="grid items-center gap-10 md:grid-cols-2 md:gap-16">
-                  <div data-reveal="mask" className={`relative overflow-hidden rounded-3xl ${flip ? 'md:order-2' : ''}`}>
-                    <div data-parallax="0.1" className="absolute inset-[-6%_0]">
-                      <Photo src={p.img} alt="" widths={[640, 1024, 1600]} width={1024} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full object-cover" />
-                    </div>
-                    <div className="aspect-[5/4]" />
+          <ol className="relative mt-16 grid gap-10 lg:grid-cols-3 lg:gap-7">
+            {/* the journey line, drawn behind the step markers */}
+            <span className="pointer-events-none absolute left-[16.6%] right-[16.6%] top-6 hidden h-px bg-gradient-to-r from-transparent via-brass/60 to-transparent lg:block" aria-hidden />
+            {seekerPaths.map((p, i) => (
+              <li key={p.title} data-reveal="scale" style={{ ['--d' as string]: `${i * 0.12}s` }} className="relative flex flex-col items-center">
+                <span className="relative z-10 flex h-12 w-12 items-center justify-center rounded-full border border-brass bg-teal-deep font-display text-xl text-brass shadow-[0_0_0_8px_rgba(12,46,49,1)]">
+                  {i + 1}
+                </span>
+                <Link to={p.to} className="group relative mt-6 block aspect-[4/5] w-full overflow-hidden rounded-[2rem] border border-brass/25 bg-slate shadow-[0_40px_70px_-40px_rgba(0,0,0,0.85)] transition-all duration-700 ease-[var(--ease-silk)] hover:-translate-y-2 hover:border-brass">
+                  <Photo src={p.img} alt="" widths={[640, 1024]} width={900} sizes="(min-width: 1024px) 33vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.07]" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-deep via-teal-deep/85 to-teal-deep/10" aria-hidden />
+                  <div className="absolute inset-x-0 bottom-0 p-7 md:p-8">
+                    <span className="mb-4 block h-px w-10 bg-brass transition-all duration-700 group-hover:w-24" aria-hidden />
+                    <h3 className="font-display text-[1.9rem] leading-tight text-pearl">{p.title}</h3>
+                    <p className="mt-3 line-clamp-5 text-[0.95rem] leading-relaxed text-pearl/78">{p.text}</p>
+                    <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brass-soft">
+                      {p.cta} <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden />
+                    </span>
                   </div>
-                  <div className={flip ? 'md:order-1' : ''}>
-                    <span data-reveal className="block font-display text-[5rem] leading-none text-brass/40">{String(i + 1).padStart(2, '0')}</span>
-                    <RevealLines as="h3" lines={[p.title]} className="display mt-2 text-[clamp(2rem,3.6vw,3rem)] text-teal" />
-                    <p data-reveal className="mt-5 max-w-lg leading-relaxed text-muted">{p.text}</p>
-                    <Link data-reveal to={p.to} className="btn btn-ghost-dark mt-8">
-                      {p.cta} <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
-                    </Link>
-                  </div>
-                </article>
-              )
-            })}
-          </div>
+                </Link>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 

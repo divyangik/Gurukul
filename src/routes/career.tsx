@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, BookHeart, Flower2, GraduationCap, Mail, Sprout, Users } from 'lucide-react'
 import { Mandala, MoreServices } from '@/components/services'
-import { AfterHero, ClosingCTA, FeatureCard, Petals, SectionHead, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, FeatureCard, Petals, SectionHead, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { contact } from '@/content/site'
 import { careerReasons, openings, serviceHead } from '@/content/services'
 
@@ -31,6 +31,7 @@ function Page() {
           <Mail className="h-4 w-4" aria-hidden /> Apply by email
         </a>
       </ServiceHero>
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

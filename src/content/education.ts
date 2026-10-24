@@ -6,15 +6,15 @@
  * and activities; edit or replace them freely.
  */
 
-export type EduPage = { label: string; to: string; img: string; text: string }
+export type EduPage = { label: string; to: string; img: string; text: string; tag: string }
 
 export const educationPages: EduPage[] = [
-  { label: 'Seekers', to: '/seekers', img: '/img/festivals/jhulan-1.jpg', text: 'Spirituality for the modern age — talks, pilgrimages and residential camps.' },
-  { label: 'Students', to: '/student', img: '/img/academic-study/academic-study.jpg', text: 'Five Shiksha stages and five streams of training that shape a whole person.' },
-  { label: 'Parents · Teachers · Leaders', to: '/parent-teacher-leaders', img: '/img/vedic-study/yajna-preparation.jpg', text: 'Anubhuti immersion, teacher training, parenting and leadership courses.' },
-  { label: 'Blog', to: '/blog', img: '/img/sports/dhavaleshwar-trek-2.jpg', text: 'Stories and reflections from life on the Dalimb campus.' },
-  { label: 'Videos', to: '/videos', img: '/img/talentshow/drama3.jpg', text: 'Lectures, seminars and campus films from our two channels.' },
-  { label: 'Podcasts', to: '/podcasts', img: '/img/education/podcast.jpg', text: 'Conversations on parenting, education and applied spirituality.' },
+  { label: 'Seekers', to: '/seekers', img: '/img/festivals/jhulan-1.jpg', text: 'Spirituality for the modern age — talks, pilgrimages and residential camps.', tag: 'Spirituality' },
+  { label: 'Students', to: '/student', img: '/img/academic-study/academic-study.jpg', text: 'Five Shiksha stages and five streams of training that shape a whole person.', tag: 'Five stages' },
+  { label: 'Parents · Teachers · Leaders', to: '/parent-teacher-leaders', img: '/img/vedic-study/yajna-preparation.jpg', text: 'Anubhuti immersion, teacher training, parenting and leadership courses.', tag: 'Courses & training' },
+  { label: 'Blog', to: '/blog', img: '/img/sports/dhavaleshwar-trek-2.jpg', text: 'Stories and reflections from life on the Dalimb campus.', tag: 'Stories' },
+  { label: 'Videos', to: '/videos', img: '/img/talentshow/drama3.jpg', text: 'Lectures, seminars and campus films from our two channels.', tag: 'Lectures & films' },
+  { label: 'Podcasts', to: '/podcasts', img: '/img/education/podcast.jpg', text: 'Conversations on parenting, education and applied spirituality.', tag: 'Conversations' },
 ]
 
 /* ── Shared ─────────────────────────────────────────────────── */

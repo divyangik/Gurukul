@@ -3,7 +3,7 @@ import { Mail, MessageCircle, Sprout, Users } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { MoreServices, SpotCard } from '@/components/services'
 import { ContactActions } from '@/components/ui'
-import { AfterHero, ClosingCTA, FeatureCard, OrbitCloud, Petals, SectionHead, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, FeatureCard, OrbitCloud, Petals, SectionHead, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { contact } from '@/content/site'
 import { coachingAreas, coachingOfferings, coaches, serviceHead } from '@/content/services'
 
@@ -30,6 +30,7 @@ function Page() {
           <Mail className="h-4 w-4" aria-hidden /> Book a session
         </a>
       </ServiceHero>
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

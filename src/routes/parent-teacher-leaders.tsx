@@ -94,23 +94,28 @@ function Page() {
               Practical, experience-based courses grounded in Vedic wisdom and modern pedagogy — delivered on campus and, soon, online.
             </p>
           </div>
-          <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="mt-14 grid gap-6 lg:grid-cols-2">
             {adultProgrammes.map((p, i) => (
               <article
                 key={p.title}
                 data-reveal="scale"
                 style={{ ['--d' as string]: `${(i % 2) * 0.1}s` }}
-                className="group flex flex-col overflow-hidden rounded-3xl bg-pearl shadow-[0_30px_60px_-45px_rgba(12,46,49,0.6)]"
+                className="group flex flex-col overflow-hidden rounded-3xl border border-teal/10 bg-pearl shadow-[0_30px_60px_-45px_rgba(12,46,49,0.6)] transition-all duration-700 ease-[var(--ease-silk)] hover:-translate-y-1.5 hover:border-brass sm:flex-row"
               >
-                <div className="relative overflow-hidden">
-                  <Photo src={p.img} alt="" ratio={0.56} widths={[480, 800, 1200]} width={900} sizes="(min-width: 768px) 50vw, 100vw" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" />
-                  <span className={`absolute left-5 top-5 rounded-full px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-widest ${p.audience === 'Coming soon' ? 'bg-brass text-teal-deep' : 'bg-pearl/90 text-teal'}`}>
+                <div className="relative h-44 shrink-0 overflow-hidden bg-slate sm:h-auto sm:w-[34%]">
+                  <Photo src={p.img} alt="" widths={[400, 700]} width={600} sizes="(min-width: 640px) 18vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" style={{ objectPosition: 'center 25%' }} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-teal-deep/50 via-transparent to-transparent" aria-hidden />
+                  <span className="absolute bottom-3 left-4 font-display text-4xl leading-none text-pearl/80">{String(i + 1).padStart(2, '0')}</span>
+                </div>
+                <div className="flex flex-1 flex-col p-6 md:p-7">
+                  <span className={`self-start rounded-full px-3 py-1 text-[0.66rem] font-bold uppercase tracking-widest ${p.audience === 'Coming soon' ? 'bg-brass text-teal-deep' : 'bg-sand text-teal'}`}>
                     {p.audience}
                   </span>
-                </div>
-                <div className="flex flex-1 flex-col p-7 md:p-9">
-                  <h3 className="font-display text-3xl font-medium text-teal">{p.title}</h3>
-                  <p className="mt-3 flex-1 leading-relaxed text-muted">{p.text}</p>
+                  <h3 className="mt-4 font-display text-[1.6rem] font-medium leading-tight text-teal">{p.title}</h3>
+                  <p className="mt-3 flex-1 text-[0.95rem] leading-relaxed text-muted">{p.text}</p>
+                  <a href="#contact" className="link-sweep mt-5 inline-flex items-center gap-2 self-start text-xs font-bold uppercase tracking-[0.2em] text-teal">
+                    Enquire <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+                  </a>
                 </div>
               </article>
             ))}

@@ -7,7 +7,8 @@ import { Photo } from './Photo'
 import { DustField } from './campus/CampusScenes'
 import { Mandala, SpotCard } from './services'
 import { Eyebrow, RevealLines } from './ui'
-import type { ServiceSlug } from '@/content/services'
+import { SectionSubNav } from './education'
+import { services, type ServiceSlug } from '@/content/services'
 
 /**
  * Shared visual kit for the Services pages: cinematic hero, line-art emblems that draw
@@ -297,6 +298,11 @@ export function ServiceHero({
       {wave && <Wave bottom className={wave} />}
     </section>
   )
+}
+
+/** Sticky sub-navigation across the Services pages — same pattern as the Education pages. */
+export function ServiceSectionNav() {
+  return <SectionSubNav label="Services section" links={[{ label: 'Overview', to: '/services' }, ...services.map((s) => ({ label: s.title, to: s.to }))]} />
 }
 
 /** Anchor target placed right after the hero. */

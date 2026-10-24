@@ -6,11 +6,10 @@ import { educationPages } from '@/content/education'
 
 /* ── Sticky sub-navigation across the Education pages ──────── */
 
-export function EduSectionNav() {
+export function SectionSubNav({ label, links }: { label: string; links: { label: string; to: string }[] }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
-  const links = [{ label: 'Overview', to: '/education' }, ...educationPages]
   return (
-    <nav aria-label="Education section" className="sticky top-[4.5rem] z-30 border-b border-teal/10 bg-pearl/85 backdrop-blur-md">
+    <nav aria-label={label} className="sticky top-[4.5rem] z-30 border-b border-teal/10 bg-pearl/85 backdrop-blur-md">
       <ul className="rail mx-auto flex max-w-[1440px] gap-1 overflow-x-auto px-5 py-3 md:px-10">
         {links.map((l) => {
           const active = pathname === l.to || (l.to === '/blog' && pathname.startsWith('/blog/'))
@@ -31,6 +30,10 @@ export function EduSectionNav() {
       </ul>
     </nav>
   )
+}
+
+export function EduSectionNav() {
+  return <SectionSubNav label="Education section" links={[{ label: 'Overview', to: '/education' }, ...educationPages]} />
 }
 
 /* ── Decorative mandala that turns slowly ──────────────────── */
@@ -110,16 +113,19 @@ export function HScrollGallery({
         <div className="rail mt-12 overflow-x-auto md:overflow-visible">
           <div data-hscroll-track className="flex w-max gap-6 px-5 md:px-10">
             {items.map((it, i) => (
-              <article key={it.title} className="group relative w-[80vw] shrink-0 overflow-hidden rounded-3xl bg-slate sm:w-[26rem] md:w-[30rem]">
-                <Photo src={it.img} alt="" ratio={1.15} widths={[480, 800, 1000]} width={800} sizes="(min-width: 768px) 30rem, 80vw" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" />
-                <div className="absolute inset-0 bg-gradient-to-t from-teal-deep via-teal-deep/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-7">
-                  <p className="eyebrow text-brass">
-                    {String(i + 1).padStart(2, '0')}
-                    {it.tag ? ` · ${it.tag}` : ''}
-                  </p>
-                  <h3 className="mt-3 font-display text-3xl leading-tight text-pearl">{it.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-pearl/75">{it.text}</p>
+              <article key={it.title} className="group relative aspect-[4/5] w-[78vw] shrink-0 overflow-hidden rounded-3xl border border-brass/20 bg-slate shadow-[0_30px_60px_-35px_rgba(0,0,0,0.8)] sm:w-[22rem] md:w-[24rem]">
+                <Photo src={it.img} alt="" widths={[480, 800, 1000]} width={800} sizes="(min-width: 768px) 24rem, 78vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-105" />
+                <div className="absolute inset-0 bg-gradient-to-t from-teal-deep via-teal-deep/55 to-transparent" />
+                {it.tag && (
+                  <span className="absolute left-5 top-5 rounded-full border border-pearl/40 bg-teal-deep/50 px-3.5 py-1.5 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-pearl backdrop-blur-md">
+                    {it.tag}
+                  </span>
+                )}
+                <span className="absolute right-5 top-4 font-display text-5xl leading-none text-pearl/35">{String(i + 1).padStart(2, '0')}</span>
+                <div className="absolute inset-x-0 bottom-0 p-6">
+                  <span className="mb-4 block h-px w-10 bg-brass transition-all duration-700 group-hover:w-20" aria-hidden />
+                  <h3 className="font-display text-[1.7rem] leading-tight text-pearl">{it.title}</h3>
+                  <p className="mt-2.5 text-sm leading-relaxed text-pearl/75">{it.text}</p>
                 </div>
               </article>
             ))}

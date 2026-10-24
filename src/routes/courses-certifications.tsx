@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight, Headphones, PlayCircle, Compass } from 'lucide-react'
 import { Mandala, MoreServices } from '@/components/services'
 import { ContactActions } from '@/components/ui'
-import { AfterHero, ClosingCTA, FeatureCard, Petals, SectionHead, ServiceEmblem, ServiceHero, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, FeatureCard, Petals, SectionHead, ServiceEmblem, ServiceHero, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { serviceHead } from '@/content/services'
 
 export const Route = createFileRoute('/courses-certifications')({
@@ -30,6 +30,7 @@ function Page() {
         position="center 40%"
         chips={['Seekers', 'Educators']}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="grain jali relative isolate overflow-hidden bg-teal-deep py-28 text-pearl md:py-40">

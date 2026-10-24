@@ -4,23 +4,15 @@ import { ChevronDown, Menu, X, ArrowUpRight } from 'lucide-react'
 import { navGroups } from '@/content/site'
 import { Photo } from '@/components/Photo'
 
-export function LotusMark({ className = '' }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 48 48" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="1.4">
-      <path d="M24 8c4.5 5 6.5 10 6.5 15S28 33 24 38c-4-5-6.5-10-6.5-15S19.5 13 24 8Z" />
-      <path d="M24 38c-5-1-11-4.5-14-11 4-1.5 9-.5 12.5 2.5" />
-      <path d="M24 38c5-1 11-4.5 14-11-4-1.5-9-.5-12.5 2.5" />
-      <path d="M24 38c-7 0-14-2-18-7" opacity=".6" />
-      <path d="M24 38c7 0 14-2 18-7" opacity=".6" />
-      <path d="M14 42h20" />
-    </svg>
-  )
+/** Site logo — the supplied favicon.svg (public/favicon.svg). */
+export function LogoMark({ className = '' }: { className?: string }) {
+  return <img src="/favicon.svg" alt="" aria-hidden="true" width={48} height={48} className={className} />
 }
 
 export function Wordmark({ light = true }: { light?: boolean }) {
   return (
     <span className={`flex items-center gap-3 ${light ? 'text-pearl' : 'text-teal'}`}>
-      <LotusMark className="h-9 w-9 text-brass" />
+      <LogoMark className="h-11 w-11 shrink-0 rounded-[10px] shadow-[0_6px_18px_-8px_rgba(0,0,0,0.6)] ring-1 ring-brass/40" />
       <span className="flex flex-col leading-none">
         <span className="font-display text-[1.45rem] font-semibold tracking-tight">Bhaktivedanta</span>
         <span className="mt-1 text-[0.6rem] font-bold uppercase tracking-[0.34em] opacity-75">Gurukula · Education</span>
@@ -71,7 +63,7 @@ export function SiteNav() {
   }, [mobileOpen])
 
   const groupActive = (label: string) =>
-    navGroups.find((g) => g.label === label)?.links.some((l) => !l.hash && l.to !== '/' && pathname === l.to)
+    navGroups.find((g) => g.label === label)?.links.some((l) => !l.hash && l.to !== '/' && (pathname === l.to || (l.to === '/blog' && pathname.startsWith('/blog/'))))
 
   const solid = scrolled || openGroup !== null
 
@@ -101,21 +93,30 @@ export function SiteNav() {
               const active = groupActive(group.label)
               return (
                 <li key={group.label} className="relative" onMouseEnter={() => setOpenGroup(group.label)} onMouseLeave={() => setOpenGroup(null)}>
-                  <button
-                    type="button"
-                    aria-expanded={open}
-                    aria-controls={`menu-${group.label}`}
-                    onClick={() => setOpenGroup(open ? null : group.label)}
-                    className="group relative flex items-center gap-1.5 px-4 py-2 text-[0.82rem] font-semibold tracking-wide text-pearl/90 transition-colors hover:text-pearl"
-                  >
-                    {group.label}
-                    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-500 ${open ? 'rotate-180' : ''}`} aria-hidden />
+                  <div className="group relative flex items-center">
+                    <Link
+                      to={group.to}
+                      aria-current={pathname === group.to ? 'page' : undefined}
+                      className="py-2 pl-4 pr-1 text-[0.82rem] font-semibold tracking-wide text-pearl/90 transition-colors hover:text-pearl"
+                    >
+                      {group.label}
+                    </Link>
+                    <button
+                      type="button"
+                      aria-expanded={open}
+                      aria-controls={`menu-${group.label}`}
+                      aria-label={`${open ? 'Close' : 'Open'} ${group.label} menu`}
+                      onClick={() => setOpenGroup(open ? null : group.label)}
+                      className="py-2 pl-0.5 pr-3 text-pearl/90 transition-colors hover:text-pearl"
+                    >
+                      <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-500 ${open ? 'rotate-180' : ''}`} aria-hidden />
+                    </button>
                     <span
-                      className={`absolute inset-x-4 -bottom-0.5 h-px origin-left bg-brass transition-transform duration-500 ${
+                      className={`pointer-events-none absolute inset-x-4 -bottom-0.5 h-px origin-left bg-brass transition-transform duration-500 ${
                         active || open ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
                       }`}
                     />
-                  </button>
+                  </div>
                   <div
                     id={`menu-${group.label}`}
                     className={`absolute left-1/2 top-full pt-4 transition-all duration-500 ${
@@ -134,7 +135,7 @@ export function SiteNav() {
                               sizes="220px"
                               widths={[300, 500]}
                               width={400}
-                              className="mt-5 h-36 w-full rounded-xl border border-brass/25 object-cover"
+                              className="mt-5 h-40 w-full rounded-xl border border-brass/25 object-cover shadow-lg"
                             />
                           )}
                         </div>
@@ -177,9 +178,11 @@ export function SiteNav() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Link to="/book-visit" className="btn btn-brass hidden !px-5 !py-3 sm:inline-flex">
-            Book a Visit <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
-          </Link>
+          <div className="hidden sm:block">
+            <Link to="/book-visit" className="btn btn-brass !px-5 !py-3">
+              Book a Visit <ArrowUpRight className="btn-arrow h-4 w-4" aria-hidden />
+            </Link>
+          </div>
           <button
             type="button"
             className="flex h-11 w-11 items-center justify-center rounded-full border border-pearl/30 text-pearl lg:hidden"
@@ -238,15 +241,20 @@ function MobileMenu({ open, onClose, pathname }: { open: boolean; onClose: () =>
                 className={`transition-all duration-700 ${open ? 'translate-y-0 opacity-100' : 'translate-y-6 opacity-0'}`}
                 style={{ transitionDelay: open ? `${120 + gi * 70}ms` : '0ms' }}
               >
-                <button
-                  type="button"
-                  aria-expanded={isOpen}
-                  onClick={() => setExpanded(isOpen ? null : group.label)}
-                  className="flex w-full items-center justify-between py-5 text-left font-display text-3xl text-pearl"
-                >
-                  {group.label}
-                  <ChevronDown className={`h-5 w-5 text-brass transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} aria-hidden />
-                </button>
+                <div className="flex items-center justify-between">
+                  <Link to={group.to} onClick={onClose} className="flex-1 py-5 text-left font-display text-3xl text-pearl">
+                    {group.label}
+                  </Link>
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${group.label} links`}
+                    onClick={() => setExpanded(isOpen ? null : group.label)}
+                    className="flex h-12 w-12 items-center justify-center"
+                  >
+                    <ChevronDown className={`h-5 w-5 text-brass transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`} aria-hidden />
+                  </button>
+                </div>
                 <div className={`grid transition-[grid-template-rows] duration-500 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
                   <ul className="overflow-hidden">
                     {group.links.map((link) => (

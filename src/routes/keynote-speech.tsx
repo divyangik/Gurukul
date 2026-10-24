@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { ArrowUpRight, Mail, Play } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { ChipCloud, Mandala, MoreServices, SpotCard } from '@/components/services'
-import { AfterHero, ClosingCTA, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { contact } from '@/content/site'
 import { keynoteTalks, keynoteTopics, serviceHead } from '@/content/services'
 
@@ -31,6 +31,7 @@ function Page() {
           <Mail className="h-4 w-4" aria-hidden /> Request a keynote
         </a>
       </ServiceHero>
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

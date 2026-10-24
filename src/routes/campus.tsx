@@ -206,7 +206,7 @@ function WhereWeAre() {
       <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 md:grid-cols-[1.05fr_1fr] md:px-10">
         <div>
           <Eyebrow>Where We Are</Eyebrow>
-          <RevealLines lines={['Away from the noise,', <em key="c" className="text-[#8a6f3c]">close to nature.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
+          <RevealLines lines={['Away from the noise,', <em key="c" className="text-[#8a6f3c]">  close to nature.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
           <span data-reveal="rule" className="mt-6 block h-px w-24 bg-brass" aria-hidden />
           <p data-reveal className="mt-6 max-w-xl leading-relaxed text-muted">
             The Gurukula sits in the village of Dalimb near Uruli Kanchan, surrounded by farmland and open hills. The setting is deliberate: clean air, home-grown food, and the unhurried pace of village life.

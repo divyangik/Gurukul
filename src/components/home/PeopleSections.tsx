@@ -42,7 +42,7 @@ export function TeamSection() {
         <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
           <div>
             <Eyebrow>Our Team</Eyebrow>
-            <RevealLines lines={['The hands that', <em key="g" className="text-[#8a6f3c]">guide them.</em>]} className="display mt-5 text-[clamp(2.5rem,5vw,4.5rem)] text-teal" />
+            <RevealLines lines={['The hands that', <em key="g" className="text-[#8a6f3c]"> guide them.</em>]} className="display mt-5 text-[clamp(2.5rem,5vw,4.5rem)] text-teal" />
           </div>
           <p data-reveal className="max-w-xl leading-relaxed text-muted md:justify-self-end">
             Educators, engineers, architects and devotees — a team that blends professional excellence with spiritual depth to nurture every student.

@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Flame, Music2, Flower2 } from 'lucide-react'
 import { ChipCloud, Mandala, MoreServices, useScrollProgress } from '@/components/services'
 import { ContactActions } from '@/components/ui'
-import { AfterHero, ClosingCTA, FeatureCard, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, FeatureCard, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { communityService, sacredServices, samskaras, serviceHead } from '@/content/services'
 
 export const Route = createFileRoute('/samskaras-yajnas')({
@@ -27,6 +27,7 @@ function Page() {
         position="center 40%"
         chips={['Families', 'Offices', 'Events']}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import { ContactActions } from '@/components/ui'
 import { Mandala, ServiceCard, ServiceMarquee, serviceTones } from '@/components/services'
-import { AfterHero, ClosingCTA, Petals, SectionHead, ServiceHero, ServiceRing, StatBand, Wave } from '@/components/service-kit'
+import { AfterHero, ClosingCTA, Petals, SectionHead, ServiceHero, ServiceRing, StatBand, Wave, ServiceSectionNav } from '@/components/service-kit'
 import { serviceHead, services, type ServiceSlug } from '@/content/services'
 
 export const Route = createFileRoute('/services')({
@@ -38,6 +38,7 @@ function Page() {
         chips={['Parents', 'Teachers', 'Students', 'Institutions']}
         aside={<ServiceRing slugs={services.map((s) => s.slug)} />}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative bg-pearl pt-8">

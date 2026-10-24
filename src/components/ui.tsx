@@ -86,7 +86,7 @@ const visitFacts: { Icon: LucideIcon; label: string; sub: string }[] = [
   { Icon: Leaf, label: 'Five acres', sub: 'Open campus' },
 ]
 
-export function AdmissionsCTA({ title = ['Begin with', 'a visit.'], text }: { title?: string[]; text?: string }) {
+export function AdmissionsCTA({ title = ['Begin with', ' a visit.'], text }: { title?: string[]; text?: string }) {
   return (
     <section id="visit" className="grain relative isolate overflow-hidden bg-teal-deep text-pearl">
       {/* Slowly turning mandala behind everything */}

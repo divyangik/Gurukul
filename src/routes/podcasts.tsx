@@ -73,22 +73,28 @@ function Page() {
                 key={s.title}
                 data-reveal="scale"
                 style={{ ['--d' as string]: `${i * 0.08}s` }}
-                className="group flex flex-col overflow-hidden rounded-3xl border border-teal/10 bg-sand/50 transition-colors duration-500 hover:border-brass"
+                className="group flex flex-col overflow-hidden rounded-3xl border border-teal/10 bg-sand/50 shadow-[0_30px_60px_-45px_rgba(12,46,49,0.6)] transition-all duration-700 ease-[var(--ease-silk)] hover:-translate-y-1.5 hover:border-brass"
               >
-                <div className="relative overflow-hidden">
-                  <Photo src={s.img} alt="" ratio={1} widths={[400, 700]} width={600} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-105" />
-                  <span className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-full bg-pearl text-teal shadow-lg transition-transform duration-700 group-hover:scale-110 group-hover:bg-brass">
+                <div className="relative">
+                  <div className="relative aspect-[4/3] overflow-hidden bg-slate">
+                    <Photo src={s.img} alt="" widths={[400, 700]} width={600} sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1.4s] ease-[var(--ease-silk)] group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-teal-deep/70 via-teal-deep/10 to-transparent" aria-hidden />
+                    <span className="absolute left-4 top-4 rounded-full border border-pearl/40 bg-teal-deep/45 px-3 py-1.5 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-pearl backdrop-blur-md">
+                      Series {String(i + 1).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <span className="absolute -bottom-6 right-5 flex h-12 w-12 items-center justify-center rounded-full border-4 border-[#ece3d3] bg-brass text-teal-deep shadow-lg transition-transform duration-700 group-hover:scale-110 group-hover:bg-pearl">
                     <Mic className="h-5 w-5" aria-hidden />
                   </span>
                 </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="eyebrow text-[#8a6f3c]">Series {String(i + 1).padStart(2, '0')}</p>
-                  <h3 className="mt-3 font-display text-2xl leading-snug text-teal">{s.title}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">{s.text}</p>
+                <div className="flex flex-1 flex-col px-6 pb-6 pt-9">
+                  <h3 className="font-display text-2xl leading-snug text-teal">{s.title}</h3>
+                  <span className="mt-3 block h-px w-10 bg-brass transition-all duration-700 group-hover:w-20" aria-hidden />
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-muted">{s.text}</p>
                   <ul className="mt-5 space-y-2 border-t border-teal/10 pt-4">
                     {s.topics.map((t) => (
                       <li key={t} className="flex items-center gap-3 text-sm text-teal">
-                        <span className="h-1.5 w-1.5 rotate-45 bg-brass" aria-hidden /> {t}
+                        <span className="h-1.5 w-1.5 shrink-0 rotate-45 bg-brass" aria-hidden /> {t}
                       </li>
                     ))}
                   </ul>

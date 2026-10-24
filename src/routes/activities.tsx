@@ -54,7 +54,7 @@ function Page() {
         <div className="mx-auto grid max-w-[1440px] items-center gap-10 px-5 md:grid-cols-2 md:px-10">
           <div>
             <Eyebrow>Every Day</Eyebrow>
-            <RevealLines lines={['A rhythm of', <em key="s" className="text-[#8a6f3c]">study and sadhana.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
+            <RevealLines lines={['A rhythm of', <em key="s" className="text-[#8a6f3c]"> study and sadhana.</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
             <p data-reveal className="mt-6 max-w-lg leading-relaxed text-muted">
               The day begins before sunrise in the temple with mangala-arati and sankirtan, flows through academic classes and Vedic study, and closes with evening arati — a rhythm that has formed character for centuries.
             </p>

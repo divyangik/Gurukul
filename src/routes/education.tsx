@@ -3,7 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Photo } from '@/components/Photo'
 import { AdmissionsCTA, Eyebrow, RevealLines } from '@/components/ui'
 import { AfterHero, Petals, ServiceHero } from '@/components/service-kit'
-import { EduSectionNav, PhotoMarquee, StatBand, WordMarquee } from '@/components/education'
+import { EduSectionNav, Mandala, PhotoMarquee, StatBand, WordMarquee } from '@/components/education'
 import { educationPages, studentGallery } from '@/content/education'
 
 const pillars = ['Sadhana', 'Seva', 'Sastra', 'Samskara', 'Sanga', 'Sadachara']
@@ -38,19 +38,6 @@ function Page() {
         imageAlt="Students studying at the Gurukula"
         position="center 40%"
         chips={['Seekers', 'Students', 'Parents', 'Teachers', 'Leaders']}
-        aside={
-          <div className="relative mx-auto h-[30rem] w-full max-w-[28rem]" aria-hidden>
-            <div data-reveal="mask" className="float-y absolute left-0 top-6 h-72 w-56 overflow-hidden rounded-[2rem] shadow-2xl" style={{ ['--d' as string]: '0.1s' }}>
-              <Photo src="/img/academic-study/academic-study.jpg" alt="" ratio={1.3} widths={[400, 700]} width={500} sizes="240px" className="h-full w-full object-cover" />
-            </div>
-            <div data-reveal="mask" className="float-y absolute right-0 top-0 h-80 w-64 overflow-hidden rounded-[2rem] shadow-2xl" style={{ ['--d' as string]: '0.25s' }}>
-              <Photo src="/img/festivals/jhulan-1.jpg" alt="" ratio={1.25} widths={[400, 700]} width={500} sizes="260px" className="h-full w-full object-cover" />
-            </div>
-            <div data-reveal="mask" className="float-y absolute bottom-0 left-24 h-64 w-72 overflow-hidden rounded-[2rem] shadow-2xl" style={{ ['--d' as string]: '0.4s' }}>
-              <Photo src="/img/education/teacher-training.jpg" alt="" ratio={0.9} widths={[400, 700]} width={600} sizes="300px" className="h-full w-full object-cover" />
-            </div>
-          </div>
-        }
       >
         <div className="flex flex-wrap gap-3">
           <a href="#pathways" className="btn btn-brass">
@@ -66,43 +53,51 @@ function Page() {
       <AfterHero />
 
       {/* Pathways */}
-      <section id="pathways" className="bg-pearl py-20 md:py-28">
+      <section id="pathways" className="relative isolate overflow-hidden bg-pearl py-20 md:py-28">
+        <Mandala className="pointer-events-none absolute -left-64 top-24 -z-10 h-[40rem] w-[40rem] text-brass/15" />
+        <div className="drift pointer-events-none absolute -right-32 bottom-10 -z-10 h-96 w-96 rounded-full bg-brass/10 blur-3xl" aria-hidden />
         <div className="mx-auto max-w-[1440px] px-5 md:px-10">
-          <div className="grid gap-8 md:grid-cols-[1fr_1.4fr] md:items-end">
-            <div>
-              <Eyebrow>Six Pathways</Eyebrow>
-              <RevealLines lines={['Where would you', <em key="b" className="text-[#8a6f3c]">like to begin?</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
-            </div>
-            <p data-reveal className="max-w-xl leading-relaxed text-muted md:justify-self-end">
+          <div className="mx-auto max-w-3xl text-center">
+            <Eyebrow>Six Pathways</Eyebrow>
+            <RevealLines lines={['Where would you', <em key="b" className="text-[#8a6f3c]">like to begin?</em>]} className="display mt-5 text-[clamp(2.25rem,4.5vw,3.75rem)] text-teal" />
+            <span data-reveal="rule" className="mx-auto mt-6 block h-px w-24 bg-brass" aria-hidden />
+            <p data-reveal className="mx-auto mt-6 max-w-xl leading-relaxed text-muted">
               Each pathway draws on the same roots — the teachings of Srila Prabhupada and the gurukula way of life — and meets you where you are.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-6">
-            {educationPages.map((p, i) => {
-              const span = i === 0 || i === 1 ? 'md:col-span-3' : 'md:col-span-2'
-              return (
+          <ul className="mt-16 grid items-start gap-x-7 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+            {educationPages.map((p, i) => (
+              <li key={p.to} data-reveal="scale" style={{ ['--d' as string]: `${(i % 3) * 0.1}s` }} className={i % 3 === 1 ? 'lg:mt-12' : ''}>
                 <Link
-                  key={p.to}
                   to={p.to}
-                  data-reveal="scale"
-                  style={{ ['--d' as string]: `${(i % 3) * 0.08}s` }}
-                  className={`group relative isolate block min-h-[22rem] overflow-hidden rounded-3xl bg-slate text-pearl ${span} ${i < 2 ? 'md:min-h-[30rem]' : ''}`}
+                  className="group relative block rounded-[2rem] border border-teal/10 bg-[#fbf8f2] p-3 shadow-[0_30px_60px_-45px_rgba(12,46,49,0.55)] transition-all duration-700 ease-[var(--ease-silk)] hover:-translate-y-2 hover:border-brass hover:shadow-[0_40px_70px_-40px_rgba(12,46,49,0.65)]"
                 >
-                  <Photo src={p.img} alt="" widths={[480, 800, 1200]} width={900} sizes="(min-width: 768px) 50vw, 100vw" className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.07]" />
-                  <div className="absolute inset-0 -z-10 bg-gradient-to-t from-teal-deep via-teal-deep/45 to-transparent transition-opacity duration-700 group-hover:opacity-90" />
-                  <div className="flex h-full flex-col justify-end p-7 md:p-9">
-                    <span className="font-display text-base text-brass">{String(i + 1).padStart(2, '0')}</span>
-                    <h3 className="mt-2 font-display text-3xl leading-tight md:text-4xl">{p.label}</h3>
-                    <p className="mt-3 max-w-md text-sm leading-relaxed text-pearl/75 md:text-base">{p.text}</p>
-                    <span className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brass-soft">
-                      Explore <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-1 group-hover:translate-x-1" aria-hidden />
+                  <div className="relative">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-[1.5rem] bg-slate">
+                      <Photo src={p.img} alt="" widths={[480, 800, 1200]} width={900} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" className="h-full w-full object-cover transition-transform duration-[1.6s] ease-[var(--ease-silk)] group-hover:scale-[1.08]" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-teal-deep/70 via-transparent to-teal-deep/10" aria-hidden />
+                      <span className="absolute left-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-pearl/90 font-display text-lg text-teal backdrop-blur">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span className="absolute bottom-4 left-4 rounded-full border border-pearl/40 bg-teal-deep/45 px-3.5 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-pearl backdrop-blur-md">
+                        {p.tag}
+                      </span>
+                    </div>
+                    <span className="absolute -bottom-6 right-6 flex h-14 w-14 items-center justify-center rounded-full border-4 border-[#fbf8f2] bg-brass text-teal-deep shadow-lg transition-all duration-500 group-hover:rotate-45 group-hover:bg-teal group-hover:text-pearl" aria-hidden>
+                      <ArrowUpRight className="h-5 w-5" />
                     </span>
                   </div>
+                  <div className="px-4 pb-4 pt-9 md:px-5">
+                    <h3 className="font-display text-[1.9rem] font-medium leading-tight text-teal">{p.label}</h3>
+                    <span className="mt-3 block h-px w-12 bg-brass transition-all duration-700 group-hover:w-24" aria-hidden />
+                    <p className="mt-4 leading-relaxed text-muted">{p.text}</p>
+                    <span className="mt-5 inline-block text-xs font-bold uppercase tracking-[0.2em] text-[#8a6f3c]">Explore pathway</span>
+                  </div>
                 </Link>
-              )
-            })}
-          </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

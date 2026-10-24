@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
-import { Check, Copy, Mail, MessageCircle, Minus, Plus } from 'lucide-react'
+import { BookOpen, Check, Copy, Flame, GraduationCap, Mail, MessageCircle, Minus, Plus, Trash2, UtensilsCrossed, X } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
 import { ChipCloud, Mandala, SpotCard } from '@/components/services'
 import { Eyebrow, PageHero, RevealLines } from '@/components/ui'
 import { contact } from '@/content/site'
@@ -14,16 +15,25 @@ export const Route = createFileRoute('/donation')({
 })
 
 /* Amounts and wording are taken from the official Donation page. */
-type CashItem = { id: string; title: string; period: string; amount: number }
+type Accent = 'brass' | 'saffron'
+type CashItem = { id: string; title: string; period: string; amount: number; Icon: LucideIcon; accent: Accent }
+
+/** Two accent colours: antique brass and a warm saffron. (Class names are written out in full so Tailwind can see them.) */
+const accents: Record<Accent, { label: string; border: string; wash: string; icon: string; pill: string; bar: string; plus: string }> = {
+  brass: { label: 'text-brass', border: 'border-brass', wash: 'bg-brass/10', icon: 'bg-brass/15 text-brass', pill: 'bg-brass text-teal-deep', bar: 'bg-brass', plus: 'bg-brass text-teal-deep' },
+  saffron: { label: 'text-[#f2a877]', border: 'border-[#e8894a]', wash: 'bg-[#e8894a]/10', icon: 'bg-[#e8894a]/15 text-[#f2a877]', pill: 'bg-[#e8894a] text-teal-deep', bar: 'bg-[#e8894a]', plus: 'bg-[#e8894a] text-teal-deep' },
+}
 
 const cashItems: CashItem[] = [
-  { id: 'student-month', title: 'Sponsor a student', period: '1 month', amount: 10000 },
-  { id: 'student-year', title: 'Sponsor a student', period: '1 year', amount: 120000 },
-  { id: 'anna-day', title: 'Annadaan', period: '1 day', amount: 6000 },
-  { id: 'anna-month', title: 'Annadaan', period: '1 month', amount: 180000 },
-  { id: 'sastra', title: 'Sastra Daan', period: 'Sacred books', amount: 500 },
-  { id: 'vigraha', title: 'Vigraha Seva', period: 'Deity service', amount: 15000 },
+  { id: 'student-month', title: 'Sponsor a student', period: '1 month', amount: 10000, Icon: GraduationCap, accent: 'brass' },
+  { id: 'student-year', title: 'Sponsor a student', period: '1 year', amount: 120000, Icon: GraduationCap, accent: 'brass' },
+  { id: 'anna-day', title: 'Annadaan', period: '1 day', amount: 6000, Icon: UtensilsCrossed, accent: 'saffron' },
+  { id: 'anna-month', title: 'Annadaan', period: '1 month', amount: 180000, Icon: UtensilsCrossed, accent: 'saffron' },
+  { id: 'sastra', title: 'Sastra Daan', period: 'Sacred books', amount: 500, Icon: BookOpen, accent: 'brass' },
+  { id: 'vigraha', title: 'Vigraha Seva', period: 'Deity service', amount: 15000, Icon: Flame, accent: 'saffron' },
 ]
+
+const quickAmounts = [500, 1000, 2500, 5000, 10000]
 
 const kindItems = [
   { title: 'Educational materials', note: 'Books and stationery', amount: '₹3,00,000 per year' },
@@ -64,15 +74,23 @@ function AnimatedNumber({ value }: { value: number }) {
 
 function Page() {
   const [qty, setQty] = useState<Record<string, number>>({})
+  const [custom, setCustom] = useState(0)
   const [copied, setCopied] = useState(false)
 
-  const set = (id: string, n: number) => setQty((q) => ({ ...q, [id]: Math.max(0, Math.min(99, n)) }))
+  const set = (id: string, n: number) => setQty((q) => ({ ...q, [id]: Number.isFinite(n) ? Math.max(0, Math.min(99, Math.floor(n))) : 0 }))
+  const setCustomAmount = (n: number) => setCustom(Number.isFinite(n) ? Math.max(0, Math.min(10000000, Math.floor(n))) : 0)
   const chosen = cashItems.filter((i) => (qty[i.id] ?? 0) > 0)
-  const total = chosen.reduce((sum, i) => sum + i.amount * (qty[i.id] ?? 0), 0)
+  const itemsTotal = chosen.reduce((sum, i) => sum + i.amount * (qty[i.id] ?? 0), 0)
+  const total = itemsTotal + custom
+  const hasAny = chosen.length > 0 || custom > 0
+  const clearAll = () => {
+    setQty({})
+    setCustom(0)
+  }
 
-  const summary = chosen.map((i) => `${qty[i.id]} × ${i.title} (${i.period}) = ${inr(i.amount * qty[i.id])}`).join('\n')
-  const message = chosen.length
-    ? `Hare Krishna! I would like to donate to Bhaktivedanta Gurukula:\n${summary}\nTotal: ${inr(total)}`
+  const lines = [...chosen.map((i) => `${qty[i.id]} × ${i.title} (${i.period}) = ${inr(i.amount * qty[i.id])}`), ...(custom > 0 ? [`Other contribution = ${inr(custom)}`] : [])]
+  const message = hasAny
+    ? `Hare Krishna! I would like to donate to Bhaktivedanta Gurukula:\n${lines.join('\n')}\nTotal: ${inr(total)}`
     : 'Hare Krishna! I would like to know more about donating to Bhaktivedanta Gurukula.'
   const whatsappHref = `${contact.whatsappUrl}?text=${encodeURIComponent(message)}`
   const mailHref = `mailto:${contact.email}?subject=${encodeURIComponent('Donation to Bhaktivedanta Gurukula')}&body=${encodeURIComponent(message + '\n\nTransaction details: ')}`
@@ -122,24 +140,48 @@ function Page() {
           <Eyebrow light>Donate in cash</Eyebrow>
           <RevealLines lines={['Choose how', <em key="g" className="text-brass">you give.</em>]} className="display mt-5 text-[clamp(2.5rem,5.5vw,5rem)] text-pearl" />
 
+          <p data-reveal className="mt-6 max-w-xl leading-relaxed text-pearl/70">
+            Pick what you would like to give, set the quantity, and watch your total build up on the right. Then confirm with us on WhatsApp or email.
+          </p>
+
           <div className="mt-12 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-            <ul className="grid gap-4 sm:grid-cols-2">
+            <ul className="grid gap-5 sm:grid-cols-2">
               {cashItems.map((item, i) => {
                 const n = qty[item.id] ?? 0
+                const c = accents[item.accent]
                 return (
                   <li key={item.id} data-reveal style={{ ['--d' as string]: `${(i % 2) * 0.08}s` }}>
-                    <div className={`flex h-full flex-col rounded-3xl border p-6 transition-colors duration-500 md:p-7 ${n > 0 ? 'border-brass bg-brass/10' : 'border-pearl/15 bg-pearl/[0.04]'}`}>
-                      <p className="eyebrow text-brass">{item.period}</p>
-                      <h3 className="display mt-3 text-[1.9rem] leading-tight text-pearl">{item.title}</h3>
-                      <p className="display mt-2 text-3xl text-pearl/90">{inr(item.amount)}</p>
-                      <div className="mt-6 flex items-center gap-3" role="group" aria-label={`Quantity: ${item.title}, ${item.period}`}>
-                        <button type="button" onClick={() => set(item.id, n - 1)} disabled={n === 0} aria-label="Decrease" className="flex h-11 w-11 items-center justify-center rounded-full border border-pearl/30 transition hover:bg-pearl hover:text-teal-deep disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-pearl">
-                          <Minus className="h-4 w-4" aria-hidden />
-                        </button>
-                        <span className="w-8 text-center font-display text-2xl" aria-live="polite">{n}</span>
-                        <button type="button" onClick={() => set(item.id, n + 1)} aria-label="Increase" className="flex h-11 w-11 items-center justify-center rounded-full bg-brass text-teal-deep transition hover:scale-110">
-                          <Plus className="h-4 w-4" aria-hidden />
-                        </button>
+                    <div className={`relative flex h-full flex-col overflow-hidden rounded-3xl border p-6 transition-all duration-500 md:p-7 ${n > 0 ? `${c.border} ${c.wash}` : 'border-pearl/15 bg-pearl/[0.04] hover:border-pearl/30'}`}>
+                      <span className={`absolute inset-x-0 top-0 h-1 ${c.bar} ${n > 0 ? 'opacity-100' : 'opacity-50'}`} aria-hidden />
+                      <div className="flex items-start justify-between gap-3">
+                        <span className={`flex h-12 w-12 items-center justify-center rounded-2xl ${c.icon}`} aria-hidden>
+                          <item.Icon className="h-6 w-6" />
+                        </span>
+                        <span className={`rounded-full border border-current px-3 py-1 text-[0.66rem] font-bold uppercase tracking-[0.16em] ${c.label}`}>{item.period}</span>
+                      </div>
+                      <h3 className="display mt-5 text-[1.85rem] leading-tight text-pearl">{item.title}</h3>
+                      <p className={`display mt-1 text-3xl ${c.label}`}>{inr(item.amount)}</p>
+
+                      <div className="mt-6 flex items-center justify-between gap-3 border-t border-pearl/12 pt-5">
+                        <div className="flex items-center gap-2" role="group" aria-label={`Quantity: ${item.title}, ${item.period}`}>
+                          <button type="button" onClick={() => set(item.id, n - 1)} disabled={n === 0} aria-label="Decrease" className="flex h-10 w-10 items-center justify-center rounded-full border border-pearl/30 transition hover:bg-pearl hover:text-teal-deep disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-pearl">
+                            <Minus className="h-4 w-4" aria-hidden />
+                          </button>
+                          <input
+                            inputMode="numeric"
+                            aria-label={`Number of ${item.title} (${item.period})`}
+                            value={n}
+                            onChange={(e) => set(item.id, parseInt(e.target.value.replace(/\D/g, ''), 10))}
+                            onFocus={(e) => e.currentTarget.select()}
+                            className="h-10 w-12 rounded-lg border border-transparent bg-transparent text-center font-display text-2xl text-pearl outline-none focus:border-pearl/40"
+                          />
+                          <button type="button" onClick={() => set(item.id, n + 1)} aria-label="Increase" className={`flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-110 ${c.plus}`}>
+                            <Plus className="h-4 w-4" aria-hidden />
+                          </button>
+                        </div>
+                        <p className={`text-right text-sm font-semibold transition-opacity duration-300 ${n > 0 ? 'opacity-100' : 'opacity-0'} ${c.label}`} aria-hidden={n === 0}>
+                          = {inr(item.amount * n)}
+                        </p>
                       </div>
                     </div>
                   </li>
@@ -150,19 +192,72 @@ function Page() {
             {/* Running total */}
             <div data-reveal className="lg:sticky lg:top-28 lg:self-start">
               <div className="shine rounded-3xl border border-brass/40 bg-teal p-7 md:p-9">
-                <p className="eyebrow text-brass">Your contribution</p>
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow text-brass">Your contribution</p>
+                  {hasAny && (
+                    <button type="button" onClick={clearAll} className="flex items-center gap-1.5 text-xs font-semibold text-pearl/60 transition hover:text-pearl">
+                      <Trash2 className="h-3.5 w-3.5" aria-hidden /> Clear all
+                    </button>
+                  )}
+                </div>
                 <p className="display mt-4 text-[clamp(3rem,6vw,4.5rem)] leading-none text-pearl" aria-live="polite">
                   <AnimatedNumber value={total} />
                 </p>
-                <ul className="mt-6 min-h-[3.5rem] space-y-2 border-t border-pearl/15 pt-5 text-sm text-pearl/75">
-                  {chosen.length === 0 && <li>Add an item to see your total.</li>}
+
+                <ul className="mt-6 min-h-[3.5rem] space-y-2.5 border-t border-pearl/15 pt-5 text-sm text-pearl/75">
+                  {!hasAny && <li>Add an item or an amount to see your total.</li>}
                   {chosen.map((i) => (
-                    <li key={i.id} className="flex justify-between gap-4">
-                      <span>{qty[i.id]} × {i.title} · {i.period}</span>
-                      <span className="text-pearl">{inr(i.amount * qty[i.id])}</span>
+                    <li key={i.id} className="flex items-center justify-between gap-3">
+                      <span className="flex items-center gap-2">
+                        <span className={`h-2 w-2 shrink-0 rotate-45 ${accents[i.accent].bar}`} aria-hidden />
+                        {qty[i.id]} × {i.title} · {i.period}
+                      </span>
+                      <span className="flex items-center gap-2 text-pearl">
+                        {inr(i.amount * qty[i.id])}
+                        <button type="button" onClick={() => set(i.id, 0)} aria-label={`Remove ${i.title}, ${i.period}`} className="rounded-full p-1 text-pearl/50 transition hover:bg-pearl/10 hover:text-pearl">
+                          <X className="h-3.5 w-3.5" aria-hidden />
+                        </button>
+                      </span>
                     </li>
                   ))}
+                  {custom > 0 && (
+                    <li className="flex items-center justify-between gap-3">
+                      <span className="flex items-center gap-2">
+                        <span className="h-2 w-2 shrink-0 rotate-45 bg-pearl/70" aria-hidden /> Other contribution
+                      </span>
+                      <span className="flex items-center gap-2 text-pearl">
+                        {inr(custom)}
+                        <button type="button" onClick={() => setCustom(0)} aria-label="Remove other contribution" className="rounded-full p-1 text-pearl/50 transition hover:bg-pearl/10 hover:text-pearl">
+                          <X className="h-3.5 w-3.5" aria-hidden />
+                        </button>
+                      </span>
+                    </li>
+                  )}
                 </ul>
+
+                {/* Any other amount */}
+                <div className="mt-6 border-t border-pearl/15 pt-5">
+                  <label htmlFor="custom-amount" className="eyebrow text-brass">Or give any amount</label>
+                  <div className="mt-3 flex items-center rounded-xl border border-pearl/25 bg-teal-deep/60 px-4 focus-within:border-brass focus-within:ring-2 focus-within:ring-brass/30">
+                    <span className="font-display text-2xl text-brass" aria-hidden>₹</span>
+                    <input
+                      id="custom-amount"
+                      inputMode="numeric"
+                      placeholder="Enter amount"
+                      value={custom > 0 ? custom.toLocaleString('en-IN') : ''}
+                      onChange={(e) => setCustomAmount(parseInt(e.target.value.replace(/\D/g, ''), 10))}
+                      className="w-full bg-transparent px-3 py-3 text-lg text-pearl outline-none placeholder:text-pearl/35"
+                    />
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2" role="group" aria-label="Quick amounts">
+                    {quickAmounts.map((q) => (
+                      <button key={q} type="button" onClick={() => setCustomAmount(custom + q)} className="rounded-full border border-pearl/25 px-3.5 py-1.5 text-xs font-semibold text-pearl/85 transition hover:border-brass hover:bg-brass/15 hover:text-pearl">
+                        + {inr(q)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
                 <div className="mt-7 flex flex-col gap-3">
                   <a href={whatsappHref} target="_blank" rel="noreferrer" className="btn btn-brass justify-center">
                     <MessageCircle className="h-4 w-4" aria-hidden /> Confirm on WhatsApp

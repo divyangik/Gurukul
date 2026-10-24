@@ -37,7 +37,7 @@ function Page() {
       ))}
       <DaySchedule />
       <Learn />
-      <AdmissionsCTA title={['Come and', 'see a day for yourself.']} />
+      <AdmissionsCTA title={['Come and', ' see a day for yourself.']} />
     </>
   )
 }

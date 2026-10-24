@@ -16,12 +16,58 @@ declare global {
  *  - [data-hscroll]       → section pins and its [data-hscroll-track] slides sideways (desktop only)
  * Re-runs on every route change and tears everything down afterwards.
  */
+let cameFromHistory = false
+let lastPath: string | null = null
+if (typeof window !== 'undefined') window.addEventListener('popstate', () => (cameFromHistory = true))
+
+/** True once React has hydrated the page body (its DOM nodes carry a React fibre key). Touching the DOM earlier makes hydration fail. */
+function pageIsHydrated() {
+  let el: Element | null = document.getElementById('main')
+  if (!el) return true
+  while (el.lastElementChild) el = el.lastElementChild
+  return Object.keys(el).some((k) => k.startsWith('__reactFiber'))
+}
+
 export function MotionDirector() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
 
   useEffect(() => {
+    let stop: (() => void) | undefined
+    let raf = 0
+    let tries = 0
+    const go = () => {
+      if (pageIsHydrated() || tries++ > 300) stop = setup(pathname)
+      else raf = requestAnimationFrame(go)
+    }
+    go()
+    return () => {
+      cancelAnimationFrame(raf)
+      stop?.()
+    }
+  }, [pathname])
+
+  return null
+}
+
+function setup(pathname: string): () => void {
+  {
     window.__gkMotion = true
     const root = document.documentElement
+
+    // Every new page opens at the top. (The global smooth-scroll would otherwise get interrupted while the new
+    // page mounts, leaving the visitor part-way down.) Back/forward keep their remembered position; #anchors are left alone.
+    const pageChanged = lastPath !== null && lastPath !== pathname
+    lastPath = pathname
+    if (pageChanged && !cameFromHistory && !window.location.hash) {
+      const prev = root.style.scrollBehavior
+      root.style.scrollBehavior = 'auto'
+      window.scrollTo(0, 0)
+      requestAnimationFrame(() => {
+        window.scrollTo(0, 0)
+        root.style.scrollBehavior = prev
+      })
+    }
+    cameFromHistory = false
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     const cleanups: Array<() => void> = []
 
@@ -78,41 +124,57 @@ export function MotionDirector() {
       })
     }
 
-    // Counters
-    const counters = Array.from(document.querySelectorAll<HTMLElement>('[data-count]'))
+    // Counters — written into the existing text node (never replacing it), so React can still manage it.
     const fmt = (el: HTMLElement, n: number) => (el.dataset.countFormat === 'locale' ? n.toLocaleString('en-IN') : String(n))
+    const setText = (el: HTMLElement, text: string) => {
+      const node = el.firstChild
+      if (node && node.nodeType === Node.TEXT_NODE) node.nodeValue = text
+      else el.textContent = text
+    }
     const runCount = (el: HTMLElement) => {
       const target = parseFloat(el.dataset.count || '0')
       if (reduced) {
-        el.textContent = fmt(el, target)
+        setText(el, fmt(el, target))
         return
       }
       const start = performance.now()
       const dur = 1800
       const tick = (now: number) => {
         const p = Math.min(1, (now - start) / dur)
-        el.textContent = fmt(el, Math.round(target * (1 - Math.pow(1 - p, 4))))
+        setText(el, fmt(el, Math.round(target * (1 - Math.pow(1 - p, 4)))))
         if (p < 1) requestAnimationFrame(tick)
       }
       requestAnimationFrame(tick)
     }
+    const seen = new WeakSet<Element>()
+    let cio: IntersectionObserver | undefined
     if ('IntersectionObserver' in window) {
-      const cio = new IntersectionObserver(
+      cio = new IntersectionObserver(
         (entries) => {
           for (const entry of entries) {
             if (entry.isIntersecting) {
               runCount(entry.target as HTMLElement)
-              cio.unobserve(entry.target)
+              cio?.unobserve(entry.target)
             }
           }
         },
         { threshold: 0.4 },
       )
-      counters.forEach((el) => cio.observe(el))
-      cleanups.push(() => cio.disconnect())
-    } else {
-      counters.forEach((el) => (el.textContent = el.dataset.count || ''))
+      cleanups.push(() => cio?.disconnect())
     }
+    const watchCounters = () => {
+      document.querySelectorAll<HTMLElement>('[data-count]').forEach((el) => {
+        if (seen.has(el)) return
+        seen.add(el)
+        if (cio) cio.observe(el)
+        else setText(el, el.dataset.count || '')
+      })
+    }
+    watchCounters()
+    // The new page can mount just after this effect runs (client-side navigation), so keep looking for counters.
+    const countersMo = new MutationObserver(watchCounters)
+    countersMo.observe(document.body, { childList: true, subtree: true })
+    cleanups.push(() => countersMo.disconnect())
 
     // Parallax via GSAP (loaded lazily so it never blocks first paint)
     let cancelled = false
@@ -178,7 +240,5 @@ export function MotionDirector() {
     }
 
     return () => cleanups.forEach((fn) => fn())
-  }, [pathname])
-
-  return null
+  }
 }

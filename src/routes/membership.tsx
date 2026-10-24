@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { BookOpen, ClipboardCheck, FileText, Library, NotebookPen, Users } from 'lucide-react'
 import { Mandala, MoreServices } from '@/components/services'
 import { ContactActions } from '@/components/ui'
-import { AfterHero, FeatureCard, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, Wave, WordBand } from '@/components/service-kit'
+import { AfterHero, FeatureCard, PhotoDuo, Petals, SectionHead, ServiceEmblem, ServiceHero, Wave, WordBand, ServiceSectionNav } from '@/components/service-kit'
 import { membershipBenefits, serviceHead } from '@/content/services'
 
 export const Route = createFileRoute('/membership')({
@@ -26,6 +26,7 @@ function Page() {
         position="center 40%"
         chips={['Parents', 'Teachers']}
       />
+      <ServiceSectionNav />
       <AfterHero />
 
       <section className="relative overflow-hidden bg-pearl py-24 md:py-32">

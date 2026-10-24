@@ -4,9 +4,9 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import { ArrowUpRight, BookOpen, CalendarCheck, ClipboardCheck, FileText, Flame, Footprints, Leaf, MapPin, MessageCircle, Mail, Sprout, Trophy } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { Photo } from '@/components/Photo'
-import { DustField, SunriseScene } from '@/components/campus/CampusScenes'
+import { DustField } from '@/components/campus/CampusScenes'
 import { Eyebrow, RevealLines } from '@/components/ui'
-import { contact } from '@/content/site'
+import { contact, mapEmbedUrl } from '@/content/site'
 
 const d = (s: number) => ({ ['--d' as string]: `${s}s` }) as CSSProperties
 
@@ -308,11 +308,15 @@ function FindUs() {
             </Link>
           </div>
         </div>
-        <div data-reveal="blur" className="cp-scene-card">
-          <SunriseScene />
-          <span className="cp-scene-pin">
-            <MapPin className="h-4 w-4" aria-hidden /> Dalimb
-          </span>
+        <div data-reveal="blur" className="cp-scene-card cp-scene-card--map">
+          <iframe
+            title="Map showing the location of Bhaktivedanta Gurukula, Dalimb, Pune"
+            src={mapEmbedUrl}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="strict-origin-when-cross-origin"
+            className="absolute inset-0 h-full w-full border-0"
+          />
         </div>
       </div>
     </section>
